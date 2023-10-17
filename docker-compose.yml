@@ -28,7 +28,7 @@ services:
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@mail.com
       PGADMIN_DEFAULT_PASSWORD: pgadmin
-      PGADMIN_LISTEN_ADDRESS: 0.0.0.0
+      # PGADMIN_LISTEN_ADDRESS: 0.0.0.0
     volumes:
       - pgadmin_data:/root/.pgadmin
     depends_on:
