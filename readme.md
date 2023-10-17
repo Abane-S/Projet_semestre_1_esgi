@@ -1,6 +1,18 @@
+
+
+<div align="center">
+
 # Projet semestriel esgi 2023
 
-Abane
-Théo_1
-Théo_2
-Botan
+</div>
+
+
+# Groupe 2:
+
+- PARISOT Théo : TheoPARISOT
+
+
+- Botan YILMAZ : BotanESGI
+
+
+- Le Gallais Théo : theolgs
