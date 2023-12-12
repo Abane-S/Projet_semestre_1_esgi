@@ -14,7 +14,7 @@ class UserInsert extends \App\Core\Form
     public static function getConfig(string $configSettings): array
     {
 
-        if($configSettings == 'Test')
+        if($configSettings == 'Login')
         {
         return [
             "config" => [
