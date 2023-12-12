@@ -1,4 +1,5 @@
-<?php
+<?php 
+
 namespace App\Core;
 class View
 {
@@ -12,32 +13,37 @@ class View
     }
 
     /**
-     * @param String $templateName
-     */
-    public function setTemplateName(string $templateName): void
+     * Set the value of t cv emplateName
+     *
+     * @return  self
+     */ 
+    public function setTemplateName($templateName): void
     {
         if(!file_exists("Views/Templates/".$templateName.".tpl.php"))
         {
-            die("Le template Views/Templates/".$templateName.".tpl.php n'existe pas");
+            die("Le template Views/Templates/".$templatename.".tpl.php n'existe pas ");
         }
-        $this->templateName = "Views/Templates/".$templateName.".tpl.php";
+        $this->templateName = "Views/Templates/".$templateName. ".tpl.php";
+
     }
 
     /**
-     * @param String $viewName
-     */
-    public function setViewName(string $viewName): void
+     * Set the value of viewName
+     *
+     * @return  self
+     */ 
+    public function setViewName($viewName)
     {
         if(!file_exists("Views/".$viewName.".view.php"))
         {
             die("La vue Views/".$viewName.".view.php n'existe pas");
         }
         $this->viewName = "Views/".$viewName.".view.php";
+
     }
 
     public function __destruct()
     {
         include $this->templateName;
     }
-
 }

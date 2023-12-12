@@ -1,2 +1,4 @@
 <h2>A propos</h2>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam debitis, ducimus, est eveniet, exercitationem iusto labore natus nemo nihil nisi quis voluptas! Et hic illum magni perspiciatis placeat saepe ut.</p>
+
+<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam vitae animi minima in nam. Accusantium incidunt natus, ipsum impedit culpa eaque et nihil nulla numquam? Illum delectus dignissimos ad animi?
+Eveniet aliquid officiis sequi libero facilis cupiditate ea error vel excepturi consequatur aliquam iusto, iure doloribus officia ut perferendis illo provident. Laudantium alias sequi sapiente nihil ipsum. Corporis, porro minima.</p>
