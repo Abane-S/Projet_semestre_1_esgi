@@ -40,6 +40,17 @@ class View
         }
         $this->viewName = "Views/".$viewName.".view.php";
 
+$config = $viewName;
+
+$split = explode('/', $config);
+
+// Utilisez la deuxième partie après le premier "/"
+$config = isset($split[1]) ? $split[1] : '';
+
+$config = "App\Forms\User" . $config;
+
+$this->configName = $config;
+
     }
 
     public function __destruct()

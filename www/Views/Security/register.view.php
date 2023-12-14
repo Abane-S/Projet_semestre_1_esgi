@@ -1,2 +1,1 @@
-<?= App\Core\Form::render(App\Forms\UserRegister::getConfig()) ?>
-
+<?= App\Core\Form::render($this->configName::getConfig()) ?>
