@@ -18,6 +18,7 @@ class Security
 
     public function register(): void
     {
-        echo "Ma page d'inscription";
+        $myView = new View("Security/register", "front");
     }
+
 }
