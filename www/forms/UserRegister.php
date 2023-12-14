@@ -3,7 +3,7 @@
 namespace App\Forms;
 // use App\Core;
 
-class UserLogin extends \App\Core\Form
+class UserRegister extends \App\Core\Form
 {
     public function __construct()
     {
