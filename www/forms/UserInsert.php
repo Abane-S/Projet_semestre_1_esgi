@@ -11,15 +11,13 @@ class UserInsert extends \App\Core\Form
     }
 
 
-    public static function getConfig(string $configSettings): array
+    public static function getConfig(): array
     {
 
-        if($configSettings == 'Login')
-        {
         return [
             "config" => [
                 "method" => "POST",
-                "action" => "",
+                "action" => "Security.php",
                 "submit" =>  "S'inscrire",
                 "class" => "form"
             ],
@@ -32,6 +30,6 @@ class UserInsert extends \App\Core\Form
                 "pwdConfirm"=>["type"=>"password", "class"=>"input-form", "confirm"=>"pwd" ,"placeholder"=>"confirmation", "required"=>true, "error"=>"Votre mot de passe de confirmation ne correspond pas"],
             ]
         ];
-        }
+
     }
 }
