@@ -43,10 +43,8 @@ class DB
         // de l'objet et le tableau des propriétées de la classe) et renvoie un tableau contenant toutes les clés 
         // qui existent dans le premier tableau mais pas dans le seconde. En d'autre termes, elle retourne un tableau 
         // contenant les clés qui sont spécifique à l'objet et qui ne sont pas des propriétés de la classe.
+        
 
-        // var_dump(array_diff_key(get_object_vars($this), get_class_vars(get_class())));
-        // var_dump(get_object_vars($this));
-        // var_dump(get_class_vars(get_class()));
         
     }
 
@@ -68,17 +66,17 @@ class DB
             $sql = substr($sql, 0, -1);
             $sql.= " WHERE id = ". $this->getId();
         }
-        // echo $sql;
-        // echo "<pre>";
-        // var_dump($data);
-        // echo "</pre>";
+        echo $sql;
+        echo "<pre>";
+        var_dump($data);
+        echo "</pre>";
         $queryPrepared = $this->pdo->prepare($sql);
         $queryPrepared->execute($data);
     }
 
 
 
-    public static function populate(int $id): object
+    public static function populate (int $id): object
     {
         $class = get_called_class();
         $object = new $class();

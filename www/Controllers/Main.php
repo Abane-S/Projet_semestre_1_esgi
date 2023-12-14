@@ -17,7 +17,6 @@ class Main
         $myUser = User::populate(1);
         $myUser->setLastname("yo");
         $myUser->save();
-        // $myUser->save();
 
         /*
         $myPage = new Page();
