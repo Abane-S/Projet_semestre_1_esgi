@@ -4,6 +4,7 @@ namespace App\Controllers;
 use App\Core\View;
 use App\Forms\UserInsert;
 use App\Forms\UserLogin;
+use App\Forms\PwdForget;
 
 class Security
 {
@@ -13,6 +14,7 @@ class Security
         $form = new UserLogin();
         $config = $form->getConfig();
         $errors = [];
+
 
         $myView = new View("Security/login", "front");
         $myView->assign("configForm", $config);
@@ -27,6 +29,8 @@ class Security
         $form = new UserInsert();
         $config = $form->getConfig();
         $errors = [];
+
+
         //Est ce que le formulaire a été soumis
         if (!empty($_POST)){
 
@@ -49,7 +53,10 @@ class Security
                 //$myUser->save();
             }
 
+            
         }
+
+
 
         //-> sinon on va envoyer les erreurs à la vue
 
@@ -59,5 +66,15 @@ class Security
 
     }
 
+    public function pwdForget(): void
+    {
+        $form = new PwdForget();
+        $config = $form->getConfig();
+        $errors = [];
+        $myView = new View("Security/forgetPwd", "front");
+        $myView->assign("configForm", $config);
+        $myView->assign("errorsForm", $errors);
+        echo "Ma page de mot de passe oublié";
+    }
 
 }

@@ -5,10 +5,6 @@ namespace App\Forms;
 
 class CommentInsert extends \App\Core\Form
 {
-    public function __construct()
-    {
-        parent::__construct($this->getConfig());
-    }
 
 
     public static function getConfig(): array

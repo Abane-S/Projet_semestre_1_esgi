@@ -6,11 +6,11 @@
 
 
     <?php if(!empty($data)) :?>
-        <div style="background-color: red">
-            <?php foreach ($data as $error):?>
-                <li><?= $error ?></li>
-            <?php endforeach;?>
-        </div>
+    <div style="background-color: red">
+        <?php foreach ($data as $error):?>
+            <li><?= $error ?></li>
+        <?php endforeach;?>
+    </div>
     <?php endif;?>
 
 
@@ -21,7 +21,6 @@
             type="<?= $configInput["type"]??"text"?>"
             id="<?= $configInput["id"]??""?>"
             class="<?= $configInput["class"]??""?>"
-            minlength="<?= $configInput["minlen"]??""?>"
             placeholder="<?= $configInput["placeholder"]??""?>"
             <?= (!empty($configInput["required"]))?"required":""?>
         ><br>
