@@ -17,3 +17,7 @@
 /register:
   controller: Security
   action: register
+
+/forgot-password:
+  controller: Security
+  action: pwdForget
