@@ -1,10 +1,10 @@
-<?php 
-
+<?php
 namespace App\Core;
 class View
 {
     private String $templateName;
     private String $viewName;
+    private array $data = [];
 
     public function __construct(string $viewName, string $templateName = "back")
     {
@@ -13,48 +13,47 @@ class View
     }
 
     /**
-     * Set the value of t cv emplateName
-     *
-     * @return  self
-     */ 
-    public function setTemplateName($templateName): void
+     * @param String $templateName
+     */
+    public function setTemplateName(string $templateName): void
     {
         if(!file_exists("Views/Templates/".$templateName.".tpl.php"))
         {
-            die("Le template Views/Templates/".$templatename.".tpl.php n'existe pas ");
+            die("Le template Views/Templates/".$templateName.".tpl.php n'existe pas");
         }
-        $this->templateName = "Views/Templates/".$templateName. ".tpl.php";
-
+        $this->templateName = "Views/Templates/".$templateName.".tpl.php";
     }
 
     /**
-     * Set the value of viewName
-     *
-     * @return  self
-     */ 
-    public function setViewName($viewName)
+     * @param String $viewName
+     */
+    public function setViewName(string $viewName): void
     {
         if(!file_exists("Views/".$viewName.".view.php"))
         {
             die("La vue Views/".$viewName.".view.php n'existe pas");
         }
         $this->viewName = "Views/".$viewName.".view.php";
+    }
 
-$config = $viewName;
+    public function assign(string $key, $value): void
+    {
+        $this->data[$key]=$value;
+    }
 
-$split = explode('/', $config);
-
-// Utilisez la deuxième partie après le premier "/"
-$config = isset($split[1]) ? $split[1] : '';
-
-$config = "App\Forms\User" . $config;
-
-$this->configName = $config;
-
+    public function includeComponent(string $component, array $config, array $data = []): void
+    {
+        if(!file_exists("Views/Components/".$component.".php"))
+        {
+            die("Le composant Views/Components/".$component.".php n'existe pas");
+        }
+        include "Views/Components/".$component.".php";
     }
 
     public function __destruct()
     {
+        extract($this->data);
         include $this->templateName;
     }
+
 }
