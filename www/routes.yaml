@@ -21,3 +21,8 @@
 /forgot-password:
   controller: Security
   action: pwdForget
+
+/account:
+  controller: Security
+  action: modifieAccount
+

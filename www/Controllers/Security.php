@@ -5,6 +5,7 @@ use App\Core\View;
 use App\Forms\UserInsert;
 use App\Forms\UserLogin;
 use App\Forms\PwdForget;
+use App\Forms\ModifieAccount;
 
 class Security
 {
@@ -24,6 +25,7 @@ class Security
     {
         echo "Ma page de déconnexion";
     }
+
     public function register(): void
     {
         $form = new UserInsert();
@@ -75,6 +77,17 @@ class Security
         $myView->assign("configForm", $config);
         $myView->assign("errorsForm", $errors);
         echo "Ma page de mot de passe oublié";
+    }
+
+    public function modifieAccount(): void
+    {
+        $form = new ModifieAccount();
+        $config = $form->getConfig();
+        $errors = [];
+        $myView = new View("Security/accountInfo", "front");
+        $myView->assign("configForm", $config);
+        $myView->assign("errorsForm", $errors);
+        echo "Ma page de modification cu compte";
     }
 
 }
