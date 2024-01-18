@@ -1,9 +1,8 @@
 <?php
 
 namespace App\Forms;
-// use App\Core;
 
-class CommentInsert extends \App\Core\Form
+class CommentInsert
 {
 
 

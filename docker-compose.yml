@@ -3,7 +3,7 @@ services:
   web:
     build: site
     ports :
-      - "8080:80"
+      - "8081:80"
     volumes:
       - ./www:/var/www/html/
       - ./server/000-default.conf:/etc/apache2/sites-available/000-default.conf
@@ -12,9 +12,11 @@ services:
 
   database:
     image: postgres
+    ports :
+      - "5431:5431"
     restart: always
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - "./pgdata:/var/lib/postgresql/data"
     environment:
       POSTGRES_DB: Portfolio_DB
       POSTGRES_USER: Portfolio_USER

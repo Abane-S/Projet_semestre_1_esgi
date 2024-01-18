@@ -2,6 +2,7 @@
 
 
 namespace App\Models;
+
 use App\Core\DB;
 
 class User extends DB
@@ -12,6 +13,10 @@ class User extends DB
     protected string $email;
     protected string $pwd;
     protected int $status;
+    protected String $verification_token;
+    protected Int $email_verified;
+    protected $date_inserted;
+    protected $date_updated;
     protected int $isDeleted;
 
     public function __construct()
@@ -97,7 +102,7 @@ class User extends DB
     /**
      * Get the value of pwd
      */ 
-    public function getPwd()
+    public function getPassword()
     {
         return $this->pwd;
     }
@@ -107,7 +112,7 @@ class User extends DB
      *
      * @return  self
      */ 
-    public function setPwd($pwd)
+    public function setPassword($pwd)
     {
         $pwd = password_hash($pwd, PASSWORD_DEFAULT);
         $this->pwd = $pwd;
@@ -141,11 +146,117 @@ class User extends DB
         return $this->isDeleted;
     }
 
+
+    public function getVericationToken(): int
+    {
+        return $this->verification_token;
+    }
+
+    /**
+     * @param int $verification_token
+     */
+    public function setVericationToken(String $verification_token): void
+    {
+        $this->verification_token = $verification_token;
+    }
+
+    /**
+     * @return int
+     */
+    public function getEmailVerified(): int
+    {
+        return $this->email_verified;
+    }
+
+    /**
+     * @param int $email_verified
+     */
+    public function setEmailVerified(int $email_verified): void
+    {
+        $this->email_verified = $email_verified;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getinsertedat(): mixed
+    {
+        return $this->date_inserted;
+    }
+
+    /**
+     * @param mixed $date_inserted
+     */
+    public function setinsertedat($date_inserted): void
+    {
+        $this->date_inserted = $date_inserted;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getupdatedat(): mixed
+    {
+        return $this->date_updated;
+    }
+
+    /**
+     * 
+     * @param mixed $date_updated
+     */
+    public function setupdatedat($date_updated): void
+    {
+        $this->date_updated = $date_updated;
+    }
+
+    public function login(): array | bool
+    {
+        $db = $this::getInstance();
+        $query = $db->prepare("SELECT * FROM " . $this->table . " WHERE email=:email");
+        $query->execute([
+            'email' => $this->getEmail()
+        ]);
+
+        $user = $query->fetch();
+        if (!$user) {
+            return false;
+        }
+
+        if (!password_verify($_POST['user_password'], $this->getPassword())) {
+            return false;
+        }
+
+        return $user;
+    }
+
+    public function emailExist($email): bool
+    {
+        var_dump(parent::checkMail($email));
+        return parent::checkMail($email);
+    }
+
+    public function verifyToken($token): array | bool
+    {
+        $db = $this::getInstance();
+        $query = $db->prepare("SELECT * FROM " . $this->table . " WHERE verification_token=:token");
+        $query->execute([
+            'token' => $token
+        ]);
+
+        $user = $query->fetch();
+        if (!$user) {
+            return false;
+        }
+        return $user;
+    }
+
     /**
      * Set the value of isDeleted
      *
      * @return  self
      */ 
+
+     
     public function setIsDeleted(bool $isDeleted)
     {
         $this->isDeleted = $isDeleted;

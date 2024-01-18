@@ -8,16 +8,17 @@ class Main
 {
     public function home(): void
     {
-        // $myUser = new User();
-        // $myUser->setFirstname("YVEs");
-        // $myUser->setLastname("Skrzypczyk  ");
-        // $myUser->setEmail("Y.skrzypczyk@gmail.com");
-        // $myUser->setPwd("Test1234");
+        $myUser = new User();
+        $myUser->setFirstname("YVEs");
+        $myUser->setLastname("Skrzypczyk  ");
+        $myUser->setEmail("Y.skrzypczyk@gmail.com");
+        $myUser->setPwd("Test1234");
+        $myUser->setStatus(1);
+        $myUser->save();
 
         //$myUser = User::populate(1);
         //$myUser->setLastname("yo");
         //$myUser->save();
-        // $myUser->save();
 
         /*
         $myPage = new Page();
@@ -26,7 +27,7 @@ class Main
         $myPage->save();
         */
 
-        $myView = new View("Main/home", "back");
+        $myView = new View("Main/home", "front");
     }
 
     public function aboutUs(): void

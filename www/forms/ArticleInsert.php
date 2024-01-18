@@ -1,15 +1,8 @@
 <?php
 
 namespace App\Forms;
-// use App\Core;
-
-class ArticleInsert extends \App\Core\Form
+class ArticleInsert 
 {
-    public function __construct()
-    {
-        parent::__construct($this->getConfig());
-    }
-
 
     public static function getConfig(): array
     {

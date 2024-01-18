@@ -6,6 +6,7 @@ class DB
 {
     private ?object $pdo = null;
     private string $table;
+    private static $instance;
 
 
     public function __construct()
@@ -28,6 +29,14 @@ class DB
         // var_dump($this);
     }
 
+    public static function getInstance(): self
+    {
+        if (is_null(self::$instance)) {
+            self::$instance = new static();
+        }
+        return self::$instance;
+    }
+
     public function getDataObject(): array
     {
         return array_diff_key(get_object_vars($this), get_class_vars(get_class()));
@@ -45,8 +54,6 @@ class DB
         // contenant les clés qui sont spécifique à l'objet et qui ne sont pas des propriétés de la classe.
 
         // var_dump(array_diff_key(get_object_vars($this), get_class_vars(get_class())));
-        // var_dump(get_object_vars($this));
-        // var_dump(get_class_vars(get_class()));
         
     }
 
@@ -62,16 +69,14 @@ class DB
             $sql = "UPDATE " . $this->table . " SET ";
             foreach ($data as $column => $value){
                 $sql.= $column. "=:".$column. ",";
-            }
+            }   
             // echo $sql;
             // echo "<br>";
             $sql = substr($sql, 0, -1);
             $sql.= " WHERE id = ". $this->getId();
         }
         // echo $sql;
-        // echo "<pre>";
         // var_dump($data);
-        // echo "</pre>";
         $queryPrepared = $this->pdo->prepare($sql);
         $queryPrepared->execute($data);
     }
@@ -102,4 +107,18 @@ class DB
 
         return $queryPrepared->fetch();
     } 
+
+    public function checkMail ($email): bool
+    {
+        $sql = "SELECT * FROM " . $this->table. " WHERE email=:email";
+        $queryPrepared = $this->pdo->prepare($sql);
+        $queryPrepared->execute([
+            "email" => $email
+        ]);
+        $user = $queryPrepared->fetch();
+        if (!$user) {
+            return false;
+        }
+        return true;
+    }
 }
