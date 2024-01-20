@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Controllers;
+
+use App\Models\Tokens;
 use App\Core\View;
 use App\Forms\UserInsert;
 use App\Forms\UserLogin;
@@ -9,23 +11,45 @@ use App\Forms\ModifieAccount;
 use App\Core\Verificator;
 use App\Models\User;
 
-class Security
+
+class Security extends AbstractController
 {
 
     public function login(): void
     {
-        // $form = new UserLogin();
-        // $config = $form->getConfig();
-        // $errors = [];
-
-
-        // $myView = new View("Security/login", "front");
-        // $myView->assign("configForm", $config);
-        // $myView->assign("errorsForm", $errors);
-
-
-        
+        if (isset($_SESSION['user']['id'])) {
+            $this->redirect('/');
+        }
+        $form = new UserLogin();
+        $view = new View("Security/login", "front");
+        $view->assign('config', $form->getConfig());
+        if ($form->isSubmit() && $form->isValid()){
+            echo "bonjour";
+            if (empty($errors)){
+                $user = new User();
+                $user->setEmail($_POST['user_email']);
+                $user->setPassword($_POST['user_password']);
+                if ($user->login()){
+                    $userInfos = $user->login();
+                    $token = new Tokens();
+                    $token->setUserId($userInfos['id']);
+                    $token->createToken();
+                    if ($userInfos['email_verified']){
+                        $this->setSession($userInfos, $token->getToken());
+                        $this->redirect('/');
+                    } else {
+                        $view->assign('errors', ['user_email' => "Votre compte n'est pas encore vérifié. Veuillez vérifier votre boite mail"]);
+                    }
+                } else {
+                    $view->assign('errors', ['user_email' => "Email ou mot de passe incorrect"]);
+                }
+            }else{
+                $view->assign('errors', $errors);
+            }
+        }    
     }
+
+
     public function logout(): void
     {
         echo "Ma page de déconnexion";
@@ -45,38 +69,46 @@ class Security
         
         // if (isset($_SESSION['user']))
         // {
-        //     Utils::redirect("dashboard");
+        //     $this>redirect('/');
         // }
+        
         $form = new UserInsert();
         $view = new View("Security/register", "front");
         $view->assign('config', $form->getConfig());
-        // if (isset($_SESSION['user']['id'])) {
-        //     $this>redirect('/');
-        // }
-        if ($form->isSubmit()){
-            $errors = verificator::formRegister($form->getConfig(), $_POST);
-            if (empty($errors)){
-                $user = new User();
-                if ($user->emailExist($_POST['user_email'])){
-                    $errors['user_email'] = "Cette adresse email est déjà utilisée";
-                    $view->assign('errors', $errors);
-                }else{
-                    $token = bin2hex(random_bytes(32));
-                    $user->setVericationToken($token);
-                    $user->setFirstname($_POST['user_firstname']);
-                    $user->setLastname($_POST['user_lastname']);
-                    $user->setEmail($_POST['user_email']);
-                    $user->setPassword($_POST['user_password']);
-                    $user->save();
-                    parrent::redirect('/login');
-                    echo "Votre compte a bien été créé";
-                }
-            }else{
-                $view->assign('errors', $errors);
-            }
-        }
 
+
+        // if (isset($_SESSION['user']['id'])) 
+        // {
+        //     Utils::redirect("dashboard");
+        // }
+
+
+        if ($form->isSubmit() && $form->isValid()){
+            $user = new User();
+            if ($user->emailExist($_POST['user_email'])){
+                $errors['user_email'] = "Cet email existe déjà. Veuillez en choisir un autre";
+                $view->assign('errors', $errors);
+            }else{
+                $token = bin2hex(random_bytes(32));
+                $user->setVericationToken($token);
+                $user->setFirstname($_POST['user_firstname']);
+                $user->setLastname($_POST['user_lastname']);
+                $user->setEmail($_POST['user_email']);
+                $user->setPassword($_POST['user_password']);
+                $user->save();
+
+
+                // rajouter vérifiacation de l'email
+
+                parent::redirect('/login');
+            }
+        }else{
+            $view->assign('errors', $form->listOfErrors);
+        }
+    
     }
+
+    
 
     public function pwdForget(): void
     {

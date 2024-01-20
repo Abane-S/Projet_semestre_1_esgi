@@ -1,23 +1,46 @@
 <?php
+
 namespace App\Forms;
-class UserLogin
+use App\Core\verificator;
+
+
+class UserLogin extends verificator
 {
+
+    protected $method = "POST";
+
+    protected array $config = [];
 
     public function getConfig(): array
     {
-        return [
-            "config"=> [
-                "method"=>"POST",
-                "action"=>"",
-                "submit"=>"Se connecter",
-                "class"=>"form",
-                "id"=>"form-login"
+        $this->config =  [
+            "config" => [
+                "method" => $this->method,
+                "action" => "",
+                "enctype" => "",
+                "submit" => "Se Connecter",
+                "cancel" => "Annuler"
             ],
-            "inputs"=>[
-                "email"=>["type"=>"email", "class"=>"input-form", "placeholder"=>"Email", "required"=>true, "error"=>"Le format de l'email est incorrect"],
-                "pwd"=>["type"=>"password", "class"=>"input-form", "placeholder"=>"Mot de passe", "required"=>true, "error"=>"Votre mot de passe doit faire plus de 8 caractères avec minuscule et chiffre"],
+            "inputs" => [
+                "user_email" => [
+                    "type" => "email",
+                    "min" => 5,
+                    "max" => 255,
+                    "label" => "",
+                    "placeholder" => "Votre email",
+                    "error" => "L'email ou le mot de passe est incorrect"
+                ],
+                "user_password" => [
+                    "type" => "password",
+                    "min" => 8,
+                    "max" => 45,
+                    "label" => "",
+                    "placeholder" => "Votre mot de passe",
+                    "error" => "L'email ou le mot de passe est incorrect"
+                ],
             ]
         ];
-    }
 
+        return $this->config;
+    }
 }
