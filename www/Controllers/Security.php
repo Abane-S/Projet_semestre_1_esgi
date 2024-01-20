@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use App\Models\Tokens;
+
+use App\Models\Tokens;
 use App\Core\View;
 use App\Forms\UserInsert;
 use App\Forms\UserLogin;
@@ -23,8 +25,7 @@ class Security extends AbstractController
         $form = new UserLogin();
         $view = new View("Security/login", "front");
         $view->assign('config', $form->getConfig());
-        if ($form->isSubmit()){
-            $errors = Verificator::formConnection($form->getConfig(), $_POST);
+        if ($form->isSubmit() && $form->isValid()){
             echo "bonjour";
             if (empty($errors)){
                 $user = new User();

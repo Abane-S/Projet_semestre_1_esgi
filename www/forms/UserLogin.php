@@ -44,3 +44,8 @@ class UserLogin extends verificator
         return $this->config;
     }
 }
+
+
+        return $this->config;
+    }
+}

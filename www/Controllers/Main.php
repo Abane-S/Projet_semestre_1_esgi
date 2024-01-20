@@ -12,7 +12,7 @@ class Main
         $myUser->setFirstname("YVEs");
         $myUser->setLastname("Skrzypczyk  ");
         $myUser->setEmail("Y.skrzypczyk@gmail.com");
-        $myUser->setPwd("Test1234");
+        $myUser->setPassword("Test1234");
         $myUser->setStatus(1);
         $myUser->save();
 

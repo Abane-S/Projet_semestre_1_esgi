@@ -4,8 +4,9 @@ namespace App\Core;
 
 class DB
 {
-    private ?object $pdo = null;
-    private string $table;
+
+    protected $pdo;
+    protected string $table;
     private static $instance;
 
 
@@ -37,6 +38,7 @@ class DB
         return self::$instance;
     }
 
+
     public function getDataObject(): array
     {
         return array_diff_key(get_object_vars($this), get_class_vars(get_class()));
@@ -54,7 +56,7 @@ class DB
         // contenant les clés qui sont spécifique à l'objet et qui ne sont pas des propriétés de la classe.
 
         // var_dump(array_diff_key(get_object_vars($this), get_class_vars(get_class())));
-        
+
     }
 
 
@@ -62,18 +64,18 @@ class DB
     {
         $data = $this->getDataObject();
 
-        if( empty($this->getId())){
+        if (empty($this->getId())) {
             $sql = "INSERT INTO " . $this->table . "(" . implode(",", array_keys($data)) . ") 
             VALUES (:" . implode(",:", array_keys($data)) . ")";
-        }else{
+        } else {
             $sql = "UPDATE " . $this->table . " SET ";
-            foreach ($data as $column => $value){
-                $sql.= $column. "=:".$column. ",";
-            }   
+            foreach ($data as $column => $value) {
+                $sql .= $column . "=:" . $column . ",";
+            }
             // echo $sql;
             // echo "<br>";
             $sql = substr($sql, 0, -1);
-            $sql.= " WHERE id = ". $this->getId();
+            $sql .= " WHERE id = " . $this->getId();
         }
         // echo $sql;
         // var_dump($data);
@@ -82,43 +84,33 @@ class DB
     }
 
 
+    public function prepare($sql)
+    {
+        return $this->pdo->prepare($sql);
+    }
 
     public static function populate(int $id): object
     {
         $class = get_called_class();
         $object = new $class();
-        return $object->getOneBy(["id"=>$id], "object");
+        return $object->getOneBy(["id" => $id], "object");
     }
 
     // $data = ["id"=>1] ou ["email"=>"y.skrypczyk@gmail.com"]
     public function getOneBy(array $data, string $return = "array")
     {
-        $sql = "SELECT * FROM " . $this->table. " WHERE ";
-        foreach ($data as $column=>$value){
-            $sql .= " ".$column."=:".$column. "AND";
+        $sql = "SELECT * FROM " . $this->table . " WHERE ";
+        foreach ($data as $column => $value) {
+            $sql .= " " . $column . "=:" . $column . "AND";
         }
         $sql = substr($sql, 0, -3);
         $queryPrepared = $this->pdo->prepare($sql);
         $queryPrepared->execute($data);
 
-        if($return == "object"){
+        if ($return == "object") {
             $queryPrepared->setFetchMode(\PDO::FETCH_CLASS, get_called_class());
         }
 
         return $queryPrepared->fetch();
-    } 
-
-    public function checkMail ($email): bool
-    {
-        $sql = "SELECT * FROM " . $this->table. " WHERE email=:email";
-        $queryPrepared = $this->pdo->prepare($sql);
-        $queryPrepared->execute([
-            "email" => $email
-        ]);
-        $user = $queryPrepared->fetch();
-        if (!$user) {
-            return false;
-        }
-        return true;
     }
 }
