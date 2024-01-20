@@ -1,18 +1,19 @@
 <?php
 
 namespace App\Forms;
+use App\Core\verificator;
 
-
-class UserInsert extends AbstractForm
+class UserInsert extends verificator
 {
 
     protected $method = "POST";
+    protected array $config = [];
 
     public function getConfig(): array
     {
-        return [
+        $this->config =  [
             "config" => [
-                "method" => $this->getMethod(),
+                "method" => $this->method,
                 "action" => "",
                 "enctype" => "",
                 "submit" => "S'inscrire",
@@ -71,7 +72,8 @@ class UserInsert extends AbstractForm
                 ],
             ]
         ];
-    }
 
+        return $this->config;
+    }
 
 }
