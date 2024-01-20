@@ -4,7 +4,6 @@ namespace App\Controllers;
 
 use App\Models\Tokens;
 
-use App\Models\Tokens;
 use App\Core\View;
 use App\Forms\UserInsert;
 use App\Forms\UserLogin;
