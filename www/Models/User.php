@@ -231,8 +231,17 @@ class User extends DB
 
     public function emailExist($email): bool
     {
-        var_dump(parent::checkMail($email));
-        return parent::checkMail($email);
+        $db = $this::getInstance();
+        $query = $db->prepare("SELECT * FROM " . $this->table . " WHERE email=:email");
+        $query->execute([
+            'email' => $email
+        ]);
+
+        $user = $query->fetch();
+        if (!$user) {
+            return false;
+        }
+        return true;
     }
 
     public function verifyToken($token): array | bool
