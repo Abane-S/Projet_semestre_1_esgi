@@ -10,6 +10,7 @@ use App\Forms\UserLogin;
 use App\Forms\PwdForget;
 use App\Forms\ModifieAccount;
 use App\Core\Verificator;
+use App\Models\PhpMailor;
 use App\Models\User;
 
 
@@ -56,38 +57,31 @@ class Security extends AbstractController
         echo "Ma page de déconnexion";
     }
 
+    /**
+     * This code handles the login functionality and user registration.
+     * If the user is already logged in, it redirects to the dashboard.
+     * It creates a new UserInsert form and assigns it to the view.
+     * If the form is submitted, it validates the form data and performs user registration if there are no errors.
+     * If the email already exists, it displays an error message.
+     * After successful registration, it generates a verification token, saves the user data, and redirects to the login page.
+     * If there are any errors in the form data, it assigns the errors to the view.
+     */
+
     public function register(): void
     {
-        /**
-         * This code handles the login functionality and user registration.
-         * If the user is already logged in, it redirects to the dashboard.
-         * It creates a new UserInsert form and assigns it to the view.
-         * If the form is submitted, it validates the form data and performs user registration if there are no errors.
-         * If the email already exists, it displays an error message.
-         * After successful registration, it generates a verification token, saves the user data, and redirects to the login page.
-         * If there are any errors in the form data, it assigns the errors to the view.
-         */
-        
-        // if (isset($_SESSION['user']))
-        // {
-        //     $this>redirect('/');
-        // }
+        if (isset($_SESSION['Connected']))
+        {
+            parent::redirect('/');
+        }
         
         $form = new UserInsert();
         $view = new View("Security/register", "front");
         $view->assign('config', $form->getConfig());
 
-
-        // if (isset($_SESSION['user']['id'])) 
-        // {
-        //     Utils::redirect("dashboard");
-        // }
-
-
         if ($form->isSubmit() && $form->isValid()){
             $user = new User();
             if ($user->emailExist($_POST['user_email'])){
-                $errors['user_email'] = "Cet email existe déjà. Veuillez en choisir un autre";
+                $errors['user_email'] = "L'adresse e-mail est déjà utilisée. Merci de bien vouloir renseigner une autre adresse e-mail.";
                 $view->assign('errors', $errors);
             }else{
                 $token = bin2hex(random_bytes(32));
@@ -99,9 +93,14 @@ class Security extends AbstractController
                 $user->save();
 
 
-                // rajouter vérifiacation de l'email
+                $phpMailer = new PhpMailor();
+                $phpMailer->setMail($_POST['user_email']);
+                $phpMailer->setFirstname($_POST['user_firstname']);
+                $phpMailer->setLastname($_POST['user_lastname']);
+                $phpMailer->setToken($token);
+                $phpMailer->sendMail();
 
-                parent::redirect('/login');
+                //parent::redirect('/login');
             }
         }else{
             $view->assign('errors', $form->listOfErrors);
