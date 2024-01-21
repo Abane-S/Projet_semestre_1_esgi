@@ -11,6 +11,8 @@ services:
       - ./server/php.ini:/usr/local/etc/php/php.ini
     depends_on:
       - database
+    networks:
+      - my_bridge_network
 
   database:
     image: postgres
@@ -23,6 +25,8 @@ services:
       POSTGRES_DB: Portfolio_DB
       POSTGRES_USER: Portfolio_USER
       POSTGRES_PASSWORD: Portfolio
+    networks:
+      - my_bridge_network
 
   adminer:
     image: adminer
@@ -35,6 +39,16 @@ services:
       ADMINER_DB_PASSWORD: Portfolio
     depends_on:
       - database
+    networks:
+      - my_bridge_network
+  mailhog-server:
+    image: mailhog/mailhog
+    ports:
+      - "1025:1025"  # SMTP
+      - "8025:8025"  # Web UI
+    networks:
+      - my_bridge_network
 
-volumes:
-  pgdata:
+networks:
+  my_bridge_network:
+    driver: bridge
