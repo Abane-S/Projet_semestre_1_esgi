@@ -19,11 +19,7 @@ class User extends DB
     protected $date_updated;
     protected int $isDeleted;
 
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
+    
     public function __toString()
     {
         return $this->getFirstname()." ".$this->getLastname();
