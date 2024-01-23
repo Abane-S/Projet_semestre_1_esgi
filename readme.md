@@ -54,7 +54,7 @@ docker-compose exec php composer install
 
 - Github: https://github.com/Abane-S/Projet_semestre_1_esgi
 - Email - serveur smtp: https://mail.theomeunier.fr
-- Notion: https://www.notion.so/Projet-Challenge-Semestriel-SM1-3IW1-e1c9b30b217a4c03baefb8970b26e6e8?pvs=4
+- Notion: https://amorin.notion.site/3A-S1-Framework-PHP-e03befc9db984d938b1dc377dbe1b4b6
 - MCD: https://excalidraw.com/#json=FXlmxoF_6CspwXzozmYbO,KoXlJp6CelQQGFRPxBftuw
 
 ## 📋 Fonctionnalités principales
