@@ -6,13 +6,14 @@
     class="<?= $config["config"]["class"]??"" ?>"
     id="<?= $config["config"]["id"]??"" ?>">
 
-    <?php if(!empty($this->data['errors'])) :?>
+
+    <!-- <?php //if(!empty($this->data['errors'])) :?>
     <div style="background-color: red">
-        <?php foreach ($this->data['errors'] as $error):?>
-            <li><?= $error ?></li>
-        <?php endforeach;?>
+        <?php //foreach ($this->data['errors'] as $error):?>
+            <li><?php //$error ?></li>
+        <?php //endforeach;?>
     </div>
-    <?php endif;?>
+    <?php //endif;?> -->
 
 
     <?php
@@ -28,19 +29,20 @@
         }
     ?>
 
-    <?php foreach ($config["inputs"] as $name=>$configInput):?>
+        <div class="div_input">
+            <?php foreach ($config["inputs"] as $name=>$configInput):?>
 
-        <input
-            name="<?= $name?>"
-            type="<?= $configInput["type"]??"text"?>"
-            id="<?= $configInput["id"]??""?>"
-            class="<?= $configInput["class"]??""?>"
-            placeholder="<?= $configInput["placeholder"]??""?>"
-            value="<?= $valeurs[$name] ?>"
-            <?= (!empty($configInput["required"]))?"required":""?>
-        ><br>
-
-    <?php endforeach;?>
-
-    <input type="submit" name="submit" value="<?= $config["config"]["submit"]??"Envoyer" ?>">
+                <input
+                    name="<?= $name?>"
+                    type="<?= $configInput["type"]??"text"?>"
+                    id="<?= $configInput["id"]??""?>"
+                    class="<?= $configInput["class"]??""?>"
+                    placeholder="<?= $configInput["placeholder"]??""?>"
+                    value="<?= $valeurs[$name] ?>"
+                    <?= (!empty($configInput["required"]))?"required":""?>
+                ><br>
+            <?php endforeach;?>
+            <input type="submit" name="submit" value="<?= $config["config"]["submit"]??"Envoyer" ?>">
+        </div>
+        
 </form>
