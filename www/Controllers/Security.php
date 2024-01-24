@@ -111,13 +111,20 @@ class Security
 
     public function pwdForget(): void
     {
+        if (isset($_SESSION['Connected']))
+        {
+            header("Location: " . '/');
+        }
+
         $form = new PwdForget();
-        $config = $form->getConfig();
-        $errors = [];
-        $myView = new View("Security/forgetPwd", "front");
-        $myView->assign("configForm", $config);
-        $myView->assign("errorsForm", $errors);
-        echo "Ma page de mot de passe oublié";
+        $view = new View("Security/forgetPwd", "front");
+        $view->assign('config', $form->getConfig());
+
+        if ($form->isSubmit()){
+            $user = new User();
+        }else{
+            $view->assign('errors', $form->listOfErrors);
+        }
     }
 
     public function modifieAccount(): void
