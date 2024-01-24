@@ -19,9 +19,11 @@ class Security
 
     public function login(): void
     {
-        if (isset($_SESSION['user']['id'])) {
-            header("Location: " . '/');
+        if (isset($_SESSION['Connected']) && $_SESSION['Connected'] == true) {
+            header("Location: /needtologout");
+            exit;
         }
+
         $form = new UserLogin();
         $view = new View("Security/login", "front");
         $view->assign('config', $form->getConfig());
@@ -39,6 +41,7 @@ class Security
                     if ($userInfos['email_verified']){
                         $this->setSession($userInfos, $token->getToken());
                         header("Location: " . '/');
+                        exit;
                     } else {
                         $view->assign('errors', ['user_email' => "Votre compte n'est pas encore vérifié. Veuillez vérifier votre boite mail"]);
                     }
@@ -69,9 +72,9 @@ class Security
 
     public function register(): void
     {
-        if (isset($_SESSION['Connected']))
-        {
-            header("Location: " . '/');
+        if ($_SESSION['Connected'] == true) {
+            header("Location: /needtologout");
+            exit;
         }
 
         $form = new UserInsert();
@@ -100,6 +103,7 @@ class Security
                 $phpMailer->setToken($token);
                 $phpMailer->sendMail();
                 header("Location: " . '/email-verification');
+                exit;
             }
         }else{
             $view->assign('errors', $form->listOfErrors);
@@ -111,13 +115,13 @@ class Security
 
     public function pwdForget(): void
     {
-        if (isset($_SESSION['Connected']))
-        {
-            header("Location: " . '/');
+        if ($_SESSION['Connected'] == true) {
+            header("Location: /");
+            exit;
         }
 
         $form = new PwdForget();
-        $view = new View("Security/forgetPwd", "front");
+        $view = new View("Security/forgetpwd", "front");
         $view->assign('config', $form->getConfig());
 
         if ($form->isSubmit()){
@@ -143,7 +147,7 @@ class Security
         $user = new User();
         $userverified = $user->getOneBy(["email_verified" => 1], "object");
         //Si le compte est ps connected et vefifier son email_verified à 1
-        if ($userverified == true || (isset($_SESSION['Connected']) && $_SESSION['Connected'] != true)) {
+        if ($userverified == true && $_SESSION['Connected'] != true) {
             $myView = new View("Security/emailconfirmed", "front");
         }
         else
@@ -159,7 +163,7 @@ class Security
         $user = new User();
         $userverified = $user->getOneBy(["email_verified" => 0], "object");
         //Si le compte est ps connected et vefifier son email_verified à 1
-        if ($userverified == true || (isset($_SESSION['Connected']) && $_SESSION['Connected'] != true)) {
+        if ($userverified == true && $_SESSION['Connected'] != true) {
             $myView = new View("Security/emailconfirmedmsg", "front");
         }
         else
@@ -189,6 +193,7 @@ class Security
                 $userverified->setEmailVerified(1);
                 $userverified->save();
                 header("Location: " . '/email-confirmed');
+                exit;
             }
         }
 
