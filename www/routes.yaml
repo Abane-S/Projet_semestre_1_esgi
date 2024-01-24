@@ -3,7 +3,7 @@
   action: home
 
 /a-propos:
-  controller: Main 
+  controller: Main
   action: aboutUs
 
 /login:
@@ -25,6 +25,10 @@
 /account:
   controller: Security
   action: modifieAccount
+
+/email-verification:
+  controller: Security
+  action: verifyEmailNotify
 
 /verify:
   controller: Security

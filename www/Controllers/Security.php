@@ -48,7 +48,7 @@ class Security
             }else{
                 $view->assign('errors', $errors);
             }
-        }    
+        }
     }
 
 
@@ -73,7 +73,7 @@ class Security
         {
             header("Location: " . '/');
         }
-        
+
         $form = new UserInsert();
         $view = new View("Security/register", "front");
         $view->assign('config', $form->getConfig());
@@ -99,16 +99,15 @@ class Security
                 $phpMailer->setLastname($_POST['user_lastname']);
                 $phpMailer->setToken($token);
                 $phpMailer->sendMail();
-              
-                parent::redirect('/login');
+                header("Location: " . '/email-verification');
             }
         }else{
             $view->assign('errors', $form->listOfErrors);
         }
-    
+
     }
 
-    
+
 
     public function pwdForget(): void
     {
@@ -138,14 +137,30 @@ class Security
         $userverified = $user->getOneBy(["email_verified" => 1], "object");
         //Si le compte est ps connected et vefifier son email_verified à 1
         if ($userverified == true || (isset($_SESSION['Connected']) && $_SESSION['Connected'] != true)) {
-                $myView = new View("Security/emailconfirmed", "front");
-            }
-            else
-            {
-                die("Page 404");
-                $customError = new Error();
-                $customError->page404();
-            }
+            $myView = new View("Security/emailconfirmed", "front");
+        }
+        else
+        {
+            die("Page 404");
+            $customError = new Error();
+            $customError->page404();
+        }
+    }
+
+    public function verifyEmailNotify(): void
+    {
+        $user = new User();
+        $userverified = $user->getOneBy(["email_verified" => 0], "object");
+        //Si le compte est ps connected et vefifier son email_verified à 1
+        if ($userverified == true || (isset($_SESSION['Connected']) && $_SESSION['Connected'] != true)) {
+            $myView = new View("Security/emailconfirmedmsg", "front");
+        }
+        else
+        {
+            die("Page 404");
+            $customError = new Error();
+            $customError->page404();
+        }
     }
 
     public function verifyEmail()
