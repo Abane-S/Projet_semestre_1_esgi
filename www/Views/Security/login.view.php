@@ -10,4 +10,5 @@
         }
     ?>
     <?php $this->includeComponent("form", $config);?>
+    <a href="/forgot-password">Mot de passe oublié</a>
 </div>

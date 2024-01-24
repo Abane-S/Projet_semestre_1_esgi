@@ -15,9 +15,7 @@ class UserInsert extends Verificator
             "config" => [
                 "method" => $this->method,
                 "action" => "",
-                "enctype" => "",
                 "submit" => "S'inscrire",
-                "cancel" => "Annuler"
             ],
             "inputs" => [
                 "user_firstname" => [

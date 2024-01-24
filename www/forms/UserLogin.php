@@ -17,9 +17,7 @@ class UserLogin extends verificator
             "config" => [
                 "method" => $this->method,
                 "action" => "",
-                "enctype" => "",
                 "submit" => "Se Connecter",
-                "cancel" => "Annuler"
             ],
             "inputs" => [
                 "user_email" => [
