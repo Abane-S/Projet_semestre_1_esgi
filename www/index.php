@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 
 // On récupére l'uri exemple /login et on récupère la correspondance 
 // par exemple le controller Security et l'action login 
@@ -11,6 +12,7 @@
 namespace App;
 use App\Controllers\Error;
 
+session_start();
 
 spl_autoload_register("App\myAutoloader");
 

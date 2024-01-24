@@ -41,6 +41,7 @@ services:
       - database
     networks:
       - my_bridge_network
+    
   mailhog-server:
     image: mailhog/mailhog
     ports:
