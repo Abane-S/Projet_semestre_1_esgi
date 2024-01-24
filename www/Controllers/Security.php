@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Controllers\Error;
 use App\Models\Tokens;
 
 use App\Core\View;
@@ -13,14 +14,13 @@ use App\Core\Verificator;
 use App\Models\PhpMailor;
 use App\Models\User;
 
-
-class Security extends AbstractController
+class Security
 {
 
     public function login(): void
     {
         if (isset($_SESSION['user']['id'])) {
-            $this->redirect('/');
+            header("Location: " . '/');
         }
         $form = new UserLogin();
         $view = new View("Security/login", "front");
@@ -38,7 +38,7 @@ class Security extends AbstractController
                     $token->createToken();
                     if ($userInfos['email_verified']){
                         $this->setSession($userInfos, $token->getToken());
-                        $this->redirect('/');
+                        header("Location: " . '/');
                     } else {
                         $view->assign('errors', ['user_email' => "Votre compte n'est pas encore vérifié. Veuillez vérifier votre boite mail"]);
                     }
@@ -71,7 +71,7 @@ class Security extends AbstractController
     {
         if (isset($_SESSION['Connected']))
         {
-            parent::redirect('/');
+            header("Location: " . '/');
         }
         
         $form = new UserInsert();
@@ -99,7 +99,7 @@ class Security extends AbstractController
                 $phpMailer->setLastname($_POST['user_lastname']);
                 $phpMailer->setToken($token);
                 $phpMailer->sendMail();
-
+              
                 parent::redirect('/login');
             }
         }else{
@@ -132,4 +132,43 @@ class Security extends AbstractController
         echo "Ma page de modification cu compte";
     }
 
+    public function confirmedEmail(): void
+    {
+        $user = new User();
+        $userverified = $user->getOneBy(["email_verified" => 1], "object");
+        //Si le compte est ps connected et vefifier son email_verified à 1
+        if ($userverified == true || (isset($_SESSION['Connected']) && $_SESSION['Connected'] != true)) {
+                $myView = new View("Security/emailconfirmed", "front");
+            }
+            else
+            {
+                die("Page 404");
+                $customError = new Error();
+                $customError->page404();
+            }
+    }
+
+    public function verifyEmail()
+    {
+        if (!isset($_GET['token']) || empty($_GET['token'])) {
+            die("Page 404");
+            $customError = new Error();
+            $customError->page404();
+        } else {
+            $token = $_GET['token'];
+            $user = new User();
+            $userverified = $user->getOneBy(["verification_token" => $token], "object");
+            if ($userverified == false) {
+                die("Page 404");
+                $customError = new Error();
+                $customError->page404();
+            } else {
+
+                $userverified->setEmailVerified(1);
+                $userverified->save();
+                header("Location: " . '/email-confirmed');
+            }
+        }
+
+    }
 }
