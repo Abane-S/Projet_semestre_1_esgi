@@ -205,67 +205,9 @@ class User extends DB
         $this->date_updated = $date_updated;
     }
 
-    public function login(): array | bool
-    {
-        $db = $this::getInstance();
-        $query = $db->prepare("SELECT * FROM " . $this->table . " WHERE email=:email");
-        $query->execute([
-            'email' => $this->getEmail()
-        ]);
 
-        $user = $query->fetch();
-        if (!$user) {
-            return false;
-        }
-
-        if (!password_verify($_POST['user_password'], $this->getPassword())) {
-            return false;
-        }
-
-        return $user;
-    }
-
-    public function emailExist($email): bool
-    {
-        $db = $this::getInstance();
-        $query = $db->prepare("SELECT * FROM " . $this->table . " WHERE email=:email");
-        $query->execute([
-            'email' => $email
-        ]);
-
-        $user = $query->fetch();
-        if (!$user) {
-            return false;
-        }
-        return true;
-    }
-
-    public function verifyToken($token): array | bool
-    {
-        $db = $this::getInstance();
-        $query = $db->prepare("SELECT * FROM " . $this->table . " WHERE verification_token=:token");
-        $query->execute([
-            'token' => $token
-        ]);
-
-        $user = $query->fetch();
-        if (!$user) {
-            return false;
-        }
-        return $user;
-    }
-
-    /**
-     * Set the value of isDeleted
-     *
-     * @return  self
-     */ 
-
-     
     public function setIsDeleted(bool $isdeleted)
     {
         $this->isDeleted = $isdeleted;
-
-        
     }
 }

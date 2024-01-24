@@ -6,16 +6,6 @@
     class="<?= $config["config"]["class"]??"" ?>"
     id="<?= $config["config"]["id"]??"" ?>">
 
-
-    <!-- <?php //if(!empty($this->data['errors'])) :?>
-    <div style="background-color: red">
-        <?php //foreach ($this->data['errors'] as $error):?>
-            <li><?php //$error ?></li>
-        <?php //endforeach;?>
-    </div>
-    <?php //endif;?> -->
-
-
     <?php
         // Définir les noms des champs que vous souhaitez récupérer
         $champs = ['user_firstname', 'user_lastname', 'user_email', 'user_confirm_email', 'user_password', 'user_confirm_password', 'csrf_token'];
