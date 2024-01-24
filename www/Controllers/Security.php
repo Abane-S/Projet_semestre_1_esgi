@@ -3,8 +3,6 @@
 namespace App\Controllers;
 
 use App\Controllers\Error;
-use App\Models\Tokens;
-
 use App\Core\View;
 use App\Forms\UserInsert;
 use App\Forms\UserLogin;
@@ -16,10 +14,14 @@ use App\Models\User;
 
 class Security
 {
+    public function UserIsLogged(): bool {
+        return isset($_SESSION['Connected']) && $_SESSION['Connected'] == true;
+    }
+
 
     public function login(): void
     {
-        if (isset($_SESSION['Connected']) && $_SESSION['Connected'] == true) {
+        if ($this->UserIsLogged()){
             header("Location: /needtologout");
             exit;
         }
@@ -28,36 +30,49 @@ class Security
         $view = new View("Security/login", "front");
         $view->assign('config', $form->getConfig());
         if ($form->isSubmit() && $form->isValid()){
-            echo "bonjour";
-            if (empty($errors)){
-                $user = new User();
-                $user->setEmail($_POST['user_email']);
-                $user->setPassword($_POST['user_password']);
-                if ($user->login()){
-                    $userInfos = $user->login();
-                    $token = new Tokens();
-                    $token->setUserId($userInfos['id']);
-                    $token->createToken();
-                    if ($userInfos['email_verified']){
-                        $this->setSession($userInfos, $token->getToken());
-                        header("Location: " . '/');
+            $user = new User();
+            $emailverification = $user->getOneBy(["email" => strtolower($_POST['user_email'])], "object");
+            if ($emailverification == true)
+            {
+                if (password_verify($_POST['user_password'], $emailverification->getPassword())) {
+                    $accountemailverification = $user->getOneBy(["email_verified" => 1], "object");
+                    if($accountemailverification) {
+                        $_SESSION['Connected'] = true;
+                        header("Location: /");
                         exit;
-                    } else {
-                        $view->assign('errors', ['user_email' => "Votre compte n'est pas encore vérifié. Veuillez vérifier votre boite mail"]);
                     }
-                } else {
-                    $view->assign('errors', ['user_email' => "Email ou mot de passe incorrect"]);
+                    else
+                    {
+                        $errors['user_email'] = "Un mail d'activation vous a été envoyé lors de la création de votre compte.<br>Merci de confirmer votre adresse e-mail.";
+                        $view->assign('errors', $errors);
+                        exit;
+                    }
                 }
-            }else{
-                $view->assign('errors', $errors);
+                else
+                {
+                    $errors['user_email'] = "Le mot de passe est incorrecte.";
+                    $view->assign('errors', $errors);
+                    exit;
+                }
             }
+            else
+            {
+                $errors['user_email'] = "L'adresse e-mail que vous avez saisie ne correspond à aucun compte sur notre site.";
+                $view->assign('errors', $errors);
+                exit;
+            }
+        }
+        else{
+            $view->assign('errors', $form->listOfErrors);
         }
     }
 
 
     public function logout(): void
     {
-        echo "Ma page de déconnexion";
+        session_destroy();
+        header("Location: /login");
+        exit;
     }
 
     /**
@@ -72,7 +87,7 @@ class Security
 
     public function register(): void
     {
-        if ($_SESSION['Connected'] == true) {
+        if ($this->UserIsLogged()){
             header("Location: /needtologout");
             exit;
         }
@@ -83,9 +98,14 @@ class Security
 
         if ($form->isSubmit() && $form->isValid()){
             $user = new User();
-            if ($user->emailExist($_POST['user_email'])){
+
+            $user = new User();
+            $emailverification = $user->getOneBy(["email" => $_POST['user_email']], "object");
+            if ($emailverification == true)
+            {
                 $errors['user_email'] = "L'adresse e-mail est déjà utilisée. Merci de bien vouloir renseigner une autre adresse e-mail.";
                 $view->assign('errors', $errors);
+                exit;
             }else{
                 $token = bin2hex(random_bytes(32));
                 $user->setVericationToken($token);
@@ -95,13 +115,8 @@ class Security
                 $user->setPassword($_POST['user_password']);
                 $user->save();
 
-
                 $phpMailer = new PhpMailor();
-                $phpMailer->setMail($_POST['user_email']);
-                $phpMailer->setFirstname($_POST['user_firstname']);
-                $phpMailer->setLastname($_POST['user_lastname']);
-                $phpMailer->setToken($token);
-                $phpMailer->sendMail();
+                $phpMailer->sendMail($_POST['user_email'], $_POST['user_firstname'], $_POST['user_lastname'], $token, "Verification");
                 header("Location: " . '/email-verification');
                 exit;
             }
@@ -115,7 +130,7 @@ class Security
 
     public function pwdForget(): void
     {
-        if ($_SESSION['Connected'] == true) {
+        if ($this->UserIsLogged()){
             header("Location: /");
             exit;
         }
@@ -147,7 +162,7 @@ class Security
         $user = new User();
         $userverified = $user->getOneBy(["email_verified" => 1], "object");
         //Si le compte est ps connected et vefifier son email_verified à 1
-        if ($userverified == true && $_SESSION['Connected'] != true) {
+        if ($userverified == true && $this->UserIsLogged() == false) {
             $myView = new View("Security/emailconfirmed", "front");
         }
         else
@@ -161,10 +176,24 @@ class Security
     public function verifyEmailNotify(): void
     {
         $user = new User();
-        $userverified = $user->getOneBy(["email_verified" => 0], "object");
+        $userverified = $user->getOneBy(["email_verified" => 1], "object");
         //Si le compte est ps connected et vefifier son email_verified à 1
-        if ($userverified == true && $_SESSION['Connected'] != true) {
+        if (!$userverified && $this->UserIsLogged() == false) {
             $myView = new View("Security/emailconfirmedmsg", "front");
+        }
+        else
+        {
+            die("Page 404");
+            $customError = new Error();
+            $customError->page404();
+        }
+    }
+
+    public function needToLogout()
+    {
+        //Si le compte est ps connected et vefifier son email_verified à 1
+        if ($this->UserIsLogged() == true) {
+            $myView = new View("Security/needtologout", "front");
         }
         else
         {
@@ -184,7 +213,7 @@ class Security
             $token = $_GET['token'];
             $user = new User();
             $userverified = $user->getOneBy(["verification_token" => $token], "object");
-            if ($userverified == false) {
+            if (!$userverified) {
                 die("Page 404");
                 $customError = new Error();
                 $customError->page404();

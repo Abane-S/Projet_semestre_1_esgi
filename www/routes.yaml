@@ -38,4 +38,9 @@
   controller: Security
   action: confirmedEmail
 
+/needtologout:
+  controller: Security
+  action: needToLogout
+
+
 

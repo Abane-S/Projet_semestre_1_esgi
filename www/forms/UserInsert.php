@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Forms;
-use App\Core\verificator;
+use App\Core\Verificator;
 
 class UserInsert extends Verificator
 {

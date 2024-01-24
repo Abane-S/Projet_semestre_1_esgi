@@ -2,7 +2,7 @@
 
 namespace App\Core;
 
-class verificator {
+class Verificator {
 
 
     public array $data = [];

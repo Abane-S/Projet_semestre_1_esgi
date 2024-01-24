@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Forms;
-use App\Core\verificator;
+use App\Core\Verificator;
 
 
-class UserLogin extends verificator
+class UserLogin extends Verificator
 {
 
     protected $method = "POST";
@@ -26,7 +26,7 @@ class UserLogin extends verificator
                     "max" => 255,
                     "label" => "",
                     "placeholder" => "Votre email",
-                    "error" => "L'email ou le mot de passe est incorrect"
+                    "error" => "L'adresse e-mail ou le mot de passe est incorrecte."
                 ],
                 "user_password" => [
                     "type" => "password",
@@ -34,7 +34,13 @@ class UserLogin extends verificator
                     "max" => 45,
                     "label" => "",
                     "placeholder" => "Votre mot de passe",
-                    "error" => "L'email ou le mot de passe est incorrect"
+                    "error" => "Le mot de passe est incorrect."
+                ],
+                "csrf_token" => [
+                    "type" => "hidden",
+                    "placeholder" => "",
+                    "label" => "",
+                    "error" => ""
                 ],
             ]
         ];

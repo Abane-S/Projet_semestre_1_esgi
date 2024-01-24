@@ -1,6 +1,6 @@
 <div class="div_input">
-    <h2>Déconnexion ?</h2>
+    <h2>Merci de vous déconnecter pour accéder à cette page.</h2>
 
-    <span>Vous avez besoin de vous déconnecter pour accéder à cette page.<br>Merci de vous déconnecter.</span>
-    <a href="/logout">Déconnexion</a>
+    <span>Vous devez d'abord vous déconnecter avant d'accéder à cette page.</span>
+    <a href="/logout">Cliquez ici pour vous déconnecter.</a>
 </div>
