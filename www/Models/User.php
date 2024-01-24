@@ -17,7 +17,7 @@ class User extends DB
     protected Int $email_verified;
     protected $date_inserted;
     protected $date_updated;
-    protected int $isDeleted;
+    protected int $isdeleted;
 
     
     public function __toString()
@@ -262,9 +262,9 @@ class User extends DB
      */ 
 
      
-    public function setIsDeleted(bool $isDeleted)
+    public function setIsDeleted(bool $isdeleted)
     {
-        $this->isDeleted = $isDeleted;
+        $this->isDeleted = $isdeleted;
 
         
     }

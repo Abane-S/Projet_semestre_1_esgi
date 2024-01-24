@@ -26,3 +26,12 @@
   controller: Security
   action: modifieAccount
 
+/verify:
+  controller: Security
+  action: verifyEmail
+
+/email-confirmed:
+  controller: Security
+  action: confirmedEmail
+
+
