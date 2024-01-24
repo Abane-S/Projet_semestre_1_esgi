@@ -8,13 +8,13 @@ class Main
 {
     public function home(): void
     {
-        $myUser = new User();
-        $myUser->setFirstname("YVEs");
-        $myUser->setLastname("Skrzypczyk  ");
-        $myUser->setEmail("Y.skrzypczyk@gmail.com");
-        $myUser->setPassword("Test1234");
-        $myUser->setStatus(1);
-        $myUser->save();
+        //$myUser = new User();
+        //$myUser->setFirstname("YVEs");
+        //$myUser->setLastname("Skrzypczyk  ");
+        //$myUser->setEmail("Y.skrzypczyk@gmail.com");
+        //$myUser->setPassword("Test1234");
+        //$myUser->setStatus(1);
+        //$myUser->save();
 
         //$myUser = User::populate(1);
         //$myUser->setLastname("yo");

@@ -7,6 +7,7 @@ use App\Core\View;
 use App\Forms\UserInsert;
 use App\Forms\UserLogin;
 use App\Forms\PwdForget;
+use App\Forms\PwdChange;
 use App\Forms\ModifieAccount;
 use App\Core\Verificator;
 use App\Models\PhpMailor;
@@ -37,9 +38,27 @@ class Security
                 if (password_verify($_POST['user_password'], $emailverification->getPassword())) {
                     $accountemailverification = $user->getOneBy(["email_verified" => 1], "object");
                     if($accountemailverification) {
-                        $_SESSION['Connected'] = true;
-                        header("Location: /");
-                        exit;
+                        $accountdeletedverification = $user->getOneBy(["isdeleted" => 0], "object");
+                        if($accountdeletedverification) {
+                            $admin = $user->getOneBy(["status" => 1], "object");
+                            if(!$admin) {
+                                $_SESSION['Connected'] = true;
+                                header("Location: /");
+                                exit;
+                            }
+                            else
+                            {
+                                $_SESSION['Connected'] = true;
+                                header("Location: /admin");
+                                exit;
+                            }
+                        }
+                        else
+                        {
+                            $errors['user_email'] = "L'adresse e-mail que vous avez saisie n'est associée à aucun compte.";
+                            $view->assign('errors', $errors);
+                            exit;
+                        }
                     }
                     else
                     {
@@ -57,7 +76,7 @@ class Security
             }
             else
             {
-                $errors['user_email'] = "L'adresse e-mail que vous avez saisie ne correspond à aucun compte sur notre site.";
+                $errors['user_email'] = "L'adresse e-mail que vous avez saisie n'est associée à aucun compte.";
                 $view->assign('errors', $errors);
                 exit;
             }
@@ -71,8 +90,7 @@ class Security
     public function logout(): void
     {
         session_destroy();
-        header("Location: /login");
-        exit;
+        $myView = new View("Security/logout", "front");
     }
 
     /**
@@ -97,8 +115,6 @@ class Security
         $view->assign('config', $form->getConfig());
 
         if ($form->isSubmit() && $form->isValid()){
-            $user = new User();
-
             $user = new User();
             $emailverification = $user->getOneBy(["email" => $_POST['user_email']], "object");
             if ($emailverification == true)
@@ -139,12 +155,41 @@ class Security
         $view = new View("Security/forgetpwd", "front");
         $view->assign('config', $form->getConfig());
 
-        if ($form->isSubmit()){
+        if ($form->isSubmit() && $form->isValid()){
             $user = new User();
+            $emailverification = $user->getOneBy(["email" => strtolower($_POST['user_email'])], "object");
+            if ($emailverification == true)
+            {
+                $userverified = $user->getOneBy(["email_verified" => 1], "object");
+                if ($userverified == true && $this->UserIsLogged() == false)
+                {
+                    $token = bin2hex(random_bytes(32));
+                    $emailverification->setVericationToken($token);
+                    $emailverification->save();
+
+                    $phpMailer = new PhpMailor();
+                    $phpMailer->sendMail($_POST['user_email'], $_POST['user_firstname'], $_POST['user_lastname'], $token, "VerificationPassword");
+                    header("Location: " . '/password-verification-notify');
+                    exit;
+                }
+                else
+                {
+                    $errors['user_email'] = "Un mail d'activation vous a été envoyé lors de la création de votre compte.<br>Merci de confirmer votre adresse e-mail.";
+                    $view->assign('errors', $errors);
+                    exit;
+                }
+            }
+            else
+            {
+                $errors['user_email'] = "L'adresse e-mail que vous avez saisie n'est associée à aucun compte.";
+                $view->assign('errors', $errors);
+                exit;
+            }
         }else{
             $view->assign('errors', $form->listOfErrors);
         }
     }
+
 
     public function modifieAccount(): void
     {
@@ -164,6 +209,65 @@ class Security
         //Si le compte est ps connected et vefifier son email_verified à 1
         if ($userverified == true && $this->UserIsLogged() == false) {
             $myView = new View("Security/emailconfirmed", "front");
+        }
+        else
+        {
+            die("Page 404");
+            $customError = new Error();
+            $customError->page404();
+        }
+    }
+
+    public function ChangePasswordNotify():void
+    {
+        if ($this->UserIsLogged() == false) {
+            $myView = new View("Security/passwordverificationmsg", "front");
+        }
+        else
+        {
+            die("Page 404");
+            $customError = new Error();
+            $customError->page404();
+        }
+    }
+
+    public function ChangePasswordVerification():void
+    {
+        if (!isset($_GET['token']) || empty($_GET['token'])) {
+            die("Page 404");
+            $customError = new Error();
+            $customError->page404();
+        } else {
+            $token = $_GET['token'];
+            $user = new User();
+            $userverified = $user->getOneBy(["verification_token" => $token], "object");
+            if (!$userverified) {
+                die("Page 404");
+                $customError = new Error();
+                $customError->page404();
+            } else {
+                $form = new PwdChange();
+                $view = new View("Security/changepassword", "front");
+                $view->assign('config', $form->getConfig());
+                if ($form->isSubmit() && $form->isValid()) {
+                    $token = bin2hex(random_bytes(32));
+                    $userverified->setPassword($_POST['user_password']);
+                    $userverified->setVericationToken($token);
+                    $userverified->save();
+                    header("Location: " . '/password-changed');
+                }
+                else {
+                    $view->assign('errors', $form->listOfErrors);
+                }
+
+            }
+        }
+    }
+
+    public function passwordChangedSucces(): void
+    {
+        if ($this->UserIsLogged() == false){
+            $myView = new View("Security/passwordconfirmedmsg", "front");
         }
         else
         {
@@ -218,8 +322,9 @@ class Security
                 $customError = new Error();
                 $customError->page404();
             } else {
-
+                $token = bin2hex(random_bytes(32));
                 $userverified->setEmailVerified(1);
+                $userverified->setVericationToken($token);
                 $userverified->save();
                 header("Location: " . '/email-confirmed');
                 exit;

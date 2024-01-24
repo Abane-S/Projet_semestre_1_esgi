@@ -30,6 +30,14 @@
   controller: Security
   action: verifyEmailNotify
 
+/password-verification-notify:
+  controller: Security
+  action: ChangePasswordNotify
+
+/verify2:
+  controller: Security
+  action: ChangePasswordVerification
+
 /verify:
   controller: Security
   action: verifyEmail
@@ -42,5 +50,8 @@
   controller: Security
   action: needToLogout
 
+/password-changed:
+  controller: Security
+  action: passwordChangedSucces
 
 
