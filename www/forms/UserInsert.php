@@ -3,7 +3,7 @@
 namespace App\Forms;
 use App\Core\verificator;
 
-class UserInsert extends verificator
+class UserInsert extends Verificator
 {
 
     protected $method = "POST";
@@ -69,6 +69,12 @@ class UserInsert extends verificator
                     "placeholder" => "Confirmation de votre mot de passe",
                     "confirm" => "user_password",
                     "error" => "Vous avez insérer deux mots de passe différents"
+                ],
+                "csrf_token" => [
+                    "type" => "hidden",
+                    "placeholder" => "",
+                    "label" => "",
+                    "error" => ""
                 ],
             ]
         ];
