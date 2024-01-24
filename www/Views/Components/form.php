@@ -6,13 +6,14 @@
     class="<?= $config["config"]["class"]??"" ?>"
     id="<?= $config["config"]["id"]??"" ?>">
 
-    <?php if(!empty($this->data['errors'])) :?>
+
+    <!-- <?php //if(!empty($this->data['errors'])) :?>
     <div style="background-color: red">
-        <?php foreach ($this->data['errors'] as $error):?>
-            <li><?= $error ?></li>
-        <?php endforeach;?>
+        <?php //foreach ($this->data['errors'] as $error):?>
+            <li><?php //$error ?></li>
+        <?php //endforeach;?>
     </div>
-    <?php endif;?>
+    <?php //endif;?> -->
 
 
     <?php
@@ -28,6 +29,7 @@
         }
     ?>
 
+    <div class="div_input">
     <?php foreach ($config["inputs"] as $name => $configInput): ?>
 
         <input
@@ -47,6 +49,7 @@
     <?php endforeach; ?>
 
     <input type="submit" name="submit" value="<?= $config["config"]["submit"]??"Envoyer" ?>">
+    </div>
 </form>
 
 <?php
