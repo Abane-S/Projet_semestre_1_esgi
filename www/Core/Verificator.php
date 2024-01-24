@@ -72,9 +72,9 @@ class verificator {
 
     public function checkPassword($password): bool
     {
-        return preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()])[a-zA-Z\d!@#$%^&*()]{8,45}$/", $password);
+        return preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])/", $password);
     }
-
+    
     public function checkName($Name): bool
     {
         return preg_match("/^[a-zA-Z]{2,45}$/", $Name);

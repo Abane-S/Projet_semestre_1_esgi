@@ -99,8 +99,8 @@ class Security
                 $phpMailer->setLastname($_POST['user_lastname']);
                 $phpMailer->setToken($token);
                 $phpMailer->sendMail();
-
-                //header("Location: " . '/msgdemailenvoyer');
+              
+                parent::redirect('/login');
             }
         }else{
             $view->assign('errors', $form->listOfErrors);
