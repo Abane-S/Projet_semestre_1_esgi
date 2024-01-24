@@ -100,7 +100,7 @@ class Security extends AbstractController
                 $phpMailer->setToken($token);
                 $phpMailer->sendMail();
 
-                //parent::redirect('/login');
+                parent::redirect('/login');
             }
         }else{
             $view->assign('errors', $form->listOfErrors);
