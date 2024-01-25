@@ -32,16 +32,16 @@ class Security
         $view->assign('config', $form->getConfig());
         if ($form->isSubmit() && $form->isValid()){
             $user = new User();
-            $emailverification = $user->getOneBy(["email" => strtolower($_POST['user_email'])], "object");
-            if ($emailverification == true)
+            $account = $user->getOneBy(["email" => strtolower($_POST['user_email'])], "object");
+            if ($account)
             {
-                if (password_verify($_POST['user_password'], $emailverification->getPassword())) {
-                    $accountemailverification = $user->getOneBy(["email_verified" => 1], "object");
-                    if($accountemailverification) {
-                        $accountdeletedverification = $user->getOneBy(["isdeleted" => 0], "object");
-                        if($accountdeletedverification) {
-                            $admin = $user->getOneBy(["status" => 1], "object");
-                            if(!$admin) {
+                if (password_verify($_POST['user_password'], $account->getPassword())) {
+                    if($account->getEmailVerified())
+                    {
+                        if(!$account->getIsDeleted())
+                        {
+                            if(!$account->getStatus())
+                            {
                                 $_SESSION['Connected'] = true;
                                 header("Location: /");
                                 exit;
@@ -116,8 +116,8 @@ class Security
 
         if ($form->isSubmit() && $form->isValid()){
             $user = new User();
-            $emailverification = $user->getOneBy(["email" => $_POST['user_email']], "object");
-            if ($emailverification == true)
+            $account = $user->getOneBy(["email" => $_POST['user_email']], "object");
+            if ($account)
             {
                 $errors['user_email'] = "L'adresse e-mail est déjà utilisée. Merci de bien vouloir renseigner une autre adresse e-mail.";
                 $view->assign('errors', $errors);
@@ -157,20 +157,27 @@ class Security
 
         if ($form->isSubmit() && $form->isValid()){
             $user = new User();
-            $emailverification = $user->getOneBy(["email" => strtolower($_POST['user_email'])], "object");
-            if ($emailverification == true)
+            $account = $user->getOneBy(["email" => strtolower($_POST['user_email'])], "object");
+            if ($account)
             {
-                $userverified = $user->getOneBy(["email_verified" => 1], "object");
-                if ($userverified == true && $this->UserIsLogged() == false)
+                if($account->getEmailVerified())
                 {
-                    $token = bin2hex(random_bytes(32));
-                    $emailverification->setVericationToken($token);
-                    $emailverification->save();
+                    if(!$account->getIsDeleted()) {
+                        $token = bin2hex(random_bytes(32));
+                        $account->setVericationToken($token);
+                        $account->save();
 
-                    $phpMailer = new PhpMailor();
-                    $phpMailer->sendMail($_POST['user_email'], $_POST['user_firstname'], $_POST['user_lastname'], $token, "VerificationPassword");
-                    header("Location: " . '/password-verification-notify');
-                    exit;
+                        $phpMailer = new PhpMailor();
+                        $phpMailer->sendMail($_POST['user_email'], $_POST['user_firstname'], $_POST['user_lastname'], $token, "VerificationPassword");
+                        header("Location: " . '/password-verification-notify');
+                        exit;
+                    }
+                    else
+                    {
+                        $errors['user_email'] = "L'adresse e-mail que vous avez saisie n'est associée à aucun compte.";
+                        $view->assign('errors', $errors);
+                        exit;
+                    }
                 }
                 else
                 {
@@ -204,10 +211,7 @@ class Security
 
     public function confirmedEmail(): void
     {
-        $user = new User();
-        $userverified = $user->getOneBy(["email_verified" => 1], "object");
-        //Si le compte est ps connected et vefifier son email_verified à 1
-        if ($userverified == true && $this->UserIsLogged() == false) {
+        if ($this->UserIsLogged() == false) {
             $myView = new View("Security/emailconfirmed", "front");
         }
         else
@@ -240,8 +244,8 @@ class Security
         } else {
             $token = $_GET['token'];
             $user = new User();
-            $userverified = $user->getOneBy(["verification_token" => $token], "object");
-            if (!$userverified) {
+            $account = $user->getOneBy(["verification_token" => $token], "object");
+            if (!$account) {
                 die("Page 404");
                 $customError = new Error();
                 $customError->page404();
@@ -249,15 +253,32 @@ class Security
                 $form = new PwdChange();
                 $view = new View("Security/changepassword", "front");
                 $view->assign('config', $form->getConfig());
-                if ($form->isSubmit() && $form->isValid()) {
-                    $token = bin2hex(random_bytes(32));
-                    $userverified->setPassword($_POST['user_password']);
-                    $userverified->setVericationToken($token);
-                    $userverified->save();
-                    header("Location: " . '/password-changed');
+                if($account->getEmailVerified())
+                {
+                    if(!$account->getIsDeleted())
+                    {
+                        if ($form->isSubmit() && $form->isValid()) {
+                            $token = bin2hex(random_bytes(32));
+                            $account->setPassword($_POST['user_password']);
+                            $account->setVericationToken($token);
+                            $account->save();
+                            header("Location: " . '/password-changed');
+                        } else {
+                            $view->assign('errors', $form->listOfErrors);
+                        }
+                    }
+                    else
+                    {
+                        $errors['user_email'] = "L'adresse e-mail que vous avez saisie n'est associée à aucun compte.";
+                        $view->assign('errors', $errors);
+                        exit;
+                    }
                 }
-                else {
-                    $view->assign('errors', $form->listOfErrors);
+                else
+                {
+                    $errors['user_email'] = "Un mail d'activation vous a été envoyé lors de la création de votre compte.<br>Merci de confirmer votre adresse e-mail.";
+                    $view->assign('errors', $errors);
+                    exit;
                 }
 
             }
@@ -279,10 +300,7 @@ class Security
 
     public function verifyEmailNotify(): void
     {
-        $user = new User();
-        $userverified = $user->getOneBy(["email_verified" => 1], "object");
-        //Si le compte est ps connected et vefifier son email_verified à 1
-        if (!$userverified && $this->UserIsLogged() == false) {
+        if ($this->UserIsLogged() == false) {
             $myView = new View("Security/emailconfirmedmsg", "front");
         }
         else
@@ -316,16 +334,16 @@ class Security
         } else {
             $token = $_GET['token'];
             $user = new User();
-            $userverified = $user->getOneBy(["verification_token" => $token], "object");
-            if (!$userverified) {
+            $account = $user->getOneBy(["verification_token" => $token], "object");
+            if (!$account) {
                 die("Page 404");
                 $customError = new Error();
                 $customError->page404();
             } else {
                 $token = bin2hex(random_bytes(32));
-                $userverified->setEmailVerified(1);
-                $userverified->setVericationToken($token);
-                $userverified->save();
+                $account->setEmailVerified(1);
+                $account->setVericationToken($token);
+                $account->save();
                 header("Location: " . '/email-confirmed');
                 exit;
             }

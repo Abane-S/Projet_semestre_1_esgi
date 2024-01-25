@@ -24,7 +24,8 @@ class PwdChange extends Verificator
                     "max" => 45,
                     "label" => "",
                     "placeholder" => "Votre mot de passe",
-                    "error" => "Format incorrect, votre mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial parmi \"@#$%^&*()_+=[\]{}|;:'\",<.>/?~\\!\" "
+                    "error" => "-Format du mot de passe incorrect, minimum 8 caractères, maximum 45 caractères, dont une majuscule, une minuscule, un chiffre et un caractère spécial parmi \"@#$%^&*()_+=[\]{}|;:'\",<.>/?~\\!\" ",
+                    "required" => true
                 ],
                 "user_confirm_password" => [
                     "type" => "password",
@@ -33,13 +34,15 @@ class PwdChange extends Verificator
                     "label" => "",
                     "placeholder" => "Confirmation de votre mot de passe",
                     "confirm" => "user_password",
-                    "error" => "Vous avez insérer deux mots de passe différents"
+                    "error" => "-Vous avez insérer deux mots de passe différents",
+                    "required" => true
                 ],
                 "csrf_token" => [
                     "type" => "hidden",
                     "placeholder" => "",
                     "label" => "",
-                    "error" => ""
+                    "error" => "",
+                    "required" => true
                 ],
             ]
         ];

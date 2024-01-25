@@ -19,6 +19,16 @@ class User extends DB
     protected $date_updated;
     protected int $isdeleted;
 
+    public function getIsdeleted(): int
+    {
+        return $this->isdeleted;
+    }
+
+    public function setIsdeleted(int $isdeleted): void
+    {
+        $this->isdeleted = $isdeleted;
+    }
+
     
     public function __toString()
     {
@@ -134,14 +144,6 @@ class User extends DB
         
     }
 
-    /**
-     * Get the value of isDeleted
-     */ 
-    public function getIsDeleted()
-    {
-        return $this->isDeleted;
-    }
-
 
     public function getVericationToken(): int
     {
@@ -203,29 +205,5 @@ class User extends DB
     public function setupdatedat($date_updated): void
     {
         $this->date_updated = $date_updated;
-    }
-
-
-    public function setIsDeleted(bool $isdeleted)
-    {
-        $this->isDeleted = $isdeleted;
-    }
-
-    public function getEmailverify($email) : bool
-    {
-        $sql = "SELECT email_verified FROM users WHERE email = :email";
-        $queryPrepared = $this->pdo->prepare($sql);
-        $queryPrepared->execute(['email' => $email]);
-        $result = $queryPrepared->fetch();
-        return $result['email_verified'];
-    }
-
-    public function getAccountisDeleted($email): bool
-    {
-        $sql = "SELECT isdeleted FROM users WHERE email = :email";
-        $queryPrepared = $this->pdo->prepare($sql);
-        $queryPrepared->execute(['email' => $email]);
-        $result = $queryPrepared->fetch();
-        return $result['isdeleted'];
     }
 }

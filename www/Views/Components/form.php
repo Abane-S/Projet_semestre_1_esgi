@@ -8,7 +8,7 @@
 
     <?php
         // Définir les noms des champs que vous souhaitez récupérer
-        $champs = ['user_firstname', 'user_lastname', 'user_email', 'user_confirm_email', 'user_password', 'user_confirm_password', 'csrf_token'];
+        $champs = ['user_firstname', 'user_lastname', 'user_email', 'user_confirm_email', 'user_password', 'user_confirm_password', 'csrf_token', 'db_name', 'db_host', 'db_port', 'db_username', 'db_port', "db_password", "db_confirm_password"];
 
         // Initialiser un tableau pour stocker les valeurs
         $valeurs = [];
@@ -22,6 +22,9 @@
     <div class="div_input">
     <?php foreach ($config["inputs"] as $name => $configInput): ?>
 
+        <?php if ($configInput["label"]): ?>
+            <label for="<?= $name ?>"><?= $configInput["label"] ?? "" ?></label>
+        <?php endif; ?>
         <input
                 name="<?= $name ?>"
                 type="<?= $configInput["type"] ?? "text" ?>"

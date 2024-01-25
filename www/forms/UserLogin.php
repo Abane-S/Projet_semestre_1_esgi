@@ -26,7 +26,8 @@ class UserLogin extends Verificator
                     "max" => 255,
                     "label" => "",
                     "placeholder" => "Votre email",
-                    "error" => "L'adresse e-mail ou le mot de passe est incorrecte."
+                    "error" => "-L'adresse e-mail ou le mot de passe est incorrecte.",
+                    "required" => true
                 ],
                 "user_password" => [
                     "type" => "password",
@@ -34,13 +35,15 @@ class UserLogin extends Verificator
                     "max" => 45,
                     "label" => "",
                     "placeholder" => "Votre mot de passe",
-                    "error" => "Le mot de passe est incorrect."
+                    "error" => "-Le mot de passe est incorrect.",
+                    "required" => true
                 ],
                 "csrf_token" => [
                     "type" => "hidden",
                     "placeholder" => "",
                     "label" => "",
-                    "error" => ""
+                    "error" => "",
+                    "required" => true
                 ],
             ]
         ];

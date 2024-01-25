@@ -24,13 +24,15 @@ class PwdForget extends Verificator
                     "max" => 255,
                     "label" => "",
                     "placeholder" => "Votre email",
-                    "error" => "Le format de votre email est incorrect (exemple: test@gmail.com)"
+                    "error" => "Le format de votre email est incorrect (exemple: test@gmail.com)",
+                    "required" => true
                 ],
                 "csrf_token" => [
                     "type" => "hidden",
                     "placeholder" => "",
                     "label" => "",
-                    "error" => ""
+                    "error" => "",
+                    "required" => true
                 ],
             ]
         ];
