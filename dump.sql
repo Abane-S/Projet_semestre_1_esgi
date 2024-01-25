@@ -1,42 +1,23 @@
--- CREATE TABLE IF NOT EXISTS esgi_user (
---     id SERIAL PRIMARY KEY,
---     firstname VARCHAR(25) NOT NULL,
---     lastname VARCHAR(50) NOT NULL,
---     email VARCHAR(320) NOT NULL,
---     pwd VARCHAR(255) NOT NULL,
---     status SMALLINT NOT NULL DEFAULT 0,
---     isDeleted BOOLEAN DEFAULT FALSE,
---     insertedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
---     updatedAt TIMESTAMP NULL DEFAULT NULL
--- );
+-- Adminer 4.8.1 PostgreSQL 16.0 (Debian 16.0-1.pgdg120+1) dump
+
+DROP TABLE IF EXISTS "esgi_user";
+DROP SEQUENCE IF EXISTS esgi_user_id_seq;
+CREATE SEQUENCE esgi_user_id_seq INCREMENT 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1;
+
+CREATE TABLE "public"."esgi_user" (
+                                      "id" integer DEFAULT nextval('esgi_user_id_seq') NOT NULL,
+                                      "firstname" character varying(25) NOT NULL,
+                                      "lastname" character varying(50) NOT NULL,
+                                      "email" character varying(320) NOT NULL,
+                                      "pwd" character varying(255) NOT NULL,
+                                      "role" character varying DEFAULT '0' NOT NULL,
+                                      "verification_token" character varying(255),
+                                      "email_verified" boolean DEFAULT false,
+                                      "date_inserted" timestamptz DEFAULT CURRENT_TIMESTAMP,
+                                      "date_updated" timestamp,
+                                      "isdeleted" boolean DEFAULT false,
+                                      CONSTRAINT "esgi_user_pkey" PRIMARY KEY ("id")
+) WITH (oids = false);
 
 
--- CREATE TABLE IF NOT EXISTS "esgi_users" (
---     "id" serial  NOT NULL,
---     "firstname" character varying(255) NOT NULL,
---     "lastname" character varying(255) NOT NULL,
---     "email" character varying(255) NOT NULL,
---     "password" character varying(255) NOT NULL,
---     "role_id" integer DEFAULT '6' NOT NULL,
---     "verification_token" character varying(255),
---     "email_verified" boolean DEFAULT false,
---     "date_inserted" timestamp DEFAULT CURRENT_TIMESTAMP,
---     "date_updated" timestamp,
---     CONSTRAINT "esgi_users_email_key" UNIQUE ("email"),
---     CONSTRAINT "esgi_users_pkey" PRIMARY KEY ("id")
--- ) WITH (oids = false);
-
-
-CREATE TABLE IF NOT EXISTS esgi_user (
-    "id" SERIAL PRIMARY KEY,
-    "firstname" VARCHAR(25) NOT NULL,
-    "lastname" VARCHAR(50) NOT NULL,
-    "email" VARCHAR(320) NOT NULL,
-    "pwd" VARCHAR(255) NOT NULL,
-    "status" SMALLINT NOT NULL DEFAULT 0,
-    "verification_token" VARCHAR(255),
-    "email_verified" boolean DEFAULT false,
-    "date_inserted" TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    "date_updated" timestamp,
-    "isDeleted" BOOLEAN DEFAULT FALSE
-);
+-- 2024-01-25 23:01:47.113436+00

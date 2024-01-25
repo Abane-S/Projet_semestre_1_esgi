@@ -62,4 +62,11 @@
   controller: Installer
   action: installNext
 
+/hard-delete:
+  controller: Security
+  action: hardDeleteAccount
+
+/soft-delete:
+  controller: Security
+  action: softDeleteAccount
 

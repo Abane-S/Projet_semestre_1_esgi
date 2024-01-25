@@ -40,43 +40,53 @@ class Security
                     {
                         if(!$account->getIsDeleted())
                         {
-                            if(!$account->getStatus())
+                            $accountArray = $user->getOneBy(["email" => strtolower($_POST['user_email'])], "array");
+                            if($account->getRole() == "user")
                             {
                                 $_SESSION['Connected'] = true;
+                                $_SESSION['Account'] = $accountArray;
                                 header("Location: /");
                                 exit;
                             }
-                            else
+                            if($account->getRole() == "moderator")
                             {
                                 $_SESSION['Connected'] = true;
+                                $_SESSION['Account'] = $accountArray;
+                                header("Location: /moderator");
+                                exit;
+                            }
+                            if($account->getRole() == "admin")
+                            {
+                                $_SESSION['Connected'] = true;
+                                $_SESSION['Account'] = $accountArray;
                                 header("Location: /admin");
                                 exit;
                             }
                         }
                         else
                         {
-                            $errors['user_email'] = "L'adresse e-mail que vous avez saisie n'est associée à aucun compte.";
+                            $errors['user_email'] = "-L'adresse e-mail que vous avez saisie n'est associée à aucun compte.";
                             $view->assign('errors', $errors);
                             exit;
                         }
                     }
                     else
                     {
-                        $errors['user_email'] = "Un mail d'activation vous a été envoyé lors de la création de votre compte.<br>Merci de confirmer votre adresse e-mail.";
+                        $errors['user_email'] = "-Un mail d'activation vous a été envoyé lors de la création de votre compte.<br>Merci de confirmer votre adresse e-mail.";
                         $view->assign('errors', $errors);
                         exit;
                     }
                 }
                 else
                 {
-                    $errors['user_email'] = "Le mot de passe est incorrecte.";
+                    $errors['user_email'] = "-Le mot de passe est incorrecte.";
                     $view->assign('errors', $errors);
                     exit;
                 }
             }
             else
             {
-                $errors['user_email'] = "L'adresse e-mail que vous avez saisie n'est associée à aucun compte.";
+                $errors['user_email'] = "-L'adresse e-mail que vous avez saisie n'est associée à aucun compte.";
                 $view->assign('errors', $errors);
                 exit;
             }
@@ -90,7 +100,7 @@ class Security
     public function logout(): void
     {
         session_destroy();
-        $myView = new View("Security/logout", "front");
+        $view = new View("Security/logout", "front");
     }
 
     /**
@@ -119,7 +129,7 @@ class Security
             $account = $user->getOneBy(["email" => $_POST['user_email']], "object");
             if ($account)
             {
-                $errors['user_email'] = "L'adresse e-mail est déjà utilisée. Merci de bien vouloir renseigner une autre adresse e-mail.";
+                $errors['user_email'] = "-L'adresse e-mail est déjà utilisée. Merci de bien vouloir renseigner une autre adresse e-mail.";
                 $view->assign('errors', $errors);
                 exit;
             }else{
@@ -129,6 +139,7 @@ class Security
                 $user->setLastname($_POST['user_lastname']);
                 $user->setEmail($_POST['user_email']);
                 $user->setPassword($_POST['user_password']);
+                $user->setRole("user");
                 $user->save();
 
                 $phpMailer = new PhpMailor();
@@ -174,21 +185,21 @@ class Security
                     }
                     else
                     {
-                        $errors['user_email'] = "L'adresse e-mail que vous avez saisie n'est associée à aucun compte.";
+                        $errors['user_email'] = "-L'adresse e-mail que vous avez saisie n'est associée à aucun compte.";
                         $view->assign('errors', $errors);
                         exit;
                     }
                 }
                 else
                 {
-                    $errors['user_email'] = "Un mail d'activation vous a été envoyé lors de la création de votre compte.<br>Merci de confirmer votre adresse e-mail.";
+                    $errors['user_email'] = "-Un mail d'activation vous a été envoyé lors de la création de votre compte.<br>Merci de confirmer votre adresse e-mail.";
                     $view->assign('errors', $errors);
                     exit;
                 }
             }
             else
             {
-                $errors['user_email'] = "L'adresse e-mail que vous avez saisie n'est associée à aucun compte.";
+                $errors['user_email'] = "-L'adresse e-mail que vous avez saisie n'est associée à aucun compte.";
                 $view->assign('errors', $errors);
                 exit;
             }
@@ -198,21 +209,36 @@ class Security
     }
 
 
+    public function softDeleteAccount(): void
+    {
+
+    }
+
+    public function hardDeleteAccount(): void
+    {
+
+    }
+
     public function modifieAccount(): void
     {
-        $form = new ModifieAccount();
-        $config = $form->getConfig();
-        $errors = [];
-        $myView = new View("Security/accountInfo", "front");
-        $myView->assign("configForm", $config);
-        $myView->assign("errorsForm", $errors);
-        echo "Ma page de modification cu compte";
+        if ($this->UserIsLogged() == true) {
+
+            $form = new ModifieAccount();
+            $view = new View("Security/accountmodification", "front");
+            $view->assign('config', $form->getConfig());
+        }
+        else
+        {
+            die("Page 404");
+            $customError = new Error();
+            $customError->page404();
+        }
     }
 
     public function confirmedEmail(): void
     {
         if ($this->UserIsLogged() == false) {
-            $myView = new View("Security/emailconfirmed", "front");
+            $view = new View("Security/emailconfirmed", "front");
         }
         else
         {
@@ -225,7 +251,7 @@ class Security
     public function ChangePasswordNotify():void
     {
         if ($this->UserIsLogged() == false) {
-            $myView = new View("Security/passwordverificationmsg", "front");
+            $view = new View("Security/passwordverificationmsg", "front");
         }
         else
         {
@@ -269,14 +295,14 @@ class Security
                     }
                     else
                     {
-                        $errors['user_email'] = "L'adresse e-mail que vous avez saisie n'est associée à aucun compte.";
+                        $errors['user_email'] = "-L'adresse e-mail que vous avez saisie n'est associée à aucun compte.";
                         $view->assign('errors', $errors);
                         exit;
                     }
                 }
                 else
                 {
-                    $errors['user_email'] = "Un mail d'activation vous a été envoyé lors de la création de votre compte.<br>Merci de confirmer votre adresse e-mail.";
+                    $errors['user_email'] = "-Un mail d'activation vous a été envoyé lors de la création de votre compte.<br>Merci de confirmer votre adresse e-mail.";
                     $view->assign('errors', $errors);
                     exit;
                 }
@@ -288,7 +314,7 @@ class Security
     public function passwordChangedSucces(): void
     {
         if ($this->UserIsLogged() == false){
-            $myView = new View("Security/passwordconfirmedmsg", "front");
+            $view = new View("Security/passwordconfirmedmsg", "front");
         }
         else
         {
@@ -301,7 +327,7 @@ class Security
     public function verifyEmailNotify(): void
     {
         if ($this->UserIsLogged() == false) {
-            $myView = new View("Security/emailconfirmedmsg", "front");
+            $view = new View("Security/emailconfirmedmsg", "front");
         }
         else
         {
@@ -315,7 +341,7 @@ class Security
     {
         //Si le compte est ps connected et vefifier son email_verified à 1
         if ($this->UserIsLogged() == true) {
-            $myView = new View("Security/needtologout", "front");
+            $view = new View("Security/needtologout", "front");
         }
         else
         {
