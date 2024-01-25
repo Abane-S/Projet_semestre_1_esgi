@@ -1,27 +1,71 @@
 <?php
 
-namespace App\forms;
-class ModifieAccount
+namespace App\Forms;
+use App\Core\Verificator;
+
+class ModifieAccount extends Verificator
 {
+
+    protected $method = "POST";
+    protected array $config = [];
 
     public function getConfig(): array
     {
-        return [
-            "config"=> [
-                "method"=>"POST",
-                "action"=>"",
-                "submit"=>"Modifier",
-                "class"=>"form",
-                "id"=>"form-pwd-change"
+        $this->config =  [
+            "config" => [
+                "method" => $this->method,
+                "action" => "",
+                "submit" => "Modifier",
             ],
-            "inputs"=>[
-                "firstname"=>["type"=>"text", "class"=>"input-form" , "placeholder"=>"Prénom", "minlen"=>2, "required"=>true, "error"=>"Le prénom doit faire plus de 2 caractères"],
-                "lastname"=>["type"=>"text", "class"=>"input-form", "placeholder"=>"Nom", "minlen"=>2, "required"=>true, "error"=>"Le nom doit faire plus de 2 caractères"],
-                "email"=>["type"=>"email", "class"=>"input-form", "placeholder"=>"Email", "required"=>true, "error"=>"Le format de l'email est incorrect"],
-                "newpwd"=>["type"=>"password", "class"=>"input-form", "placeholder"=>"Nouveau mot de passe", "required"=>true, "error"=>"Votre mot de passe doit faire plus de 8 caractères avec minuscule et chiffre"],
-                "pwdConfirm"=>["type"=>"password", "class"=>"input-form", "confirm"=>"pwd" ,"placeholder"=>"Confirmation du nouveau mot de passe", "required"=>true, "error"=>"Votre mot de passe de confirmation ne correspond pas"],
+            "inputs" => [
+                "user_firstname" => [
+                    "type" => "text",
+                    "placeholder" => "Votre prénom",
+                    "min" => 2,
+                    "max" => 45,
+                    "label" => "",
+                    "error" => "-Votre prénom doit faire entre 2 et 45 caractères et ne doit contenir que des lettres.",
+                    "required" => true
+                ],
+                "user_lastname" => [
+                    "type" => "text",
+                    "placeholder" => "Votre nom de famille",
+                    "min" => 2,
+                    "max" => 45,
+                    "label" => "",
+                    "error" => "-Votre nom de famille doit faire entre 2 et 45 caractères et ne doit contenir que des lettres.",
+                    "required" => true
+                ],
+                "user_password" => [
+                    "type" => "password",
+                    "min" => 8,
+                    "max" => 45,
+                    "label" => "",
+                    "placeholder" => "Votre mot de passe",
+                    "error" => "-Format du mot de passe incorrect, minimum 8 caractères, maximum 45 caractères, dont une majuscule, une minuscule, un chiffre et un caractère spécial parmi \"@#$%^&*()_+=[\]{}|;:'\",<.>/?~\\!\" ",
+                    "required" => true
+                ],
+                "user_confirm_password" => [
+                    "type" => "password",
+                    "min" => 8,
+                    "max" => 45,
+                    "label" => "",
+                    "placeholder" => "Confirmation de votre mot de passe",
+                    "confirm" => "user_password",
+                    "error" => "-Vous avez insérer deux mots de passe différents",
+                    "required" => true
+                ],
+                "csrf_token" => [
+                    "type" => "hidden",
+                    "placeholder" => "",
+                    "label" => "",
+                    "error" => "",
+                    "required" => true
+                ],
             ]
         ];
+
+        return $this->config;
     }
 
 }

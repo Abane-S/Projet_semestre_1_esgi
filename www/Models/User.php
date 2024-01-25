@@ -12,12 +12,23 @@ class User extends DB
     protected string $lastname;
     protected string $email;
     protected string $pwd;
-    protected int $role;
+    protected string $role;
+
     protected String $verification_token;
     protected Int $email_verified;
     protected $date_inserted;
     protected $date_updated;
     protected int $isdeleted;
+
+    public function getRole(): string
+    {
+        return $this->role;
+    }
+
+    public function setRole(string $role): void
+    {
+        $this->role = $role;
+    }
 
     public function getIsdeleted(): int
     {
@@ -124,27 +135,6 @@ class User extends DB
         $this->pwd = $pwd;
     }
 
-    /**
-     * Get the value of role
-     */ 
-    public function getRole()
-    {
-        return $this->role;
-    }
-
-    /**
-     * Set the value of role
-     *
-     * @return  self
-     */ 
-    public function setRole(int $role)
-    {
-        $this->role = $role;
-
-        
-    }
-
-
     public function getVericationToken(): int
     {
         return $this->verification_token;
@@ -206,4 +196,5 @@ class User extends DB
     {
         $this->date_updated = $date_updated;
     }
+
 }

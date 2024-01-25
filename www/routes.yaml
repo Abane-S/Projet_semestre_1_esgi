@@ -61,9 +61,16 @@
 /installer-next:
   controller: Installer
   action: installNext
-
+  
 /dashboard:
   controller: Main
   action: dashboard
+  
+ /hard-delete:
+  controller: Security
+  action: hardDeleteAccount
 
+/soft-delete:
+  controller: Security
+  action: softDeleteAccount
 
