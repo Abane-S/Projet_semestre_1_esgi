@@ -8,18 +8,6 @@ class Main
 {
     public function home(): void
     {
-        //$myUser = new User();
-        //$myUser->setFirstname("YVEs");
-        //$myUser->setLastname("Skrzypczyk  ");
-        //$myUser->setEmail("Y.skrzypczyk@gmail.com");
-        //$myUser->setPassword("Test1234");
-        //$myUser->setStatus(1);
-        //$myUser->save();
-
-        //$myUser = User::populate(1);
-        //$myUser->setLastname("yo");
-        //$myUser->save();
-
         /*
         $myPage = new Page();
         $myPage->setTitle("MA super page");
@@ -34,5 +22,18 @@ class Main
     {
         // echo "Ma page a propos";
         $myView = new View("Main/aboutus", "front");
+    }
+
+    public function dashboard(): void 
+    {
+
+        if (isset($_SESSION['Connected'])){
+            $view = new View("Admin/dashboard", "back");
+            $user = new User();
+            $view->assign("users", $user->findAll());
+        }
+        else {
+            header('Location: /');
+        }
     }
 }

@@ -4,7 +4,7 @@
 --     lastname VARCHAR(50) NOT NULL,
 --     email VARCHAR(320) NOT NULL,
 --     pwd VARCHAR(255) NOT NULL,
---     status SMALLINT NOT NULL DEFAULT 0,
+--     role SMALLINT NOT NULL DEFAULT 0,
 --     isDeleted BOOLEAN DEFAULT FALSE,
 --     insertedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 --     updatedAt TIMESTAMP NULL DEFAULT NULL
@@ -33,10 +33,10 @@ CREATE TABLE IF NOT EXISTS esgi_user (
     "lastname" VARCHAR(50) NOT NULL,
     "email" VARCHAR(320) NOT NULL,
     "pwd" VARCHAR(255) NOT NULL,
-    "status" SMALLINT NOT NULL DEFAULT 0,
+    "role" SMALLINT NOT NULL DEFAULT 0,
     "verification_token" VARCHAR(255),
     "email_verified" boolean DEFAULT false,
     "date_inserted" TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     "date_updated" timestamp,
-    "isDeleted" BOOLEAN DEFAULT FALSE
+    "isdeleted" BOOLEAN DEFAULT FALSE
 );
