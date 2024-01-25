@@ -12,7 +12,7 @@ class User extends DB
     protected string $lastname;
     protected string $email;
     protected string $pwd;
-    protected int $status;
+    protected int $role;
     protected String $verification_token;
     protected Int $email_verified;
     protected $date_inserted;
@@ -115,21 +115,21 @@ class User extends DB
     }
 
     /**
-     * Get the value of status
+     * Get the value of role
      */ 
-    public function getStatus()
+    public function getRole()
     {
-        return $this->status;
+        return $this->role;
     }
 
     /**
-     * Set the value of status
+     * Set the value of role
      *
      * @return  self
      */ 
-    public function setStatus(int $status)
+    public function setRole(int $role)
     {
-        $this->status = $status;
+        $this->role = $role;
 
         
     }
@@ -209,5 +209,23 @@ class User extends DB
     public function setIsDeleted(bool $isdeleted)
     {
         $this->isDeleted = $isdeleted;
+    }
+
+    public function getEmailverify($email) : bool
+    {
+        $sql = "SELECT email_verified FROM users WHERE email = :email";
+        $queryPrepared = $this->pdo->prepare($sql);
+        $queryPrepared->execute(['email' => $email]);
+        $result = $queryPrepared->fetch();
+        return $result['email_verified'];
+    }
+
+    public function getAccountisDeleted($email): bool
+    {
+        $sql = "SELECT isdeleted FROM users WHERE email = :email";
+        $queryPrepared = $this->pdo->prepare($sql);
+        $queryPrepared->execute(['email' => $email]);
+        $result = $queryPrepared->fetch();
+        return $result['isdeleted'];
     }
 }
