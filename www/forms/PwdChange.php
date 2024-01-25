@@ -3,12 +3,10 @@
 namespace App\Forms;
 use App\Core\Verificator;
 
-
-class UserLogin extends Verificator
+class PwdChange extends Verificator
 {
 
     protected $method = "POST";
-
     protected array $config = [];
 
     public function getConfig(): array
@@ -17,24 +15,25 @@ class UserLogin extends Verificator
             "config" => [
                 "method" => $this->method,
                 "action" => "",
-                "submit" => "Se Connecter",
+                "submit" => "Changer mon mot de passe",
             ],
             "inputs" => [
-                "user_email" => [
-                    "type" => "email",
-                    "min" => 5,
-                    "max" => 255,
-                    "label" => "",
-                    "placeholder" => "Votre email",
-                    "error" => "L'adresse e-mail ou le mot de passe est incorrecte."
-                ],
                 "user_password" => [
                     "type" => "password",
                     "min" => 8,
                     "max" => 45,
                     "label" => "",
                     "placeholder" => "Votre mot de passe",
-                    "error" => "Le mot de passe est incorrect."
+                    "error" => "Format incorrect, votre mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial parmi \"@#$%^&*()_+=[\]{}|;:'\",<.>/?~\\!\" "
+                ],
+                "user_confirm_password" => [
+                    "type" => "password",
+                    "min" => 8,
+                    "max" => 45,
+                    "label" => "",
+                    "placeholder" => "Confirmation de votre mot de passe",
+                    "confirm" => "user_password",
+                    "error" => "Vous avez insérer deux mots de passe différents"
                 ],
                 "csrf_token" => [
                     "type" => "hidden",
@@ -47,4 +46,5 @@ class UserLogin extends Verificator
 
         return $this->config;
     }
+
 }

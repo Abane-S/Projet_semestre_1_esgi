@@ -1,7 +1,7 @@
 <div class="div_input">
-    <h2>Email confirmer</h2>
+    <h2>Déconnexion.</h2>
 
-    <span>Votre adresse e-mail a bien été confirmée, votre compte est maintenant activé.<br>Vous allez être redirigé vers la page de connexion</span>
+    <span>Vous avez été déconnecté.<br>Vous allez être redirigé vers la page de connexion.</span>
     <div class="loader-dot">
         <div class="dot"></div>
         <div class="dot"></div>
