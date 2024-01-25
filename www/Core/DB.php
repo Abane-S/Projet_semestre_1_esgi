@@ -113,4 +113,17 @@ class DB
 
         return $queryPrepared->fetch();
     }
+
+
+    public function findAll($sort = null, $order = null ): array
+    {
+        if ($sort && $order) {
+            $query = $this->pdo->query("SELECT * FROM " . $this->table . " ORDER BY " . $sort . " " . $order);
+        } else {
+            $query = $this->pdo->query("SELECT * FROM " . $this->table);
+        }
+        return $query->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+
 }
