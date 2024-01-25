@@ -54,4 +54,12 @@
   controller: Security
   action: passwordChangedSucces
 
+/installer:
+  controller: Installer
+  action: install
+
+/installer-next:
+  controller: Installer
+  action: installNext
+
 

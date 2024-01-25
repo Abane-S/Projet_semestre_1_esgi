@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Forms;
+namespace App\forms;
 use App\Core\Verificator;
 
-class UserInsert extends Verificator
+
+class Adminnstaller extends Verificator
 {
 
     protected $method = "POST";
+
     protected array $config = [];
 
     public function getConfig(): array
@@ -15,7 +17,7 @@ class UserInsert extends Verificator
             "config" => [
                 "method" => $this->method,
                 "action" => "",
-                "submit" => "S'inscrire",
+                "submit" => "Valider",
             ],
             "inputs" => [
                 "user_firstname" => [
@@ -23,8 +25,8 @@ class UserInsert extends Verificator
                     "placeholder" => "Votre prénom",
                     "min" => 2,
                     "max" => 45,
-                    "label" => "",
-                    "error" => "-Votre prénom doit faire entre 2 et 45 caractères et ne doit contenir que des lettres.",
+                    "label" => "Prénom :",
+                    "error" => "Votre prénom doit faire entre 2 et 45 caractères et ne doit contenir que des lettres",
                     "required" => true
                 ],
                 "user_lastname" => [
@@ -32,46 +34,36 @@ class UserInsert extends Verificator
                     "placeholder" => "Votre nom de famille",
                     "min" => 2,
                     "max" => 45,
-                    "label" => "",
-                    "error" => "-Votre nom de famille doit faire entre 2 et 45 caractères et ne doit contenir que des lettres.",
+                    "label" => "Nom de famille :",
+                    "error" => "Votre nom de famille doit faire entre 2 et 45 caractères et ne doit contenir que des lettres",
                     "required" => true
                 ],
                 "user_email" => [
                     "type" => "email",
                     "min" => 5,
                     "max" => 255,
-                    "label" => "",
+                    "label" => "Adresse email :",
                     "placeholder" => "Votre email",
-                    "error" => "-Le format de votre email est incorrect (exemple: test@gmail.com).",
-                    "required" => true
+                    "error" => "Le format de votre email est incorrect (exemple: test@gmail.com)",
+        "required" => true
                 ],
                 "user_confirm_email" => [
                     "type" => "email",
                     "min" => 5,
                     "max" => 255,
-                    "label" => "",
+                    "label" => "Confirmation adresse email :",
                     "placeholder" => "Confirmation de votre email",
                     "confirm" => "user_email",
-                    "error" => "-Vous avez insérer deux emails différents.",
+                    "error" => "Vous avez insérer deux emails différents",
                     "required" => true
                 ],
                 "user_password" => [
                     "type" => "password",
                     "min" => 8,
                     "max" => 45,
-                    "label" => "",
+                    "label" => "Mot de passe :",
                     "placeholder" => "Votre mot de passe",
-                    "error" => "-Format du mot de passe incorrect, minimum 8 caractères, maximum 45 caractères, dont une majuscule, une minuscule, un chiffre et un caractère spécial parmi \"@#$%^&*()_+=[\]{}|;:'\",<.>/?~\\!\" ",
-                    "required" => true
-                ],
-                "user_confirm_password" => [
-                    "type" => "password",
-                    "min" => 8,
-                    "max" => 45,
-                    "label" => "",
-                    "placeholder" => "Confirmation de votre mot de passe",
-                    "confirm" => "user_password",
-                    "error" => "-Vous avez insérer deux mots de passe différents",
+                    "error" => "Format incorrect, votre mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial parmi \"@#$%^&*()_+=[\]{}|;:'\",<.>/?~\\!\" ",
                     "required" => true
                 ],
                 "csrf_token" => [
@@ -86,5 +78,4 @@ class UserInsert extends Verificator
 
         return $this->config;
     }
-
 }
