@@ -62,4 +62,8 @@
   controller: Installer
   action: installNext
 
+/dashboard:
+  controller: Main
+  action: dashboard
+
 
