@@ -1,7 +1,7 @@
 <div class="div_input">
     <h2>Modifier les données du compte</h2>
     <?php
-
+var_dump($_SESSION['Account']);
     if (isset($errors) && !empty($errors)) {
         echo "<div class='alert alert-danger' style='width: 80%;margin: auto;'>";
         foreach ($errors as $error) {

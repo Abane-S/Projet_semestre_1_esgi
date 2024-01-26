@@ -40,10 +40,8 @@ Ce framework offre une architecture MVC personnalisée avec un moteur de templat
 Instructions d'installation via Docker pour un déploiement rapide et facile.
 
 ````bash
+docker-compose build
 docker-compose up -d
-docker-compose exec php yarn install
-docker-compose exec php yarn build
-docker-compose exec php composer install
 ````
 
 ## 📃 Modèle conceptuel de données
@@ -85,8 +83,9 @@ docker-compose exec php composer install
 - Design pattern Menento
 - Intégration d'un CLI
 
-## 👤 Groupe number two
+## 👤 Groupe 2
 
 - Abane SEBIANE - [Github](https://github.com/Abane-S)
 - Botan YILMAZ - [Github](https://github.com/TheoPARISOT)
 - PARISOT Théo - [Github](https://github.com/BotanESGI)
+- Théo LE GALLAIS - [Github](https://github.com/Theolgs)
