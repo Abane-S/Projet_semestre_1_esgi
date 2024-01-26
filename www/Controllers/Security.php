@@ -41,25 +41,21 @@ class Security
                         if(!$account->getIsDeleted())
                         {
                             $accountArray = $user->getOneBy(["email" => strtolower($_POST['user_email'])], "array");
+                            $_SESSION['Connected'] = true;
+                            $_SESSION['Account'] = $accountArray;
                             if($account->getRole() == "user")
                             {
-                                $_SESSION['Connected'] = true;
-                                $_SESSION['Account'] = $accountArray;
                                 header("Location: /");
                                 exit;
                             }
                             if($account->getRole() == "moderator")
                             {
-                                $_SESSION['Connected'] = true;
-                                $_SESSION['Account'] = $accountArray;
                                 header("Location: /moderator");
                                 exit;
                             }
                             if($account->getRole() == "admin")
                             {
-                                $_SESSION['Connected'] = true;
-                                $_SESSION['Account'] = $accountArray;
-                                header("Location: /admin");
+                                header("Location: /dashboard");
                                 exit;
                             }
                         }
@@ -229,9 +225,7 @@ class Security
         }
         else
         {
-            die("Page 404");
-            $customError = new Error();
-            $customError->page404();
+            $view = new View("Error/page404", "front");
         }
     }
 
@@ -242,9 +236,7 @@ class Security
         }
         else
         {
-            die("Page 404");
-            $customError = new Error();
-            $customError->page404();
+            $view = new View("Error/page404", "front");
         }
     }
 
@@ -255,18 +247,14 @@ class Security
         }
         else
         {
-            die("Page 404");
-            $customError = new Error();
-            $customError->page404();
+            $view = new View("Error/page404", "front");
         }
     }
 
     public function ChangePasswordVerification():void
     {
         if (!isset($_GET['token']) || empty($_GET['token'])) {
-            die("Page 404");
-            $customError = new Error();
-            $customError->page404();
+            $view = new View("Error/page404", "front");
         } else {
             $token = $_GET['token'];
             $user = new User();
@@ -318,9 +306,7 @@ class Security
         }
         else
         {
-            die("Page 404");
-            $customError = new Error();
-            $customError->page404();
+            $view = new View("Error/page404", "front");
         }
     }
 
@@ -331,9 +317,7 @@ class Security
         }
         else
         {
-            die("Page 404");
-            $customError = new Error();
-            $customError->page404();
+            $view = new View("Error/page404", "front");
         }
     }
 
@@ -345,18 +329,14 @@ class Security
         }
         else
         {
-            die("Page 404");
-            $customError = new Error();
-            $customError->page404();
+            $view = new View("Error/page404", "front");
         }
     }
 
     public function verifyEmail()
     {
         if (!isset($_GET['token']) || empty($_GET['token'])) {
-            die("Page 404");
-            $customError = new Error();
-            $customError->page404();
+            $view = new View("Error/page404", "front");
         } else {
             $token = $_GET['token'];
             $user = new User();

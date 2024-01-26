@@ -26,14 +26,13 @@ class Main
 
     public function dashboard(): void 
     {
-
-        if (isset($_SESSION['Connected'])){
-            $view = new View("Admin/dashboard", "back");
+        if ($_SESSION['Account']['role'] == "admin"){
+            $view = new View("Admin/Dashboard", "back");
             $user = new User();
             $view->assign("users", $user->findAll());
         }
         else {
-            header('Location: /');
+            header('Location: /error');
         }
     }
 }

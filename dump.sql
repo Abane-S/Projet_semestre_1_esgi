@@ -10,7 +10,7 @@ CREATE TABLE "public"."esgi_user" (
     "lastname" character varying(50) NOT NULL,
     "email" character varying(320) NOT NULL,
     "pwd" character varying(255) NOT NULL,
-    "role" character varying DEFAULT '0' NOT NULL,
+    "role" character varying(10) DEFAULT 'user' NOT NULL,
     "verification_token" character varying(255),
     "email_verified" boolean DEFAULT false,
     "date_inserted" timestamptz DEFAULT CURRENT_TIMESTAMP,

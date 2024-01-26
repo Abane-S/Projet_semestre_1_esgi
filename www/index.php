@@ -39,6 +39,7 @@ $uri = strlen($uri)>1 ? rtrim($uri, "/"):$uri;
 if(!file_exists("routes.yaml")){
     die("Le fichier de routing n'existe pas");
 }
+
 $listOfRoutes = yaml_parse_file("routes.yaml");
 
 // Créer une instance du bon controller 

@@ -1,4 +1,4 @@
-<?php $user = $_SESSION['user']; ?>
+<?php $user = $_SESSION['Account']; ?>
 <div class="container">
     <h3>Welcome <?= $user['firstname'] ?> <?= $user['lastname'] ?> ! </h3>
     <h4> un récapitulatif de vos informations : </h4>
