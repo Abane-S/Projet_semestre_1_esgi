@@ -15,10 +15,9 @@ use App\Models\User;
 
 class Security
 {
-    public function UserIsLogged(): bool {
-        return isset($_SESSION['Connected']) && $_SESSION['Connected'] == true;
+    public static function UserIsLogged(): bool {
+        return isset($_SESSION['Account']) && !empty($_SESSION['Account']);
     }
-
 
     public function login(): void
     {
@@ -41,7 +40,6 @@ class Security
                         if(!$account->getIsDeleted())
                         {
                             $accountArray = $user->getOneBy(["email" => strtolower($_POST['user_email'])], "array");
-                            $_SESSION['Connected'] = true;
                             $_SESSION['Account'] = $accountArray;
                             if($account->getRole() == "user")
                             {

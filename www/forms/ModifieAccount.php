@@ -24,6 +24,7 @@ class ModifieAccount extends Verificator
                     "min" => 2,
                     "max" => 45,
                     "label" => "",
+                    "value" => $_SESSION['Account']['firstname'],
                     "error" => "-Votre prénom doit faire entre 2 et 45 caractères et ne doit contenir que des lettres.",
                     "required" => true
                 ],
@@ -33,6 +34,7 @@ class ModifieAccount extends Verificator
                     "min" => 2,
                     "max" => 45,
                     "label" => "",
+                    "value" => $_SESSION['Account']['lastname'],
                     "error" => "-Votre nom de famille doit faire entre 2 et 45 caractères et ne doit contenir que des lettres.",
                     "required" => true
                 ],
