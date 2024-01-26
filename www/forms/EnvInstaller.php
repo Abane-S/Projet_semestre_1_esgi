@@ -19,11 +19,27 @@ class EnvInstaller extends Verificator
                 "action" => "",
                 "submit" => "Valider",
             ],
+            "select" => [
+                "db_engine" => [
+                    "label" => "Système de gestion de base de données :",
+                    "options" => [
+                        "pgsql" => "PostgreSQL",
+                        "mysql" => "MySQL",
+                        "sqlsrv" => "SQL Server",
+                        "oracle" => "Oracle",
+                        "cubrid" => "CUBRID",
+                        "odbc" => "ODBC",
+                        "firebird" => "Firebird"
+                    ],
+                    "error" => "-Veuillez sélectionner un type de base de données",
+                    "required" => true
+                ]
+            ],
             "inputs" => [
                 "db_name" =>[
                     "type" => "text",
                     "label" => "Nom de la base de données : ",
-                    "max" => 1,
+                    "min" => 1,
                     "max" => 64,
                     "placeholder" => "Portfolio_DB",
                     "error" => "-Le nom d'utilisateur de la base de données est incorrect, longeur entre 1 et 64 caractères, et ne peut contenir que des lettres (majuscules et minuscules), des chiffres et des caractères de soulignement",
@@ -32,7 +48,7 @@ class EnvInstaller extends Verificator
                 "db_host" =>[
                     "type" => "text",
                     "label" => "Hôte de la base de données : ",
-                    "max" => 1,
+                    "min" => 1,
                     "max" => 64,
                     "placeholder" => "database",
                     "error" => "-L'hôte de la base de données est incorrect, longeur entre 1 et 64 caractères, et ne peut contenir que des lettres (majuscules et minuscules), des chiffres et des caractères de soulignement",
@@ -42,7 +58,7 @@ class EnvInstaller extends Verificator
                     "type" => "text",
                     "label" => "Port de la base de données : ",
                     "min" => 1,
-                    "placeholder" => "8082",
+                    "placeholder" => "5432",
                     "error" => "-Le port de la base de données est incorrect<br>(il doit être compris entre 0 et 65535)",
                     "required" => true
                 ],
@@ -60,7 +76,7 @@ class EnvInstaller extends Verificator
                     "label" => "Mot de passe de la base de données :",
                     "min" => 8,
                     "max" => 45,
-                    "placeholder" => "Portfolio_Pass123@",
+                    "placeholder" => "Portfolio_PASS123@",
                     "error" => "-Format du mot de passe incorrect, minimum 8 caractères, maximum 45 caractères, dont une majuscule, une minuscule, un chiffre et un caractère spécial parmi \"@#$%^&*()_+=[\]{}|;:'\",<.>/?~\\!\" ",
                     "required" => true
                 ],
@@ -68,8 +84,8 @@ class EnvInstaller extends Verificator
                     "type" => "password",
                     "min" => 8,
                     "max" => 45,
-                    "label" => "Confirmation mot de passe :",
-                    "placeholder" => "Confirmation de votre mot de passe",
+                    "label" => "Confirmation du mot de passe de la base de données :",
+                    "placeholder" => "Confirmation du mot de passe de la base de données",
                     "confirm" => "db_password",
                     "error" => "-Vous avez insérer deux mots de passe différents",
                     "required" => true

@@ -19,6 +19,47 @@ class Verificator {
         return false;
     }
 
+    public function isValidAccountModification(): bool
+    {
+        if (count($this->config["inputs"]) != count($this->data) - 1) {
+            die("Tentative de Hack 1");
+        }
+        foreach ($this->config["inputs"] as $name => $input) {
+            if (!$this->checkIdentical($this->data["csrf_token"], $_SESSION['csrf_token'])) {
+                die("Tentative de Hack 3");
+            }
+
+            if(!empty($this->data[$name])
+            )
+            {
+                if ($input["type"] == "password" && !($this->checkPassword($this->data[$name])) && $name != "user_confirm_password") {
+                    $this->listOfErrors[] = $input["error"];
+                }
+
+                if ($input["type"] == "text" && !($this->checkName($this->data[$name])) && $name != "user_lastname") {
+                    $this->listOfErrors[] = $input["error"];
+                }
+
+                if ($input["type"] == "text" && !($this->checkName($this->data[$name])) && $name != "user_firstname") {
+                    $this->listOfErrors[] = $input["error"];
+                }
+
+                if ($input["type"] == "password" && !$this->checkIdentical($this->data["user_password"], $this->data[$name])) {
+                    $this->listOfErrors[] = $input["error"];
+                }
+            }
+            if(empty($this->data["user_confirm_password"]) && !empty($this->data["user_password"]))
+            {
+                if ($input["type"] == "password" && !$this->checkIdentical($this->data["user_password"], $this->data[$name])) {
+                    $this->listOfErrors[] = $input["error"];
+                }
+            }
+        }
+        if(empty($this->listOfErrors)){
+            return true;
+        }
+        return false;
+    }
 
     public function isValid(): bool
     {
@@ -67,7 +108,7 @@ class Verificator {
 
     public function isValidInstall(): bool
     {
-        if (count($this->config["inputs"]) != count($this->data) - 1) {
+        if (count($this->config["inputs"]) + count($this->config["select"]) != count($this->data) - 1) {
             die("Tentative de Hack 1");
         }
         foreach ($this->config["inputs"] as $name => $input) {

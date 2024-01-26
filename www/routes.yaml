@@ -54,14 +54,18 @@
   controller: Security
   action: passwordChangedSucces
 
-/installer:
+/installer1-3:
   controller: Installer
-  action: install
+  action: installBdd
 
-/installer-next:
+/installer2-3:
   controller: Installer
-  action: installNext
-  
+  action: installAdminAccount
+
+/installer3-3:
+  controller: Installer
+  action: installSite
+
 /dashboard:
   controller: Main
   action: dashboard
@@ -74,3 +78,6 @@
   controller: Security
   action: softDeleteAccount
 
+/account-modified-notify:
+  controller: Security
+  action: accountModifiedNotify

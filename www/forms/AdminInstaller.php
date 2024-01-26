@@ -4,7 +4,7 @@ namespace App\forms;
 use App\Core\Verificator;
 
 
-class Adminnstaller extends Verificator
+class AdminInstaller extends Verificator
 {
 
     protected $method = "POST";
@@ -45,7 +45,7 @@ class Adminnstaller extends Verificator
                     "label" => "Adresse email :",
                     "placeholder" => "Votre email",
                     "error" => "Le format de votre email est incorrect (exemple: test@gmail.com)",
-        "required" => true
+                    "required" => true
                 ],
                 "user_confirm_email" => [
                     "type" => "email",
