@@ -11,6 +11,7 @@
 
 namespace App;
 use App\Controllers\Error;
+use App\Controllers\EnvDecomposer;
 
 session_start();
 
@@ -91,4 +92,9 @@ if ( !empty($listOfRoutes[$uri]) ){
     die("Page 404");
     $customError = new Error();
     $customError->page404();
+}
+
+if(!file_exists('./.env')){
+        header("Location: /installer1-3");
+        exit;
 }
