@@ -33,9 +33,6 @@
                 placeholder="<?= $configInput["placeholder"] ?? "" ?>"
                 value="<?= ($name == "csrf_token") ? GenerateCSRFToken() : $valeurs[$name] ?>"
             <?= (!empty($configInput["required"])) ? "required" : "" ?>
-        <?php if ($configInput["value"]): ?>
-            value="<?= $configInput["value"] ?? "" ?>"
-        <?php endif; ?>
         >
 
         <?php if ($name !== "csrf_token"): ?>
