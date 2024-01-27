@@ -22,6 +22,7 @@ class EnvInstaller extends Verificator
             "select" => [
                 "db_engine" => [
                     "label" => "Système de gestion de base de données :",
+                    "class" => "w-8",
                     "options" => [
                         "pgsql" => "PostgreSQL",
                         "mysql" => "MySQL",
@@ -77,7 +78,7 @@ class EnvInstaller extends Verificator
                     "min" => 8,
                     "max" => 45,
                     "placeholder" => "Portfolio_PASS123@",
-                    "error" => "-Format du mot de passe incorrect, minimum 8 caractères, maximum 45 caractères, dont une majuscule, une minuscule, un chiffre et un caractère spécial parmi \"@#$%^&*()_+=[\]{}|;:'\",<.>/?~\\!\" ",
+                    "error" => "-Le format du mot de passe de la base de données est incorrect, minimum 8 caractères, maximum 45 caractères, dont une majuscule, une minuscule, un chiffre et un caractère spécial parmi \"@#$%^&*()_+=[\]{}|;:'\",<.>/?~\\!\" ",
                     "required" => true
                 ],
                 "db_confirm_password" => [
@@ -87,7 +88,72 @@ class EnvInstaller extends Verificator
                     "label" => "Confirmation du mot de passe de la base de données :",
                     "placeholder" => "Confirmation du mot de passe de la base de données",
                     "confirm" => "db_password",
-                    "error" => "-Vous avez insérer deux mots de passe différents",
+                    "error" => "-Vous avez insérer deux mots de passe de base de données différents",
+                    "required" => true
+                ],
+                "db_table_prefix" => [
+                    "type" => "text",
+                    "min" => 2,
+                    "max" => 7,
+                    "label" => "Prefix de la table :",
+                    "placeholder" => "esgi_",
+                    "error" => "-Vous avez inséré un préfixe de table incorrect. Il doit comporter un minimum de 2 caractères et un maximum de 7 caractères, ne contenir que des lettres et obligatoirement inclure le caractère '_'",
+                    "required" => true
+                ],
+                "admin_firstname" => [
+                    "type" => "text",
+                    "placeholder" => "Votre prénom",
+                    "min" => 2,
+                    "max" => 45,
+                    "label" => "Prénom :",
+                    "error" => "-Votre prénom doit faire entre 2 et 45 caractères et ne doit contenir que des lettres",
+                    "required" => true
+                ],
+                "admin_lastname" => [
+                    "type" => "text",
+                    "placeholder" => "Votre nom de famille",
+                    "min" => 2,
+                    "max" => 45,
+                    "label" => "Nom de famille :",
+                    "error" => "-Votre nom de famille doit faire entre 2 et 45 caractères et ne doit contenir que des lettres",
+                    "required" => true
+                ],
+                "admin_email" => [
+                    "type" => "email",
+                    "min" => 5,
+                    "max" => 255,
+                    "label" => "Adresse email :",
+                    "placeholder" => "Votre email",
+                    "error" => "-Le format de votre email est incorrect (exemple: test@gmail.com)",
+                    "required" => true
+                ],
+                "admin_confirm_email" => [
+                    "type" => "email",
+                    "min" => 5,
+                    "max" => 255,
+                    "label" => "Confirmation adresse email :",
+                    "placeholder" => "Confirmation de votre email",
+                    "confirm" => "admin_email",
+                    "error" => "-Vous avez insérer deux emails différents",
+                    "required" => true
+                ],
+                "admin_password" => [
+                    "type" => "password",
+                    "min" => 8,
+                    "max" => 45,
+                    "label" => "Mot de passe :",
+                    "placeholder" => "Votre mot de passe",
+                    "error" => "-Format incorrect, votre mot de passe du compte admin doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial parmi \"@#$%^&*()_+=[\]{}|;:'\",<.>/?~\\!\" ",
+                    "required" => true
+                ],
+                "admin_confirm_password" => [
+                    "type" => "password",
+                    "min" => 8,
+                    "max" => 45,
+                    "label" => "Confirmation du mot de passe :",
+                    "placeholder" => "Confirmation de votre mot de passe",
+                    "confirm" => "admin_password",
+                    "error" => "-Vous avez insérer deux mots de passe admin différents",
                     "required" => true
                 ],
                 "csrf_token" => [
