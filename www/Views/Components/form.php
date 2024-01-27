@@ -8,7 +8,7 @@
 
     <?php
         // Définir les noms des champs que vous souhaitez récupérer
-        $champs = ['user_firstname', 'user_lastname', 'user_email', 'user_confirm_email', 'user_password', 'user_confirm_password', 'csrf_token', 'db_name', 'db_host', 'db_port', 'db_username', 'db_port', "db_password", "db_confirm_password", "db_engine"];
+        $champs = ['user_firstname', 'user_lastname', 'user_email', 'user_confirm_email', 'user_password', 'user_confirm_password', 'csrf_token', 'db_name', 'db_host', 'db_port', 'db_username', 'db_port', "db_password", "db_confirm_password", "db_engine", "db_table_prefix", 'admin_firstname', 'admin_lastname', 'admin_email', 'admin_confirm_email', 'admin_password', 'admin_confirm_password'];
 
         // Initialiser un tableau pour stocker les valeurs
         $valeurs = [];
@@ -49,7 +49,6 @@
 
 
     <?php foreach ($config["inputs"] as $name => $configInput): ?>
-
         <?php if ($configInput["label"]): ?>
             <label for="<?= $name ?>"><?= $configInput["label"] ?? "" ?></label>
         <?php endif; ?>
@@ -79,6 +78,13 @@
         <?php if ($name !== "csrf_token"): ?>
             <br>
         <?php endif; ?>
+
+            <?php if ($name == "db_table_prefix"): ?>
+                <br>
+                <h2> Installation - Compte Admin</h2>
+        <br>
+            <?php endif; ?>
+
 
     <?php endforeach; ?>
 

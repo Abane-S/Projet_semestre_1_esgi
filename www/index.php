@@ -29,6 +29,7 @@ function myAutoloader(String $class): void
     }
 }
 
+
 // Comment récupérer et nettoyer l'URI
 // Exemple on doit avoir "/", "/login", "/logout", ...
 
@@ -94,7 +95,8 @@ if ( !empty($listOfRoutes[$uri]) ){
     $customError->page404();
 }
 
-if(!file_exists('./.env')){
-        header("Location: /installer1-3");
-        exit;
+
+if (!file_exists('./.env') && $uri != "/installer") {
+    header("Location: /installer");
+    exit;
 }

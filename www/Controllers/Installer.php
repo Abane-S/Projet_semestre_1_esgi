@@ -4,52 +4,52 @@ namespace App\Controllers;
 use App\Core\View;
 use App\Forms\EnvInstaller;
 use App\Forms\AdminInstaller;
+use App\Models\PhpMailor;
+use App\Models\User;
+use App\Core\DB;
 
 class Installer
 {
 
-    public function installAdminAccount(): void
+    public function __construct()
     {
-        if(file_exists('./.env')){
-            $EnvDecomposer = new EnvDecomposer();
-            $InstallationStep = $EnvDecomposer->getInstallerStep();
-            if($InstallationStep == "2/3")
-            {
-                header("Location: /installer3-3");
-                exit;
-            }
-        }
-            $form = new AdminInstaller();
-            $view = new View("Installer/installer2", "front");
-            $view->assign('config', $form->getConfig());
-            if ($form->isSubmit() && $form->isValidInstall()){
-                echo "OK";
-            }
-            else
-            {
-                $view->assign('errors', $form->listOfErrors);
-            }
+        ?>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Find the first <header> element and set its display property to none
+                var firstHeader = document.querySelector('header');
+                if (firstHeader) {
+                    firstHeader.style.display = 'none';
+                }
+            });
+        </script>
+
+        <?php
     }
 
-    public function installBdd(): void
+    private function CreateAdminAccount() :void
     {
-        if(file_exists('./.env')){
-            $EnvDecomposer = new EnvDecomposer();
-            $InstallationStep = $EnvDecomposer->getInstallerStep();
-            if($InstallationStep == "1/3")
-            {
-                header("Location: /installer2-3");
-                exit;
-            }
-            if($InstallationStep == "2/3")
-            {
-                header("Location: /installer3-3");
-                exit;
-            }
-        }
+        $user = new User();
+        $token = bin2hex(random_bytes(32));
+        $user->setVericationToken($token);
+        $user->setFirstname($_POST['admin_firstname']);
+        $user->setLastname($_POST['admin_lastname']);
+        $user->setEmail($_POST['admin_email']);
+        $user->setPassword($_POST['admin_password']);
+        $user->setRole("admin");
+        $user->save();
 
-            $form = new EnvInstaller();
-            $view = new View("Installer/installer1", "front");
+        $phpMailer = new PhpMailor();
+        $phpMailer->sendMail($_POST['admin_email'], $_POST['admin_firstname'], $_POST['admin_lastname'], $token, "Verification");
+        header("Location: " . '/email-verification');
+        exit;
+    }
+
+    public function installer(): void
+    {
+        $form = new EnvInstaller();
+            $view = new View("Installer/installer", "front");
             $view->assign('config', $form->getConfig());
             if ($form->isSubmit() && $form->isValidInstall()){
                 try {
@@ -60,6 +60,7 @@ class Installer
                     $dbuser = $_POST['db_username'];
                     $dbpassword = $_POST['db_password'];
                     $dbport = $_POST['db_port'];
+                    $dbtableprefix =  $_POST['db_table_prefix'];
 
                     if ($dbengine == "pgsql") {
                         $db = "pgsql:host=$dbhost;port=$dbport;dbname=$dbname;user=$dbuser;password=$dbpassword";
@@ -91,13 +92,13 @@ class Installer
                     }
 
 
-                    $envdata ="DB_SETTINGS=" . $db . "\n" ."INSTALL=1/3" . "\n";
+                    $envdata ="DB_SETTINGS=" . $db . "\n" . "TABLE_PREFIX=" . $dbtableprefix . "\n";
                     $handle = fopen("./.env", "w+");
                     fwrite($handle, $envdata);
                     if (file_exists("./.env")) {
-                        //Creer BDD :
-                        header("Location: /installer2-3");
-                        exit;
+                        $DB = new DB();
+                        $DB->CreateDB();
+                        $this->CreateAdminAccount();
                     }
                     else
                     {

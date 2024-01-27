@@ -5,11 +5,11 @@ namespace App\Controllers;
 class EnvDecomposer
 {
     private string $pdoString;
-    private string $installerStep;
+    private string $tablePrefixString;
 
     public function __construct() {
         $this->pdoString = $this->pdoStringDecomposer();
-        $this->installerStep = $this->installerStepDecomposer();
+        $this->tablePrefixString = $this->getTablePrefix();
     }
 
     public function getPdoString(): string
@@ -22,36 +22,42 @@ class EnvDecomposer
         $this->pdoString = $pdoString;
     }
 
-    public function getInstallerStep(): string
+    public function getTablePrefixString(): string
     {
-        return $this->installerStep;
+        return $this->tablePrefixString;
     }
 
-    public function setInstallerStepEnv(string $installerStep): void
+    public function setTablePrefixString(string $tablePrefixString): void
     {
-        $this->installerStep = $installerStep;
+        $this->tablePrefixString = $tablePrefixString;
     }
 
-    private function installerStepDecomposer(): string
+    private function getTablePrefix(): string
     {
-$fileContent = file_get_contents('.env');
+        $fileContent = file_get_contents('.env');
 
-// Rechercher la ligne avec INSTALL
-$lines = explode("\n", $fileContent);
-$installLine = $lines[1];  // Deuxième ligne
+        // Rechercher la ligne avec TABLE_PREFIX
+        $lines = explode("\n", $fileContent);
+        $tablePrefixLine = '';
 
-// Extraire les informations après le signe égal pour INSTALL
-$installValue = explode('=', $installLine, 2)[1];
-$installValue = trim($installValue);  // Supprimer les espaces éventuels
+        foreach ($lines as $line) {
+            if (strpos($line, 'TABLE_PREFIX=') === 0) {
+                $tablePrefixLine = $line;
+                break;
+            }
+        }
 
-        return $installValue;
+        // Extraire les informations après le signe égal
+        $tablePrefixValue = explode('=', $tablePrefixLine, 2)[1];
+
+        return $tablePrefixValue;
     }
 
     private function pdoStringDecomposer():string
     {
         $fileContent = file_get_contents('.env');
 
-// Rechercher la ligne avec DB_SETTINGS
+        // Rechercher la ligne avec DB_SETTINGS
         $lines = explode("\n", $fileContent);
         $dbSettingsLine = '';
 
@@ -62,12 +68,13 @@ $installValue = trim($installValue);  // Supprimer les espaces éventuels
             }
         }
 
-// Extraire les informations après le signe égal
+        // Extraire les informations après le signe égal
         $dbSettingsValue = explode('=', $dbSettingsLine, 2)[1];
 
-// Supprimer le contenu après le premier saut de ligne
+        // Supprimer le contenu après le premier saut de ligne
         $dbSettingsValue = explode("\n", $dbSettingsValue, 2)[0];
 
         return $dbSettingsValue;
     }
+
 }

@@ -1,5 +1,5 @@
 <div class="div_input">
-    <h2>Installation (1/3) - Base de données</h2>
+    <h2>Installation - Base de données</h2>
     <?php
 
         if (isset($errors) && !empty($errors)) {

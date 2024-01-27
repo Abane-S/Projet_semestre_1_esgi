@@ -54,17 +54,9 @@
   controller: Security
   action: passwordChangedSucces
 
-/installer1-3:
+/installer:
   controller: Installer
-  action: installBdd
-
-/installer2-3:
-  controller: Installer
-  action: installAdminAccount
-
-/installer3-3:
-  controller: Installer
-  action: installSite
+  action: installer
 
 /dashboard:
   controller: Main
