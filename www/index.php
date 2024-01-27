@@ -11,6 +11,7 @@
 
 namespace App;
 use App\Controllers\Error;
+use App\Controllers\EnvDecomposer;
 
 session_start();
 
@@ -27,6 +28,7 @@ function myAutoloader(String $class): void
         include $class.".php";
     }
 }
+
 
 // Comment récupérer et nettoyer l'URI
 // Exemple on doit avoir "/", "/login", "/logout", ...
@@ -91,4 +93,10 @@ if ( !empty($listOfRoutes[$uri]) ){
     die("Page 404");
     $customError = new Error();
     $customError->page404();
+}
+
+
+if (!file_exists('./.env') && $uri != "/installer") {
+    header("Location: /installer");
+    exit;
 }

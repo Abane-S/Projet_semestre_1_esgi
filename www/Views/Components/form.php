@@ -8,7 +8,7 @@
 
     <?php
         // Définir les noms des champs que vous souhaitez récupérer
-        $champs = ['user_firstname', 'user_lastname', 'user_email', 'user_confirm_email', 'user_password', 'user_confirm_password', 'csrf_token', 'db_name', 'db_host', 'db_port', 'db_username', 'db_port', "db_password", "db_confirm_password"];
+        $champs = ['user_firstname', 'user_lastname', 'user_email', 'user_confirm_email', 'user_password', 'user_confirm_password', 'csrf_token', 'db_name', 'db_host', 'db_port', 'db_username', 'db_port', "db_password", "db_confirm_password", "db_engine", "db_table_prefix", 'admin_firstname', 'admin_lastname', 'admin_email', 'admin_confirm_email', 'admin_password', 'admin_confirm_password'];
 
         // Initialiser un tableau pour stocker les valeurs
         $valeurs = [];
@@ -20,24 +20,71 @@
     ?>
 
     <div class="div_input">
-    <?php foreach ($config["inputs"] as $name => $configInput): ?>
 
+
+        <?php if (isset($config["select"]) && is_array($config["select"])): ?>
+            <?php foreach ($config["select"] as $name => $configSelect): ?>
+
+                <?php if ($configSelect["label"]): ?>
+                    <label for="<?= $name ?>"><?= $configSelect["label"] ?? "" ?></label>
+                <?php endif; ?>
+
+                <select
+                        name="<?= $name ?>"
+                        id="<?= $name ?>"
+                        class="<?= $configSelect["class"] ?? "" ?>"
+                    <?= (!empty($configSelect["required"])) ? "required" : "" ?>
+                >
+                    <?php foreach ($configSelect["options"] as $value => $label): ?>
+                        <option value="<?= $value ?>" <?= (isset($valeurs[$name]) && $valeurs[$name] == $value) ? "selected" : "" ?>>
+                            <?= $label ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+
+                <br>
+
+            <?php endforeach; ?>
+        <?php endif; ?>
+
+
+    <?php foreach ($config["inputs"] as $name => $configInput): ?>
         <?php if ($configInput["label"]): ?>
             <label for="<?= $name ?>"><?= $configInput["label"] ?? "" ?></label>
         <?php endif; ?>
+
         <input
                 name="<?= $name ?>"
                 type="<?= $configInput["type"] ?? "text" ?>"
                 id="<?= $configInput["id"] ?? "" ?>"
                 class="<?= $configInput["class"] ?? "" ?>"
                 placeholder="<?= $configInput["placeholder"] ?? "" ?>"
-                value="<?= ($name == "csrf_token") ? GenerateCSRFToken() : $valeurs[$name] ?>"
+            <?php
+            if ($name == "csrf_token") {
+                echo 'value="' . GenerateCSRFToken() . '"';
+            }
+            if ($name != "csrf_token" && isset($configInput["value"]) && $configInput["value"] != "")
+            {
+                echo 'value="' . $configInput["value"] . '"';
+            }
+            if ($name != "csrf_token" && !isset($configInput["value"]))
+            {
+                echo 'value="' . $valeurs[$name] . '"';
+            }
+            ?>
             <?= (!empty($configInput["required"])) ? "required" : "" ?>
         >
 
         <?php if ($name !== "csrf_token"): ?>
             <br>
         <?php endif; ?>
+
+            <?php if ($name == "db_table_prefix"): ?>
+                <br>
+                <h2> Installation - Compte Admin</h2>
+        <br>
+            <?php endif; ?>
+
 
     <?php endforeach; ?>
 

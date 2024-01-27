@@ -24,7 +24,7 @@ services:
     environment:
       POSTGRES_DB: Portfolio_DB
       POSTGRES_USER: Portfolio_USER
-      POSTGRES_PASSWORD: Portfolio
+      POSTGRES_PASSWORD: Portfolio_PASS123@
     networks:
       - my_bridge_network
 
@@ -36,12 +36,12 @@ services:
       ADMINER_DB_SERVER: database
       ADMINER_DB_NAME: Portfolio_DB
       ADMINER_DB_USERNAME: Portfolio_USER
-      ADMINER_DB_PASSWORD: Portfolio
+      ADMINER_DB_PASSWORD: Portfolio_PASS123@
     depends_on:
       - database
     networks:
       - my_bridge_network
-    
+
   mailhog-server:
     image: mailhog/mailhog
     ports:

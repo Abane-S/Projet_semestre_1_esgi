@@ -2,21 +2,27 @@
 
 namespace App\Core;
 
+use App\Controllers\EnvDecomposer;
+
 class DB
 {
 
     protected $pdo;
     protected string $table;
     private static $instance;
+    private $table_prefix;
 
 
     public function __construct()
     {
         //Début pour récupérer le nom de la table en bdd
         // echo get_called_class();
-        //connexion à la bdd via pdo 
+        //connexion à la bdd via pdo
+        $EnvDecomposer = new EnvDecomposer();
+        $PdoString = $EnvDecomposer->getPdoString();
+        $this->table_prefix = $EnvDecomposer->getTablePrefixString();
         try {
-            $this->pdo = new \PDO('pgsql:host=database;dbname=Portfolio_DB;user=Portfolio_USER;password=Portfolio');
+            $this->pdo = new \PDO($PdoString);
         } catch (\PDOException $e) {
             echo "Erreur SQL : " . $e->getMessage();
         }
@@ -125,5 +131,46 @@ class DB
         return $query->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    public function CreateDB(){
+        $tables = ["user"];
+        try {
+            foreach ($tables as $table) {
+                $table = $this->table_prefix . $table;
+                $this->pdo->exec("DROP TABLE IF EXISTS $table CASCADE");
+            }
 
+            try {
+                foreach ($tables as $table) {
+                    $table = $this->table_prefix . $table;
+                    if($table == $this->table_prefix . "user")
+                    {
+                        $sql = "
+                CREATE TABLE IF NOT EXISTS $table (
+                    id SERIAL PRIMARY KEY,
+                    firstname character varying(25) NOT NULL,
+                    lastname character varying(50) NOT NULL,
+                    email character varying(320) NOT NULL,
+                    pwd character varying(255) NOT NULL,
+                    role character varying(10) DEFAULT 'user' NOT NULL,
+                    verification_token character varying(255),
+                    email_verified boolean DEFAULT false,
+                    date_inserted timestamptz DEFAULT CURRENT_TIMESTAMP,
+                    date_updated timestamp,
+                    isdeleted boolean DEFAULT false
+                )
+            ";
+
+                        $this->pdo->exec($sql);
+                    }
+                }
+            }
+            catch (\PDOException $e) {
+                echo "Erreur lors de création des tables : " . $e->getMessage();
+            }
+
+
+        } catch (\PDOException $e) {
+            echo "Erreur lors de la suppression des tables : " . $e->getMessage();
+        }
+    }
 }
