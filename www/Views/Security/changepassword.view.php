@@ -1,4 +1,4 @@
-<div class="div_input">
+<div class="divform ml-auto mr-auto center-form">
     <h2>Changer votre mot de passe</h2>
     <?php
 

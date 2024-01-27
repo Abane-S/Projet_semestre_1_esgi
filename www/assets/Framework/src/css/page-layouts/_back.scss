@@ -1,0 +1,12 @@
+body.backend {
+    &.large {
+        padding-left: $button-width + rem(16);
+    }
+}
+.info_user{
+    margin-left: rem(10);
+    text-align: center;
+    form{
+        margin-bottom: rem(10);
+    }
+}

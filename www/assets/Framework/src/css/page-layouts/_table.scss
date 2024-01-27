@@ -3,16 +3,16 @@ table {
     border-collapse: collapse;
     background-color: $table-background;
     color: $table-color;
-    border-width: 5px;
+    border-width: rem(5);
     border-style: solid;
     border-color: #043a5e;
-    border-radius: 10px;
+    border-radius: rem(10);
     overflow: hidden;
     
     th, td {
-      padding: pxToRem(10);
+      padding: rem(10);
       text-align: left;
-      border-bottom: 1px solid $table-color;
+      border-bottom: rem(1) solid $table-color;
     }
     
     th a{

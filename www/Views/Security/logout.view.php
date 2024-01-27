@@ -1,4 +1,4 @@
-<div class="div_input">
+<div class="divform ml-auto mr-auto center-form">
     <h2>Déconnexion.</h2>
 
     <span>Vous avez été déconnecté.<br>Vous allez être redirigé vers la page de connexion.</span>
