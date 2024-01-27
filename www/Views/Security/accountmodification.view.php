@@ -1,4 +1,4 @@
-<div class="div_input">
+<div class="divform ml-auto mr-auto center-form">
     <h2>Modifier les données du compte</h2>
     <?php
     if (isset($errors) && !empty($errors)) {

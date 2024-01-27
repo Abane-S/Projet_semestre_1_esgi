@@ -26,6 +26,7 @@ class UserLogin extends Verificator
                     "max" => 255,
                     "label" => "",
                     "placeholder" => "Votre email",
+                    "label" => "Adresse email :",
                     "error" => "-L'adresse e-mail ou le mot de passe est incorrecte.",
                     "required" => true
                 ],
@@ -34,6 +35,7 @@ class UserLogin extends Verificator
                     "min" => 8,
                     "max" => 45,
                     "label" => "",
+                    "label" => "Mot de passe :",
                     "placeholder" => "Votre mot de passe",
                     "error" => "-Le mot de passe est incorrect.",
                     "required" => true

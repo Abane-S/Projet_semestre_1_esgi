@@ -1,0 +1,18 @@
+.sidebar {
+    background-color: rgb(32, 167, 185);
+    width: rem(250);
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: rem(20);-webkit-box-shadow: rem(5) rem(5) rem(24) rem(2) #000000;
+    box-shadow: 5px 5px 24px 2px #000000;
+
+    a {
+        color: white;
+        text-decoration: none;
+        display: block;
+        margin-bottom: rem(20);
+        font-size: rem(20);
+    }
+}

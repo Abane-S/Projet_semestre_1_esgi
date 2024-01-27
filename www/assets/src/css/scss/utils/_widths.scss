@@ -1,6 +1,0 @@
-// Créer une boucle for qui va créer une classe pour chaque taille de largeur
-@for $i from 0 through 10 {
-    .w-#{$i} {
-        width: $i * 10%; // Vous pouvez ajuster le pourcentage en fonction de vos besoins
-    }
-}

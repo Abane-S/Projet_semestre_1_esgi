@@ -1,0 +1,47 @@
+@for $i from 0 through 10 {
+    .m-#{$i} {
+        margin: rem($i*10);
+    }
+}
+
+@for $i from 0 through 10 {
+    .mt-#{$i} {
+        margin-top: rem($i*10);
+    }
+}
+
+@for $i from 0 through 10 {
+    .mb-#{$i} {
+        margin-bottom: rem($i*10);
+    }
+}
+
+@for $i from 0 through 10 {
+    .ml-#{$i} {
+        margin-left: rem($i*10);
+    }
+}
+
+@for $i from 0 through 10 {
+    .mr-#{$i} {
+        margin-right: rem($i*10);
+    }
+}
+
+.mr-auto
+{
+    margin-right: auto;
+}
+
+.ml-auto
+{
+    margin-left: auto;
+}
+.mt-auto
+{
+    margin-top: auto;
+}
+.mb-auto
+{
+    margin-bottom: auto;
+}
