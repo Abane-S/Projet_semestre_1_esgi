@@ -1,13 +1,18 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap");
+
+$font1: "Inter", sans-serif;
+
 html{
-    //roboto
-    font-family: 'Roboto', sans-serif;
+    font-family: #{$font1};
     font-size: $baseFontSize;
     font-weight: 400;
     line-height: 1.5;
     color: #212529;
 
+
+
     h1, h2, h3, h4, h5, h6{
-        font-family: 'Roboto', sans-serif;
+        font-family: #{$font1};
         font-weight: 800;
         line-height: 1.5;
         color: #212529;
@@ -20,4 +25,5 @@ html{
     h2{
         font-size: 2rem;
     }
+
 }

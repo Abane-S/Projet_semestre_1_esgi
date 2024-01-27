@@ -1,18 +1,18 @@
-@import "utils/functions";
-@import "utils/variables";
-@import "utils/margins";
-
+@import "partials/functions";
+@import "partials/variables";
 @import "base/reset";
 @import "base/typography";
+@import "partials/margins";
 
 @import "layout/table";
 @import "layout/flex";
 @import "layout/back";
 @import "layout/form";
 
-@import "component/ahref";
 // @import "component/tinymce";
 @import "component/button";
+@import "component/card";
+@import "component/buttoncard";
 @import "component/navbar";
 @import "component/input";
 @import "component/header";

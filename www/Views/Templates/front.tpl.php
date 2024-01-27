@@ -16,15 +16,14 @@
 
         use App\Core\Utils;
 
-        if (!empty($_SESSION['user'])) {
+        if (isset($_SESSION['Account']) && ($_SESSION['Account']['role'] == "admin")){
         ?>
             <header>
                 <a href="/dashboard" class="btn btn-primary">Dashboard</a>
                 <a href="/logout" class="btn btn-danger">Déconnexion</a>
             </header>
         <?php
-        }
-        if (empty($_SESSION['user'])) {
+        }else {
             $uri = $_SERVER['REQUEST_URI'];
         ?>
             <header>

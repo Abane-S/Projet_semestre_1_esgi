@@ -1,21 +1,31 @@
 <?php
 
 namespace App\Controllers;
+
 use App\Core\View;
 use App\Models\User;
+use App\Models\Categories;
+use App\Models\Pages;
 
 class Main
 {
     public function home(): void
     {
-        /*
-        $myPage = new Page();
-        $myPage->setTitle("MA super page");
-        $myPage->setDesc("Description de ma super page");
-        $myPage->save();
-        */
+        $view = new View("Main/home", "front");
 
-        $myView = new View("Main/home", "front");
+        // $categories = new Categories();
+        // var_dump($categories->findAll());
+        // $view->assign("categories", $categories->findAll());
+        $pages = new Pages();
+        $view->assign("cards", $pages->getAllPages());
+        // if (isset($_GET['category'])) {
+        //     $pages = new Pages();
+        //     $view->assign("pages", $pages->getPagesByCategory($_GET['category']));
+        // } else {
+        //     $pages = new Pages();
+        //     $view->assign("pages", $pages->getAllPages());
+        // }
+    
     }
 
     public function aboutUs(): void

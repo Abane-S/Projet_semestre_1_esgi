@@ -16,7 +16,7 @@
         <?php
 
         use App\Core\Utils;
-        if (!empty($_SESSION['Connected'])) {
+        if (!empty($_SESSION['Account'])) {
         ?><div class="sidebar">
                 <ul class="nav flex-column">
                     <li class="nav-item">
@@ -26,7 +26,7 @@
                         <a class="nav-link" href="/page">Page</a>
                     </li>
                     <?php
-                    if ($_SESSION['user']['role'] == 1) {
+                    if ($_SESSION['Account']['role'] == "admin") {
                     ?>
                         <li class="nav-item">
                             <a class="nav-link" href="/add_template_page">Templates</a>

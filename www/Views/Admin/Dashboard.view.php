@@ -20,7 +20,7 @@
             </tr>
     </table>
     <?php
-    if ($user['role'] == 1 && isset($users)) {
+    if ($user['role'] == "admin" && isset($users)) {
         // Pagination configuration
         $itemsPerPage = 20;
         $currentPage = isset($_GET['page']) ? intval($_GET['page']) : 1;

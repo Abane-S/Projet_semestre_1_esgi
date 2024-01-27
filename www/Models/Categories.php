@@ -1,0 +1,36 @@
+<?php
+
+namespace App\Models;
+
+use App\Core\DB;
+
+class Categories extends DB
+{
+    protected Int $id = -1;
+    protected String $name;
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function getByName(string $name)
+    {
+        $db = $this::getInstance();
+        $query = $db->prepare("SELECT * FROM " . $this->table . " WHERE name = :name");
+        $query->execute(['name' => $name]);
+        $result = $query->fetch();
+        if ($result) {
+            return $result['id'];
+        }
+    }
+    
+    public function findById(int $id): array | bool
+    {
+        $db = $this::getInstance();
+        $query = $db->prepare("SELECT * FROM " . $this->table . " WHERE id = :id");
+        $query->execute(['id' => $id]);
+        $result = $query->fetch();
+        return $result;
+    }
+}
