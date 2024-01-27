@@ -1,8 +1,10 @@
 @import "partials/functions";
 @import "partials/variables";
+@import "partials/margins";
+@import "utils/widths";
+
 @import "base/reset";
 @import "base/typography";
-@import "partials/margins";
 
 @import "layout/table";
 @import "layout/flex";

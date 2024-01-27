@@ -19,6 +19,47 @@ class Verificator {
         return false;
     }
 
+    public function isValidAccountModification(): bool
+    {
+        if (count($this->config["inputs"]) != count($this->data) - 1) {
+            die("Tentative de Hack 1");
+        }
+        foreach ($this->config["inputs"] as $name => $input) {
+            if (!$this->checkIdentical($this->data["csrf_token"], $_SESSION['csrf_token'])) {
+                die("Tentative de Hack 3");
+            }
+
+            if(!empty($this->data[$name])
+            )
+            {
+                if ($input["type"] == "password" && !($this->checkPassword($this->data[$name])) && $name != "user_confirm_password") {
+                    $this->listOfErrors[] = $input["error"];
+                }
+
+                if ($input["type"] == "text" && !($this->checkName($this->data[$name])) && $name != "user_lastname") {
+                    $this->listOfErrors[] = $input["error"];
+                }
+
+                if ($input["type"] == "text" && !($this->checkName($this->data[$name])) && $name != "user_firstname") {
+                    $this->listOfErrors[] = $input["error"];
+                }
+
+                if ($input["type"] == "password" && !$this->checkIdentical($this->data["user_password"], $this->data[$name])) {
+                    $this->listOfErrors[] = $input["error"];
+                }
+            }
+            if(empty($this->data["user_confirm_password"]) && !empty($this->data["user_password"]))
+            {
+                if ($input["type"] == "password" && !$this->checkIdentical($this->data["user_password"], $this->data[$name])) {
+                    $this->listOfErrors[] = $input["error"];
+                }
+            }
+        }
+        if(empty($this->listOfErrors)){
+            return true;
+        }
+        return false;
+    }
 
     public function isValid(): bool
     {
@@ -67,7 +108,7 @@ class Verificator {
 
     public function isValidInstall(): bool
     {
-        if (count($this->config["inputs"]) != count($this->data) - 1) {
+        if (count($this->config["inputs"]) + count($this->config["select"]) != count($this->data) - 1) {
             die("Tentative de Hack 1");
         }
         foreach ($this->config["inputs"] as $name => $input) {
@@ -79,32 +120,61 @@ class Verificator {
                 die("Tentative de Hack 3");
             }
 
-            if ($name == "db_name" && $input["type"] == "text" && !$this->checkDBUsername2($this->data["db_name"]))
-            {
-                $this->listOfErrors[] = $input["error"];
+            if($name != "admin_firstname" && $name != "admin_lastname" && $name != "admin_email" && $name != "admin_confirm_email" && $name != "admin_password" && $name != "admin_confirm_password") {
+                if ($name == "db_name" && $input["type"] == "text" && !$this->checkDBUsername2($this->data["db_name"])) {
+                    $this->listOfErrors[] = $input["error"];
+                }
+
+                if ($name == "db_hote" && $input["type"] == "text" && !$this->checkDBUsername2($this->data["db_hote"])) {
+                    $this->listOfErrors[] = $input["error"];
+                }
+
+                if ($name == "db_username" && $input["type"] == "text" && !$this->checkDBUsername($this->data["db_username"])) {
+                    $this->listOfErrors[] = $input["error"];
+                }
+
+                if ($name == "db_port" && $input["type"] == "text" && !$this->checkDBPort($this->data["db_port"])) {
+                    $this->listOfErrors[] = $input["error"];
+                }
+
+                if ($name == "db_table_prefix" && $input["type"] == "text" && !$this->checkTablePrefix($this->data["db_table_prefix"])) {
+                    $this->listOfErrors[] = $input["error"];
+                }
+
+                if ($input["type"] == "password" && !($this->checkPassword($this->data[$name])) && $name != "db_confirm_password") {
+                    $this->listOfErrors[] = $input["error"];
+                }
+
+                if ($input["type"] == "password" && !$this->checkIdentical($this->data["db_password"], $this->data[$name])) {
+                    $this->listOfErrors[] = $input["error"];
+                }
             }
 
-            if ($name == "db_hote" && $input["type"] == "text" && !$this->checkDBUsername2($this->data["db_hote"]))
-            {
-                $this->listOfErrors[] = $input["error"];
-            }
+            if($name == "admin_firstname" || $name == "admin_lastname" || $name == "admin_email" || $name == "admin_confirm_email" || $name == "admin_password" || $name == "admin_confirm_password") {
+                if ($input["type"] == "email" && !$this->checkEmail($this->data[$name]) && $name != "admin_confirm_email") {
+                    $this->listOfErrors[] = $input["error"];
+                }
 
-            if ($name == "db_username" && $input["type"] == "text" && !$this->checkDBUsername($this->data["db_username"]))
-            {
-                $this->listOfErrors[] = $input["error"];
-            }
 
-            if ($name == "db_port" && $input["type"] == "text" && !$this->checkDBPort($this->data["db_port"]))
-            {
-                $this->listOfErrors[] = $input["error"];
-            }
+                if ($input["type"] == "password" && !($this->checkPassword($this->data[$name])) && $name != "admin_confirm_password") {
+                    $this->listOfErrors[] = $input["error"];
+                }
 
-            if ($input["type"] == "password" && !($this->checkPassword($this->data[$name])) && $name != "db_confirm_password") {
-                $this->listOfErrors[] = $input["error"];
-            }
+                if ($input["type"] == "text" && !($this->checkName($this->data[$name])) && $name != "admin_lastname") {
+                    $this->listOfErrors[] = $input["error"];
+                }
 
-            if ($input["type"] == "password" && !$this->checkIdentical($this->data["db_password"], $this->data[$name])) {
-                $this->listOfErrors[] = $input["error"];
+                if ($input["type"] == "text" && !($this->checkName($this->data[$name])) && $name != "admin_firstname") {
+                    $this->listOfErrors[] = $input["error"];
+                }
+
+                if ($input["type"] == "email" && !$this->checkIdentical($this->data["admin_email"], $this->data[$name])) {
+                    $this->listOfErrors[] = $input["error"];
+                }
+
+                if ($input["type"] == "password" && !$this->checkIdentical($this->data["admin_password"], $this->data[$name])) {
+                    $this->listOfErrors[] = $input["error"];
+                }
             }
 
         }
@@ -145,6 +215,10 @@ class Verificator {
         return preg_match('/^((6553[0-5])|(655[0-2][0-9])|(65[0-4][0-9]{2})|(6[0-4][0-9]{3})|([1-5][0-9]{4})|([0-5]{0,5})|([0-9]{1,4}))$/', $port);
     }
 
+    public function checkTablePrefix($prefix): bool
+    {
+        return preg_match("/^[a-zA-Z][a-zA-Z_]{1,6}$/", $prefix);
+    }
 
     public function checkIdentical($field1, $field2): bool
     {

@@ -15,10 +15,9 @@ use App\Models\User;
 
 class Security
 {
-    public function UserIsLogged(): bool {
-        return isset($_SESSION['Connected']) && $_SESSION['Connected'] == true;
+    public static function UserIsLogged(): bool {
+        return isset($_SESSION['Account']) && !empty($_SESSION['Account']);
     }
-
 
     public function login(): void
     {
@@ -41,7 +40,6 @@ class Security
                         if(!$account->getIsDeleted())
                         {
                             $accountArray = $user->getOneBy(["email" => strtolower($_POST['user_email'])], "array");
-                            $_SESSION['Connected'] = true;
                             $_SESSION['Account'] = $accountArray;
                             if($account->getRole() == "user")
                             {
@@ -222,6 +220,33 @@ class Security
             $form = new ModifieAccount();
             $view = new View("Security/accountmodification", "front");
             $view->assign('config', $form->getConfig());
+            if ($form->isSubmit() && $form->isValidAccountModification()) {
+                $user = new User();
+                $account = $user->getOneBy(["email" => strtolower($_SESSION['Account']['email'])], "object");
+                if(!empty($_POST["user_firstname"]))
+                {
+                    $account->setFirstname($_POST["user_firstname"]);
+                }
+                if(!empty($_POST["user_lastname"]))
+                {
+                    $account->setLastname($_POST["user_lastname"]);
+                }
+                if(!empty($_POST["user_password"]))
+                {
+                    $account->setPassword($_POST["user_password"]);
+                }
+                if(empty($_POST["user_password"]) && empty($_POST["user_lastname"]) && empty($_POST["user_password"]) && empty($_POST["user_confirm_password"]))
+                {
+                    header("Location: " . '/');
+                    exit;
+                }
+                $account->save();
+                session_destroy();
+                header("Location: " . '/account-modified-notify');
+                exit;
+            } else {
+                $view->assign('errors', $form->listOfErrors);
+            }
         }
         else
         {
@@ -239,6 +264,18 @@ class Security
             $view = new View("Error/page404", "front");
         }
     }
+
+    public function accountModifiedNotify():void
+    {
+        if ($this->UserIsLogged() == false) {
+            $view = new View("Security/accountmodifiedmsg", "front");
+        }
+        else
+        {
+            $view = new View("Error/page404", "front");
+        }
+    }
+
 
     public function ChangePasswordNotify():void
     {
