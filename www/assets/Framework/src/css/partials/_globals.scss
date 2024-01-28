@@ -1,0 +1,23 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	font-family: $font1;
+	color: var(--text-color);
+	background-color: var(--body-color);
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+}
+
+a {
+	color: var(--blue);
+	text-decoration: none;
+}
+
+.menu-svg {
+	background-image: url("/src/images/menu.svg");
+}
