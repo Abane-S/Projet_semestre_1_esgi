@@ -42,12 +42,14 @@ class Installer
 
         $phpMailer = new PhpMailor();
         $phpMailer->sendMail($_POST['admin_email'], $_POST['admin_firstname'], $_POST['admin_lastname'], $token, "Verification");
-        header("Location: " . '/email-verification');
-        exit;
+        echo '<style>#modal4 { display: flex; }</style>';
     }
 
     public function installer(): void
     {
+        if(isset($_SESSION['Account'])) {
+            unset($_SESSION['Account']);
+        }
         $form = new EnvInstaller();
             $view = new View("Installer/installer", "front");
             $view->assign('config', $form->getConfig());

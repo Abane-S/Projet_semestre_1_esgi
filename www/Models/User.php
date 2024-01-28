@@ -197,4 +197,22 @@ class User extends DB
         $this->date_updated = $date_updated;
     }
 
+    public function HardDeleteAccount($email): bool
+    {
+        try {
+            // Perform the hard delete operation
+            $sql = "DELETE FROM " . $this->table . " WHERE email = :email";
+            $queryPrepared = $this->pdo->prepare($sql);
+            $queryPrepared->execute(['email' => $email]);
+
+            // Check if any rows were affected
+            $rowCount = $queryPrepared->rowCount();
+
+            return $rowCount > 0;
+        } catch (\PDOException $e) {
+            return false;
+        }
+    }
+
+
 }

@@ -54,10 +54,6 @@
   controller: Main
   action: dashboard
   
-/hard-delete:
+/delete-account:
   controller: Security
-  action: hardDeleteAccount
-
-/soft-delete:
-  controller: Security
-  action: softDeleteAccount
+  action: DeleteAccount
