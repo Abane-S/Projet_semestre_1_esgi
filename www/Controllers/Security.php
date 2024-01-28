@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Controllers\Error;
 use App\Core\View;
 use App\Forms\UserInsert;
+use App\Forms\UserDelete;
 use App\Forms\UserLogin;
 use App\Forms\PwdForget;
 use App\Forms\PwdChange;
@@ -202,14 +203,45 @@ class Security
     }
 
 
-    public function softDeleteAccount(): void
+    public function DeleteAccount(): void
     {
+        if (!$this->UserIsLogged()){
+            $view = new View("Error/page404", "front");
+            exit;
+        }
+        $form = new UserDelete();
+        $view = new View("Security/deleteaccount", "front");
+        $view->assign('config', $form->getConfig());
 
-    }
+        if ($form->isSubmit() && $form->isValidDelete())
+        {
+            $user = new User();
+            $account = $user->getOneBy(["email" => strtolower($_SESSION['Account']['email'])], "object");
+            if($_POST["account_delete"] == "soft")
+            {
+                $account->setIsdeleted(1);
+                $account->save();
+                session_destroy();
+                echo '<style>#modal5 { display: flex; }</style>';
+            }
+            else
+            {
+                if($account->HardDeleteAccount($_SESSION['Account']['email']))
+                {
+                    session_destroy();
+                    echo '<style>#modal5 { display: flex; }</style>';
+                }
+                else
+                {
+                    $errors['user_email'] = "-Une erreur s'est produite lors de la suppression de votre compte.";
+                    $view->assign('errors', $errors);
+                }
 
-    public function hardDeleteAccount(): void
-    {
-
+            }
+        }
+        else{
+            $view->assign('errors', $form->listOfErrors);
+        }
     }
 
     public function modifieAccount(): void

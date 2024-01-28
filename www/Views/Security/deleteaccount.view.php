@@ -1,5 +1,7 @@
 <div class="divform ml-auto mr-auto center-form">
-    <h2>Installation - Base de données</h2>
+    <h2>Supprimer mon compte</h2>
+    <div class='alert alert-danger' style='width: 80%;margin: auto;'>Attention !<br>La suppression de votre compte sera définitive et irreversible.
+    </div>
     <?php
 
         if (isset($errors) && !empty($errors)) {
@@ -13,14 +15,14 @@
     <?php $this->includeComponent("form", $config);?>
 </div>
 
-<div class="modal" id="modal4">
+<div class="modal" id="modal5">
     <section>
         <header>
-            <h1>Email confirmation</h1>
+            <h1>Suppression du compte</h1>
         </header>
         <div class="modal_content">
             <p>
-                Un mail de confirmation vous a été envoyé.<br>Merci de confirmer votre adresse e-mail afin de pouvoir vous connecter.
+                Votre compte a été supprimé avec succès.
             </p>
         </div>
         <footer>

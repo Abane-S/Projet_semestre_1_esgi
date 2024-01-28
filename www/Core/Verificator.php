@@ -106,6 +106,8 @@ class Verificator {
         return false;
     }
 
+
+
     public function isValidInstall(): bool
     {
         if (count($this->config["inputs"]) + count($this->config["select"]) != count($this->data) - 1) {
@@ -175,6 +177,27 @@ class Verificator {
                 if ($input["type"] == "password" && !$this->checkIdentical($this->data["admin_password"], $this->data[$name])) {
                     $this->listOfErrors[] = $input["error"];
                 }
+            }
+
+        }
+        if(empty($this->listOfErrors)){
+            return true;
+        }
+        return false;
+    }
+
+    public function isValidDelete(): bool
+    {
+        if (count($this->config["inputs"]) + count($this->config["select"]) != count($this->data) - 1) {
+            die("Tentative de Hack 1");
+        }
+        foreach ($this->config["inputs"] as $name => $input) {
+            if (empty($this->data[$name])) {
+                die("Tentative de Hack 2");
+            }
+
+            if (!$this->checkIdentical($this->data["csrf_token"], $_SESSION['csrf_token'])) {
+                die("Tentative de Hack 3");
             }
 
         }

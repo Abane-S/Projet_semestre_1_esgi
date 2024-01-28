@@ -22,7 +22,7 @@ class PwdForget extends Verificator
                     "type" => "email",
                     "min" => 5,
                     "max" => 255,
-                    "label" => "",
+                    "label" => "Adresse email :",
                     "placeholder" => "Votre email",
                     "error" => "Le format de votre email est incorrect (exemple: test@gmail.com)",
                     "required" => true
