@@ -26,48 +26,227 @@
 			}
 		</style>
 	</head>
-	<body">
-	<header id="header" class="esgi-header">
-		<div class="container">
-			<a href="#" class="esgi-logo">
-				<img src="images/logo.svg" alt="Spotify" />
-			</a>
-			<nav>
-				<ul>
-					<li><a href="#">Premium</a></li>
-					<li><a href="#">Aide</a></li>
-					<li><a href="#">Télécharger</a></li>
-					<li><a href="#">|</a></li>
-					<li><a href="#">S'inscrire</a></li>
-					<li><a href="#">Se connecter</a></li>
-				</ul>
+	<body>
+		<!-- CONFIGURATEUR DE THEME -->
+		<form id="theme-config">
+			<div>
+				<label>Radius</label>
+				<input type="text" name="main-radius" />
+			</div>
+			<div>
+				<label>Blue (primary)</label>
+				<input type="color" name="blue" />
+			</div>
+			<div>
+				<label>Text Color</label>
+				<input type="color" name="text-color" />
+			</div>
+			<button class="button button-primary" type="button" onclick="apply()">
+				Go
+			</button>
+		</form>
+
+		<style>
+			#theme-config {
+				position: fixed;
+				z-index: 10;
+				top: 0;
+				right: 0;
+				padding: 1rem;
+				background-color: grey;
+				& input {
+					display: block;
+				}
+				& div {
+					margin-bottom: 0.5rem;
+				}
+			}
+		</style>
+
+		<script>
+			const apply = () => {
+				const form = document.getElementById("theme-config");
+				const formData = new FormData(form);
+				let output = ":root{";
+				for (const [key, value] of formData) {
+					output += `--${key}: ${value};`;
+				}
+				output += "}";
+				const style = document.getElementById("custom-style");
+
+				style.textContent = output;
+			};
+		</script>
+
+		<style id="custom-style"></style>
+
+		<!-- DESIGN GUIDE -->
+		<section>
+			<h1>.button</h1>
+			<hr />
+			<section>
+				<a href="#" class="button button-primary button-lg">Button</a>
+				<a href="#" class="button button-primary">Button</a>
+				<a href="#" class="button button-primary button-sm">Button</a>
+			</section>
+			<section>
+				<button class="button button-secondary button-lg">Button</button>
+				<button href="#" class="button button-secondary">Button</button>
+				<button href="#" class="button button-secondary button-sm">
+					Button
+				</button>
+			</section>
+			<section>
+				<button class="button button-danger button-lg">Button</button>
+				<button href="#" class="button button-danger">Button</button>
+				<button href="#" class="button button-danger button-sm">Button</button>
+			</section>
+		</section>
+		<section>
+			<h1>.banner</h1>
+			<hr />
+			<div
+				class="banner"
+				style="background-image: url('/images/fond.jpg')"></div>
+			<br />
+			<div
+				class="banner banner-text"
+				style="background-image: url('/images/fond.jpg')">
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras
+					ullamcorper nulla a ipsum imperdiet, ac porttitor dui sagittis.
+				</p>
+			</div>
+		</section>
+		<section>
+			<h1>.card</h1>
+			<hr />
+			<article class="card">
+				<img src="/images/totoro.jpg" />
+				<h1>Card title</h1>
+				<p>
+					Some quick example text to build on the card title and make up the
+					bulk of the card's content.
+				</p>
+				<a href="#" class="button button-primary button-sm">Button</a>
+			</article>
+
+			<article class="card card-full">
+				<img src="/images/totoro.jpg" />
+				<h1>Card title</h1>
+				<p>
+					Some quick example text to build on the card title and make up the
+					bulk of the card's content.
+				</p>
+				<a href="#" class="button button-primary button-sm">Button</a>
+			</article>
+		</section>
+		<section>
+			<h1>.grid</h1>
+			<hr />
+			<div class="grid">
+				<div class="row">
+					<div class="col-2">
+						<div class="content"></div>
+					</div>
+					<div class="col-2">
+						<div class="content"></div>
+					</div>
+					<div class="col-8">
+						<div class="content"></div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section>
+			<h1>.navbar</h1>
+			<hr />
+			<nav class="navbar">
+				<div class="container">
+					<a href="#" class="navbar_title">Navbar</a>
+					<button class="navbar_toggle_button" data-target="#content">
+						Menu
+					</button>
+					<div class="navbar_toggle_content" id="content">
+						<ul>
+							<li>
+								<a href="#" class="active">Home</a>
+							</li>
+							<li>
+								<a href="#">Features</a>
+							</li>
+							<li>
+								<a href="#">Pricing</a>
+							</li>
+							<li>
+								<a href="#" class="disabled">Disabled</a>
+							</li>
+						</ul>
+						<form>
+							<input type="text" placeholder="Search" />
+							<button class="button button-outline">Search</button>
+						</form>
+					</div>
+				</div>
 			</nav>
-		</div>
-	</header>
-	<main>
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus aenean vel elit scelerisque. Orci nulla pellentesque dignissim enim. Maecenas accumsan lacus vel facilisis volutpat. Sed egestas egestas fringilla phasellus faucibus scelerisque eleifend donec. Lorem mollis aliquam ut porttitor leo a diam sollicitudin tempor. Cursus eget nunc scelerisque viverra mauris in aliquam. Dui nunc mattis enim ut tellus elementum sagittis vitae et. Id velit ut tortor pretium viverra suspendisse potenti. Pellentesque nec nam aliquam sem et tortor consequat id porta. Nibh praesent tristique magna sit. Vitae congue mauris rhoncus aenean vel elit. Feugiat nisl pretium fusce id velit ut. Arcu bibendum at varius vel pharetra vel turpis nunc eget. Ut sem viverra aliquet eget. Nibh nisl condimentum id venenatis a condimentum vitae sapien. Diam in arcu cursus euismod quis viverra nibh cras.
-
-			Arcu non sodales neque sodales ut etiam sit amet nisl. Feugiat nisl pretium fusce id velit ut tortor. In pellentesque massa placerat duis. Vitae et leo duis ut diam quam. Pretium nibh ipsum consequat nisl vel pretium. Scelerisque varius morbi enim nunc faucibus a. Faucibus turpis in eu mi bibendum neque egestas. Donec enim diam vulputate ut pharetra. Dolor magna eget est lorem. Ut eu sem integer vitae justo eget magna fermentum. Nulla posuere sollicitudin aliquam ultrices sagittis. Sed felis eget velit aliquet sagittis id consectetur. Sagittis eu volutpat odio facilisis mauris. Leo in vitae turpis massa sed elementum tempus egestas. Mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar pellentesque.
-
-			Neque convallis a cras semper auctor. In aliquam sem fringilla ut morbi tincidunt augue interdum. Purus ut faucibus pulvinar elementum integer. Condimentum mattis pellentesque id nibh tortor id aliquet lectus. Egestas tellus rutrum tellus pellentesque eu tincidunt tortor aliquam nulla. Consectetur libero id faucibus nisl. Aliquam eleifend mi in nulla. Id consectetur purus ut faucibus pulvinar elementum integer enim neque. Mi ipsum faucibus vitae aliquet nec ullamcorper sit amet risus. Adipiscing elit ut aliquam purus sit amet luctus venenatis. Velit egestas dui id ornare arcu odio ut. Et leo duis ut diam quam nulla. Justo donec enim diam vulputate ut pharetra. Sagittis vitae et leo duis ut. Tellus rutrum tellus pellentesque eu tincidunt tortor aliquam.
-
-			Ut diam quam nulla porttitor massa id neque aliquam. Mattis pellentesque id nibh tortor. Facilisis magna etiam tempor orci. Id semper risus in hendrerit gravida rutrum quisque non. Sagittis eu volutpat odio facilisis mauris sit. Pulvinar neque laoreet suspendisse interdum consectetur libero id faucibus. Cursus risus at ultrices mi tempus imperdiet. Iaculis at erat pellentesque adipiscing commodo elit at. Dolor sit amet consectetur adipiscing elit. Neque ornare aenean euismod elementum nisi quis eleifend quam. Dui accumsan sit amet nulla facilisi morbi tempus iaculis urna. At tempor commodo ullamcorper a lacus. Consectetur libero id faucibus nisl tincidunt. Sit amet luctus venenatis lectus magna.
-
-			Feugiat in fermentum posuere urna nec tincidunt. Morbi tempus iaculis urna id volutpat lacus laoreet non. Aliquet enim tortor at auctor urna nunc id cursus. Sit amet tellus cras adipiscing enim. Rhoncus urna neque viverra justo. Ultrices gravida dictum fusce ut placerat orci nulla pellentesque dignissim. Massa enim nec dui nunc mattis enim ut. At elementum eu facilisis sed odio morbi quis commodo odio. Et magnis dis parturient montes nascetur ridiculus mus mauris vitae. Tincidunt eget nullam non nisi est sit amet. Sed blandit libero volutpat sed cras. Magna ac placerat vestibulum lectus mauris ultrices eros in cursus. Blandit volutpat maecenas volutpat blandit aliquam etiam erat. Volutpat lacus laoreet non curabitur gravida arcu ac. Sociis natoque penatibus et magnis dis parturient montes nascetur. Amet nisl purus in mollis nunc sed id semper risus. Libero nunc consequat interdum varius sit amet mattis vulputate. Pharetra convallis posuere morbi leo urna molestie at elementum eu. Quis auctor elit sed vulputate mi sit amet mauris commodo.
-
-			Convallis posuere morbi leo urna molestie at elementum. Justo laoreet sit amet cursus sit amet dictum. Nisl purus in mollis nunc sed id semper risus in. Accumsan tortor posuere ac ut. Non sodales neque sodales ut. Blandit aliquam etiam erat velit. A scelerisque purus semper eget. In nibh mauris cursus mattis molestie a iaculis at erat. Praesent elementum facilisis leo vel fringilla est ullamcorper. Eu non diam phasellus vestibulum lorem sed risus ultricies. Arcu dui vivamus arcu felis bibendum ut tristique. Vitae purus faucibus ornare suspendisse sed nisi. Porta nibh venenatis cras sed felis eget velit aliquet.
-
-			Eu feugiat pretium nibh ipsum consequat nisl vel pretium lectus. Nunc eget lorem dolor sed. Blandit aliquam etiam erat velit scelerisque in. Ut aliquam purus sit amet. Feugiat in fermentum posuere urna nec tincidunt praesent semper. Vestibulum lectus mauris ultrices eros in cursus turpis massa. Et netus et malesuada fames ac turpis egestas. Arcu cursus vitae congue mauris rhoncus aenean. Quam lacus suspendisse faucibus interdum posuere. Etiam sit amet nisl purus in mollis nunc sed id. Lectus vestibulum mattis ullamcorper velit sed. In hac habitasse platea dictumst. Diam ut venenatis tellus in.
-
-			Malesuada pellentesque elit eget gravida cum sociis natoque penatibus et. Vel eros donec ac odio. Placerat orci nulla pellentesque dignissim enim. Auctor neque vitae tempus quam pellentesque nec nam aliquam sem. Non tellus orci ac auctor augue mauris augue. Massa eget egestas purus viverra accumsan. Pellentesque eu tincidunt tortor aliquam nulla facilisi. Felis eget velit aliquet sagittis id consectetur purus. In metus vulputate eu scelerisque felis imperdiet proin. Egestas maecenas pharetra convallis posuere morbi. Tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada proin. Tellus in metus vulputate eu. Urna nec tincidunt praesent semper feugiat nibh sed. Varius morbi enim nunc faucibus a pellentesque sit amet porttitor. Nec nam aliquam sem et. Eu tincidunt tortor aliquam nulla facilisi cras. Eget mi proin sed libero enim sed. Fusce id velit ut tortor. Pellentesque diam volutpat commodo sed. Vivamus at augue eget arcu.
-
-			Commodo odio aenean sed adipiscing diam donec adipiscing tristique. In est ante in nibh. Fringilla ut morbi tincidunt augue. Malesuada nunc vel risus commodo viverra maecenas accumsan lacus vel. Ultricies tristique nulla aliquet enim tortor. In iaculis nunc sed augue lacus viverra vitae. In est ante in nibh mauris cursus mattis molestie. Posuere urna nec tincidunt praesent semper feugiat nibh sed pulvinar. Integer feugiat scelerisque varius morbi enim nunc faucibus. Faucibus nisl tincidunt eget nullam non nisi. At varius vel pharetra vel. Orci nulla pellentesque dignissim enim sit amet venenatis urna. Maecenas sed enim ut sem viverra. Laoreet id donec ultrices tincidunt arcu non sodales neque. Orci ac auctor augue mauris augue. Cum sociis natoque penatibus et.
-
-			Ante metus dictum at tempor commodo ullamcorper a. Posuere urna nec tincidunt praesent semper feugiat nibh. Enim lobortis scelerisque fermentum dui faucibus in. Risus in hendrerit gravida rutrum quisque non tellus orci ac. Sollicitudin ac orci phasellus egestas tellus rutrum tellus pellentesque eu. Et malesuada fames ac turpis egestas. Tincidunt tortor aliquam nulla facilisi cras fermentum odio eu feugiat. Ut tristique et egestas quis ipsum suspendisse ultrices gravida. Ultricies mi eget mauris pharetra. Duis at tellus at urna condimentum mattis pellentesque id. Natoque penatibus et magnis dis parturient.
-
-			Fermentum posuere urna nec tincidunt. Adipiscing tristique risus nec feugiat in fermentum posuere. Faucibus interdum posuere lorem ipsum. Dictumst quisque sagittis purus sit amet. Id leo in vitae turpis massa sed elementum tempus. Non diam phasellus vestibulum lorem sed risus ultricies. Quis hendrerit dolor magna eget est lorem ipsum. Nibh tortor id aliquet lectus proin nibh nisl condimentum id. Donec massa sapien faucibus et molestie ac. Pretium nibh ipsum consequat nisl vel pretium. Mi sit amet mauris commodo quis imperdiet massa tincidunt nunc. Egestas congue quisque egestas diam. Urna duis convallis convallis tellus id interdum velit laoreet. Nibh nisl condimentum id venenatis a. Venenatis lectus magna fringilla urna. Amet nisl purus in mollis nunc sed. Duis at tellus at urna condimentum mattis pellentesque.
-
-			Sed arcu non odio euismod lacinia at. Ultricies leo integer malesuada nunc vel risus. Id velit ut tortor pretium viverra suspendisse potenti nullam ac. Lorem ipsum dolor sit amet consectetur adipiscing elit duis. Egestas sed tempus urna et. Neque vitae tempus quam pellentesque nec nam aliquam sem. Maecenas ultricies mi eget mauris pharetra. Morbi tempus iaculis urna id. Massa id neque aliquam vestibulum morbi blandit cursus risus at. Dolor sit amet consectetur adipiscing elit pellentesque habitant. Faucibus purus in massa tempor nec feugiat. Id consectetur purus ut faucibus. Blandit aliquam etiam erat velit scelerisque. Non pulvinar neque laoreet suspendisse interdum. Feugiat scelerisque varius morbi enim nunc faucibus a pellentesque.</p>
-	</main>
+		</section>
+		<section>
+			<h1>.slider</h1>
+			<hr />
+			<div class="slider" data-height="400" data-width="200">
+				<img src="/images/image1.jpg" alt="img1" />
+				<img src="/images/image2.jpg" alt="img2" />
+				<img src="/images/image3.jpg" alt="img3" />
+				<img src="/images/image4.jpg" alt="img4" />
+				<img src="/images/image5.jpg" alt="img5" />
+				<img src="/images/image6.jpg" alt="img6" />
+			</div>
+		</section>
+		<section>
+			<h1>.modal</h1>
+			<hr />
+			<button class="button" data-modal-open="modal1">Open modal 1</button>
+			<div class="modal" id="modal1">
+				<section>
+					<header>
+						<h1>Titre de la modale</h1>
+					</header>
+					<div class="modal_content">
+						<p>
+							Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet
+							magni dolores totam accusantium atque illo repellat sint
+							distinctio quis! Aliquid atque dolorem ipsam temporibus, sed et
+							voluptatibus cumque aperiam velit.
+						</p>
+					</div>
+					<footer>
+						<button class="button button-primary" data-modal-close>
+							Close
+						</button>
+					</footer>
+				</section>
+			</div>
+			<button class="button" data-modal-open="modal2">Open modal 2</button>
+			<div class="modal" id="modal2">
+				<section>
+					<header>
+						<h1>Titre de la modale 2</h1>
+					</header>
+					<div class="modal_content">
+						<p>
+							Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet
+							magni dolores totam accusantium atque illo repellat sint
+							distinctio quis! Aliquid atque dolorem ipsam temporibus, sed et
+							voluptatibus cumque aperiam velit.
+						</p>
+					</div>
+					<footer>
+						<button class="button button-primary" data-modal-close>
+							Close
+						</button>
+					</footer>
+				</section>
+			</div>
+		</section>
 	</body>
 </html>

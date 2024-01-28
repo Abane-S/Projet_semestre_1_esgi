@@ -1,4 +1,4 @@
-<div class="div_input">
+<div class="divform ml-auto mr-auto center-form">
     <h2>Email confirmer</h2>
 
     <span>Votre adresse e-mail a bien été confirmée, votre compte est maintenant activé.<br>Vous allez être redirigé vers la page de connexion</span>
