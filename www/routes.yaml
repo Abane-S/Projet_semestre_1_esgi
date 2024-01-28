@@ -26,14 +26,6 @@
   controller: Security
   action: modifieAccount
 
-/email-verification:
-  controller: Security
-  action: verifyEmailNotify
-
-/password-verification-notify:
-  controller: Security
-  action: ChangePasswordNotify
-
 /verify2:
   controller: Security
   action: ChangePasswordVerification
@@ -69,7 +61,3 @@
 /soft-delete:
   controller: Security
   action: softDeleteAccount
-
-/account-modified-notify:
-  controller: Security
-  action: accountModifiedNotify

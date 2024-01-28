@@ -21,3 +21,21 @@
         <a href="\" class="btn btn-danger mt-3 w-7"">Supprimer mon compte</a><br>
     </div>
 </div>
+
+<div class="modal" id="modal3">
+    <section>
+        <header>
+            <h1>Compte modifié</h1>
+        </header>
+        <div class="modal_content">
+            <p>
+                Les données du compte ont bien été modifiées.<br>Vous pouvez désormais vous connecter avec vos nouvelles modifications.
+            </p>
+        </div>
+        <footer>
+            <a href="/logout" class="button button-primary">
+                Fermer
+            </a>
+        </footer>
+    </section>
+</div>

@@ -138,8 +138,7 @@ class Security
 
                 $phpMailer = new PhpMailor();
                 $phpMailer->sendMail($_POST['user_email'], $_POST['user_firstname'], $_POST['user_lastname'], $token, "Verification");
-                header("Location: " . '/email-verification');
-                exit;
+                echo '<style>#modal1 { display: flex; }</style>';
             }
         }else{
             $view->assign('errors', $form->listOfErrors);
@@ -174,8 +173,8 @@ class Security
 
                         $phpMailer = new PhpMailor();
                         $phpMailer->sendMail($_POST['user_email'], $_POST['user_firstname'], $_POST['user_lastname'], $token, "VerificationPassword");
-                        header("Location: " . '/password-verification-notify');
-                        exit;
+                        echo '<style>#modal2 { display: flex; }</style>';
+
                     }
                     else
                     {
@@ -242,8 +241,8 @@ class Security
                 }
                 $account->save();
                 session_destroy();
-                header("Location: " . '/account-modified-notify');
-                exit;
+                echo '<style>#modal3 { display: flex; }</style>';
+
             } else {
                 $view->assign('errors', $form->listOfErrors);
             }
@@ -258,29 +257,6 @@ class Security
     {
         if ($this->UserIsLogged() == false) {
             $view = new View("Security/emailconfirmed", "front");
-        }
-        else
-        {
-            $view = new View("Error/page404", "front");
-        }
-    }
-
-    public function accountModifiedNotify():void
-    {
-        if ($this->UserIsLogged() == false) {
-            $view = new View("Security/accountmodifiedmsg", "front");
-        }
-        else
-        {
-            $view = new View("Error/page404", "front");
-        }
-    }
-
-
-    public function ChangePasswordNotify():void
-    {
-        if ($this->UserIsLogged() == false) {
-            $view = new View("Security/passwordverificationmsg", "front");
         }
         else
         {
@@ -340,17 +316,6 @@ class Security
     {
         if ($this->UserIsLogged() == false){
             $view = new View("Security/passwordconfirmedmsg", "front");
-        }
-        else
-        {
-            $view = new View("Error/page404", "front");
-        }
-    }
-
-    public function verifyEmailNotify(): void
-    {
-        if ($this->UserIsLogged() == false) {
-            $view = new View("Security/emailconfirmedmsg", "front");
         }
         else
         {

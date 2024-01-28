@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ultimate Portefolio Builder</title>
     <link rel="stylesheet" href="../../assets/Framework/dist/css/style.css">
+    <script src="../../assets/Framework/dist/js/main.js"></script>
 </head>
 
 <body>
