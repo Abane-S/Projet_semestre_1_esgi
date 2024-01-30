@@ -22,7 +22,7 @@ class EnvInstaller extends Verificator
             "select" => [
                 "db_engine" => [
                     "label" => "Système de gestion de base de données :",
-                    "class" => "w-8",
+                    "class" => "w-8 input-select",
                     "options" => [
                         "pgsql" => "PostgreSQL",
                         "mysql" => "MySQL",

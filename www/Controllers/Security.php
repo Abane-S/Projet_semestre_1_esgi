@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Controllers\Error;
 use App\Core\View;
 use App\Forms\UserInsert;
+use App\Forms\UserDelete;
 use App\Forms\UserLogin;
 use App\Forms\PwdForget;
 use App\Forms\PwdChange;
@@ -138,8 +139,7 @@ class Security
 
                 $phpMailer = new PhpMailor();
                 $phpMailer->sendMail($_POST['user_email'], $_POST['user_firstname'], $_POST['user_lastname'], $token, "Verification");
-                header("Location: " . '/email-verification');
-                exit;
+                echo '<style>#modal1 { display: flex; }</style>';
             }
         }else{
             $view->assign('errors', $form->listOfErrors);
@@ -174,8 +174,8 @@ class Security
 
                         $phpMailer = new PhpMailor();
                         $phpMailer->sendMail($_POST['user_email'], $_POST['user_firstname'], $_POST['user_lastname'], $token, "VerificationPassword");
-                        header("Location: " . '/password-verification-notify');
-                        exit;
+                        echo '<style>#modal2 { display: flex; }</style>';
+
                     }
                     else
                     {
@@ -203,14 +203,45 @@ class Security
     }
 
 
-    public function softDeleteAccount(): void
+    public function DeleteAccount(): void
     {
+        if (!$this->UserIsLogged()){
+            $view = new View("Error/page404", "front");
+            exit;
+        }
+        $form = new UserDelete();
+        $view = new View("Security/deleteaccount", "front");
+        $view->assign('config', $form->getConfig());
 
-    }
+        if ($form->isSubmit() && $form->isValidDelete())
+        {
+            $user = new User();
+            $account = $user->getOneBy(["email" => strtolower($_SESSION['Account']['email'])], "object");
+            if($_POST["account_delete"] == "soft")
+            {
+                $account->setIsdeleted(1);
+                $account->save();
+                session_destroy();
+                echo '<style>#modal5 { display: flex; }</style>';
+            }
+            else
+            {
+                if($account->HardDeleteAccount($_SESSION['Account']['email']))
+                {
+                    session_destroy();
+                    echo '<style>#modal5 { display: flex; }</style>';
+                }
+                else
+                {
+                    $errors['user_email'] = "-Une erreur s'est produite lors de la suppression de votre compte.";
+                    $view->assign('errors', $errors);
+                }
 
-    public function hardDeleteAccount(): void
-    {
-
+            }
+        }
+        else{
+            $view->assign('errors', $form->listOfErrors);
+        }
     }
 
     public function modifieAccount(): void
@@ -242,8 +273,8 @@ class Security
                 }
                 $account->save();
                 session_destroy();
-                header("Location: " . '/account-modified-notify');
-                exit;
+                echo '<style>#modal3 { display: flex; }</style>';
+
             } else {
                 $view->assign('errors', $form->listOfErrors);
             }
@@ -258,29 +289,6 @@ class Security
     {
         if ($this->UserIsLogged() == false) {
             $view = new View("Security/emailconfirmed", "front");
-        }
-        else
-        {
-            $view = new View("Error/page404", "front");
-        }
-    }
-
-    public function accountModifiedNotify():void
-    {
-        if ($this->UserIsLogged() == false) {
-            $view = new View("Security/accountmodifiedmsg", "front");
-        }
-        else
-        {
-            $view = new View("Error/page404", "front");
-        }
-    }
-
-
-    public function ChangePasswordNotify():void
-    {
-        if ($this->UserIsLogged() == false) {
-            $view = new View("Security/passwordverificationmsg", "front");
         }
         else
         {
@@ -340,17 +348,6 @@ class Security
     {
         if ($this->UserIsLogged() == false){
             $view = new View("Security/passwordconfirmedmsg", "front");
-        }
-        else
-        {
-            $view = new View("Error/page404", "front");
-        }
-    }
-
-    public function verifyEmailNotify(): void
-    {
-        if ($this->UserIsLogged() == false) {
-            $view = new View("Security/emailconfirmedmsg", "front");
         }
         else
         {

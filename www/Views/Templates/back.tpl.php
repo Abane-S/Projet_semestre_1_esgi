@@ -1,61 +1,125 @@
+<?php
+
+use App\Core\Utils;
+?>
+<?php if ($_SESSION['Account']["role"] == "admin"): ?>
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
-    <title>The Ultimate Portefolio Builder</title>
-    <link rel="stylesheet" href="../../assets/src/css/style.css">
-    <!-- <meta name="description" content="TNL"> -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DJIMDO</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="../../assets/Framework/public/images/favicon_djimdo.png">
+    <link rel="stylesheet" href="../../assets/Framework/src/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <script src="../../assets/Framework/src/js/main.js"></script>
 </head>
 
-<body class="backend">
-
-    <div id="root">
-        <?php
-
-        use App\Core\Utils;
-        if (!empty($_SESSION['Account'])) {
-        ?><div class="sidebar">
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/dashboard">Dashboard</a>
+<body>
+<!-- <header id="header" class="esgi-header"> -->
+    <!-- <div class="container">
+        <a href="/" class="esgi-logo">
+            <img src="../../assets/Framework/public/images/logo_djimdo_website.png" alt="Logo site" style="width: 4rem"/>
+        </a>
+        <nav>
+            <ul>
+                <?php //if (isset($_SESSION['Account']) && $_SESSION['Account']['role'] == "admin"): ?>
+                    <li><a href="/dashboard">Dashboard</a></li>
+                <?php //endif; ?>
+                <li><a href="/portfolio">Portfolio</a></li>
+                <li><a href="/contact">Contact</a></li>
+                <?php //if (isset($_SESSION['Account'])): ?>
+                    <li><a href="/account">Compte</a></li>
+                    <li><a href="/logout">Déconnexion</a></li>
+                <?php //endif; ?>
+                <?php //if (!isset($_SESSION['Account'])): ?>
+                    <li><a href="/login">Connexion</a></li>
+                    <li><a href="/register">Inscription</a></li>
+                <?php //endif; ?>
+            </ul>
+        </nav>
+    </div> -->
+<!-- </header> -->
+    <main class="dashboard">
+        <aside class="sidebar">
+            <h1 class="fs-4 mt-1 mb-3">Dashboard</h1>
+            <nav class="sidebar-navigation">
+                <ul>
+                    <li>
+                        <a class="nav-link" href="/dashboard">
+                        <i class="ri-dashboard-line"></i>
+                            <span>Tableau de bord</span>
+                        </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/page">Page</a>
+                    <li>
+                        <a class="nav-link" href="/">
+                            <i class="ri-equalizer-line"></i>
+                            <span>Style du site</span>
+                        </a>
                     </li>
-                    <?php
-                    if ($_SESSION['Account']['role'] == "admin") {
-                    ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/add_template_page">Templates</a>
+                    <li>
+                        <a class="nav-link" href="/">
+                            <i class="ri-store-2-line"></i>
+                            <span>Aller sur le site</span>
+                        </a>
+                    </li>
+                    <li>
+                        <h3>Content</h3>
+                        <li>
+                            <a href="/dashboard/pages" class="nav-link">
+                                <i class="ri-pages-line"></i>
+                                <span>Pages</span>
+                            </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/list_comment">Commentaires</a>
+                        <li>
+                            <a href="/dashboard/menus" class="nav-link">
+                                <i class="ri-menu-line"></i>
+                                <span>Menus</span>
+                            </a>
                         </li>
-                    <?php
-                    }
-                    ?>
+                    </li>
+                    <li>
+                        <h3>Modération</h3>
+                        <ul>
+                            <li>
+                                <a href="/dashboard/comments" class="nav-links">
+                                    <i class="ri-chat-settings-line"></i>
+                                    <span>Commentaires</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <h3>Settings</h3>
+                        <ul>
+                            <li>
+                                <a href="/dashboard/users" class="nav-links">
+                                    <i class="ri-team-line"></i>
+                                    <span>Utilisateurs</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/account" class="nav-links">
+                                    <i class="ri-account-circle-fill"></i>
+                                    <span>Profil</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/logout" class="nav-links">
+                                    <i class="ri-logout-box-line"></i>
+                                    <span>logout</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
-            </div> <?php
-                }
-                    ?>
-        <div class="content">
-            <?php
-            if (!empty($_SESSION['Connected'])) {
-            ?><header>
-                    <a href="/" class="btn btn-primary">Voir le site</a>
-                    <a href="/logout" class="btn btn-danger">Déconnexion</a>
-                </header>
-            <?php
-            }
-            ?>
-            <div class="info_user">
-                <?php include $this->viewName; ?>
-            </div>
-        </div>
-    </div>
+            </nav>
+        </aside> 
+        <section class="content">
+            <?php include $this->viewName; ?>  
+        </section>
+    </main>
 </body>
-
 </html>
+<?php endif; ?>

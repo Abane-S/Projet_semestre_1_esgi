@@ -39,6 +39,7 @@ class View
     public function assign(string $key, $value): void
     {
         $this->data[$key]=$value;
+        
     }
 
     public function includeComponent(string $component, array $config, array $data = []): void

@@ -23,7 +23,7 @@ class ModifieAccount extends Verificator
                     "placeholder" => "Votre prénom",
                     "min" => 2,
                     "max" => 45,
-                    "label" => "",
+                    "label" => "Prénom :",
                     "value" => $_SESSION['Account']['firstname'],
                     "error" => "-Votre prénom doit faire entre 2 et 45 caractères et ne doit contenir que des lettres."
                 ],
@@ -32,7 +32,7 @@ class ModifieAccount extends Verificator
                     "placeholder" => "Votre nom de famille",
                     "min" => 2,
                     "max" => 45,
-                    "label" => "",
+                    "label" => "Nom de famille :",
                     "value" => $_SESSION['Account']['lastname'],
                     "error" => "-Votre nom de famille doit faire entre 2 et 45 caractères et ne doit contenir que des lettres."
                 ],
@@ -40,7 +40,7 @@ class ModifieAccount extends Verificator
                     "type" => "password",
                     "min" => 8,
                     "max" => 45,
-                    "label" => "",
+                    "label" => "Mot de passe :",
                     "placeholder" => "Votre mot de passe",
                     "error" => "-Format du mot de passe incorrect, minimum 8 caractères, maximum 45 caractères, dont une majuscule, une minuscule, un chiffre et un caractère spécial parmi \"@#$%^&*()_+=[\]{}|;:'\",<.>/?~\\!\" "
                 ],
@@ -48,7 +48,7 @@ class ModifieAccount extends Verificator
                     "type" => "password",
                     "min" => 8,
                     "max" => 45,
-                    "label" => "",
+                    "label" => "Confirmation mot de passe",
                     "placeholder" => "Confirmation de votre mot de passe",
                     "confirm" => "user_password",
                     "error" => "-Vous avez insérer deux mots de passe différents"

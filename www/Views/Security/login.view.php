@@ -1,4 +1,4 @@
-<div class="div_input">
+<div class="divform ml-auto mr-auto center-form">
     <h2>Se connecter</h2>
     <?php
     if (isset($errors) && !empty($errors)) {
@@ -10,5 +10,5 @@
         }
     ?>
     <?php $this->includeComponent("form", $config);?>
-    <a href="/forgot-password">Mot de passe oublié</a>
+    <a class="forgot-password" href="/forgot-password">Mot de passe oublié</a>
 </div>

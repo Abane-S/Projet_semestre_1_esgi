@@ -1,3 +1,6 @@
+
+# MAIN ----------------------------------------------------------------------------------------
+
 /:
   controller: Main
   action: home
@@ -10,29 +13,28 @@
   controller: Security
   action: login
 
-/logout:
-  controller: Security
-  action: logout
-
 /register:
   controller: Security
   action: register
-
-/forgot-password:
-  controller: Security
-  action: pwdForget
 
 /account:
   controller: Security
   action: modifieAccount
 
-/email-verification:
-  controller: Security
-  action: verifyEmailNotify
+/dashboard:
+  controller: Main
+  action: dashboard
 
-/password-verification-notify:
+
+# SECURITY ------------------------------------------------------------------------------------
+
+/logout:
   controller: Security
-  action: ChangePasswordNotify
+  action: logout
+
+/forgot-password:
+  controller: Security
+  action: pwdForget
 
 /verify2:
   controller: Security
@@ -54,22 +56,32 @@
   controller: Security
   action: passwordChangedSucces
 
+/delete-account:
+  controller: Security
+  action: DeleteAccount
+
 /installer:
   controller: Installer
   action: installer
 
-/dashboard:
-  controller: Main
-  action: dashboard
+
+# ADMIN ---------------------------------------------------------------------------------------
+
+/dashboard/pages:
+  controller: Admin
+  action: pages
+
+
+/dashboard/users:
+  controller: Admin
+  action: users
+
+
+/dashboard/menus:
+  controller: Admin
+  action: menus
   
-/hard-delete:
-  controller: Security
-  action: hardDeleteAccount
 
-/soft-delete:
-  controller: Security
-  action: softDeleteAccount
-
-/account-modified-notify:
-  controller: Security
-  action: accountModifiedNotify
+/dashboard/comments:
+  controller: Admin
+  action: comments

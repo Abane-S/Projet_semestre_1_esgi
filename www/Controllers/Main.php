@@ -37,7 +37,7 @@ class Main
     public function dashboard(): void 
     {
         if ($_SESSION['Account']['role'] == "admin"){
-            $view = new View("Admin/Dashboard", "back");
+            $view = new View("Admin/dashboard", "back");
             $user = new User();
             $view->assign("users", $user->findAll());
         }

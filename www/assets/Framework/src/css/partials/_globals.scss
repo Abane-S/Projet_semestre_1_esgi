@@ -1,0 +1,37 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: $font1;
+	color: var(--text-color);
+	background-color: var(--body-color);
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+}
+
+a {
+	color: var(--black);
+	text-decoration: none;
+}
+
+.menu-svg {
+	background-image: url("/src/images/menu.svg");
+}
+
+.container {
+	max-width: rem(1200);
+}
+
+li {
+	list-style: none;
+}
+
+.text-center {
+	text-align: center;
+}

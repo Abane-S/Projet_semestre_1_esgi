@@ -1,0 +1,70 @@
+.d {
+
+    &-flex {
+        display: flex;
+
+        &.align-start {
+            align-content: flex-start;
+        }
+
+        &.align-end {
+            align-content: flex-end;
+        }
+
+        &.align-center {
+            align-content: center;
+        }
+
+        &.justify-center {
+            justify-content: center;
+        }
+
+        &.justify-start {
+            justify-content: flex-start;
+        }
+
+        &.justify-end {
+            justify-content: flex-end;
+        }
+
+        &.justify-between {
+            justify-content: space-between;
+        }
+
+        &.justify-around {
+            justify-content: space-around;
+        }
+
+        &.justify-evenly {
+            justify-content: space-evenly;
+        }
+
+        &.no-gap {
+            gap: 0;
+        }
+
+        &.no-wrap {
+            flex-wrap: nowrap;
+        }
+
+        @for $i from 0 through 25 {
+            &.gap-#{$i} {
+                gap: rem($i*10);
+            }
+        }
+    }
+
+}
+
+nav{
+
+    &.navbar
+    {
+        position: fixed;
+        top: 0;
+        left: 0;
+    }
+
+    &.flex
+    {display: flex;}
+}

@@ -1,0 +1,48 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: $table-background;
+    border-width: rem(10);
+    border-style: solid;
+    border-radius: rem(10);
+    overflow: hidden;
+    
+    thead, tbody{
+      width: 100%;
+    }
+
+    thead{
+      border-bottom: rem(2) solid $table-color;
+    }
+
+    th{
+      padding: rem(10);
+      text-align: left;
+    }
+    
+    th a{
+      color: $table-header-color;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    th.sorted a{
+      color: $table-header-sorted-color;
+      font-weight: 800;
+      text-decoration: none;
+    }
+    
+    .row{
+      padding: rem(10);
+      transition: background-color 0.3s ease;
+      
+      &:hover{
+        background-color: $table-row-hover;
+      }
+      
+      td{
+        padding: rem(10);
+      }
+    }
+
+  }

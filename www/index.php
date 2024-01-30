@@ -57,6 +57,11 @@ $listOfRoutes = yaml_parse_file("routes.yaml");
 
 */
 
+if (!file_exists('./.env') && $uri != "/installer") {
+    header("Location: /installer");
+    exit;
+}
+
 
 if ( !empty($listOfRoutes[$uri]) ){
     if ( !empty($listOfRoutes[$uri]['controller']) ){
@@ -96,7 +101,3 @@ if ( !empty($listOfRoutes[$uri]) ){
 }
 
 
-if (!file_exists('./.env') && $uri != "/installer") {
-    header("Location: /installer");
-    exit;
-}
