@@ -28,3 +28,4 @@ const open = (elem) => {
 const close = (elem) => {
 	elem.style.display = "none";
 };
+

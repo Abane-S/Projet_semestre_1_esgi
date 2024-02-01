@@ -30,8 +30,8 @@
 
 
 @for $i from 0 through 25 {
-    .p-#{$i} {
-        padding: rem($i*10);
+    .p-#{$i}-#{$i} {
+        padding: rem($i*10) rem($i*10);
     }
 }
 
@@ -64,7 +64,6 @@
         font-size: rem($i*10);
     }
 }
-
 .m-auto{
     margin: auto;
 }

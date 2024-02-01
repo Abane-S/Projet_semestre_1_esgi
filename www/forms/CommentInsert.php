@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Forms;
+use App\Core\Verificator;
 
-class CommentInsert
+class CommentInsert extends Validator
 {
 
 

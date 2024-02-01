@@ -26,12 +26,6 @@ class Admin
         $view->assign("users", $users->getAllUsers());
     }
 
-    public function menus(): void
-    {
-        $view = new View("Admin/menus", "back");
-        $categories = new Menu();
-        $view->assign("menu", $categories->getAllMenu());
-    }
 
     public function comments(): void
     {

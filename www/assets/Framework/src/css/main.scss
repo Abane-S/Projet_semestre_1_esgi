@@ -5,6 +5,8 @@
 @import "partials/globals";
 @import "partials/size";
 @import "partials/widths";
+@import "partials/border";
+
 
 
 @import "page-layouts/landing";
@@ -23,3 +25,5 @@
 @import "components/navbar";
 @import "components/slider";
 @import "components/modal";
+@import "components/checkbox";
+// @import "components/chose-file";

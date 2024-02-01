@@ -1,7 +1,11 @@
 <?php
 
 namespace App\Forms;
+
+
 class ArticleInsert 
+
+
 {
 
     public static function getConfig(): array

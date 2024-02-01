@@ -49,9 +49,9 @@
 
         <?php if (isset($config["inputs"])): ?>
     <?php foreach ($config["inputs"] as $name => $configInput): ?>
-        <?php if ($configInput["label"]): ?>
+        <?php // if ($configInput["label"]): ?>
             <label for="<?= $name ?>"><?= $configInput["label"] ?? "" ?></label>
-        <?php endif; ?>
+        <?php // endif; ?>
 
         <input
                 name="<?= $name ?>"

@@ -59,3 +59,24 @@ INSERT INTO "esgi_pages" ("id", "title", "content", "user_id", "date_created", "
 (16,	'Create Page',	'{"type":"body","children":[{"type":"img","attributes":{"src":"ImagePage\\/Uploads\\/ded\\/ded+logo fla.png"}},"dedLa FLA a permis de jouer contre de nombreuse equipe lors d\''un tournoi"]}',	126,	'2023-06-30 14:10:21.927364',	NULL,	'/create_page',	'Security',	'createPage',	NULL),
 (72,	'page',	'{"type":"body","children":[{"type":"img","attributes":{"src":"ImagePage\\/Uploads\\/ded\\/ded+logo fla.png"}},"dedLa FLA a permis de jouer contre de nombreuse equipe lors d\''un tournoi"]}',	126,	'2023-07-21 01:26:14.765273',	NULL,	'/page',	'Security',	'page',	NULL),
 (76,	'delete_page',	'{"type":"body","children":[{"type":"img","attributes":{"src":"ImagePage\\/Uploads\\/ded\\/ded+logo fla.png"}},"dedLa FLA a permis de jouer contre de nombreuse equipe lors d\''un tournoi"]}',	127,	'2023-06-28 12:45:14.6325',	NULL,	'/admin/delete_page',	'Admin',	'deletePage',	NULL);
+
+
+
+DROP TABLE IF EXISTS esgi_menu CASCADE;
+
+CREATE TABLE esgi_menu (
+    id SERIAL PRIMARY KEY,
+    parent_id INT NULL DEFAULT NULL,
+    title VARCHAR(100) NOT NULL,
+    page_id INT NOT NULL,
+    visible SMALLINT NOT NULL DEFAULT 1,
+    position INT NOT NULL DEFAULT 0,
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
+
+    is_footer SMALLINT NOT NULL DEFAULT 0,
+    is_header SMALLINT NOT NULL DEFAULT 0,
+
+    FOREIGN KEY (page_id) REFERENCES esgi_page(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT fk_esgi_menu_parent_id FOREIGN KEY (parent_id) REFERENCES esgi_menu(id) ON DELETE CASCADE
+);

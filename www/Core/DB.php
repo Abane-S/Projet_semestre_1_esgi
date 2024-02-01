@@ -4,6 +4,7 @@ namespace App\Core;
 
 use App\Controllers\EnvDecomposer;
 
+
 class DB
 {
 
@@ -29,8 +30,23 @@ class DB
         $table = explode("\\", $table);
         $table = array_pop($table);
         $this->table = "esgi_" . strtolower($table);
-        // echo "<pre>";
-        // var_dump($this);
+
+        $this->table = "esgi_" . strtolower($table);
+
+        // Vérifier si la base de données est vide 
+
+        // Vérifier si la base de données est vide
+
+        $checkTablesQuery = $this->pdo->prepare("
+            SELECT EXISTS (
+                SELECT 1
+                FROM information_schema.tables
+                WHERE table_schema = 'public'
+            )
+        ");
+        $checkTablesQuery->execute();
+        $tableExists = $checkTablesQuery->fetchColumn();
+
     }
 
     public static function getInstance(): self
@@ -46,7 +62,7 @@ class DB
     {
         return array_diff_key(get_object_vars($this), get_class_vars(get_class()));
 
-    }
+    }  
 
 
     public function save()

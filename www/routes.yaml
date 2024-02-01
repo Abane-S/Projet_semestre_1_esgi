@@ -67,21 +67,31 @@
 
 # ADMIN ---------------------------------------------------------------------------------------
 
-/dashboard/pages:
-  controller: Admin
-  action: pages
-
-
 /dashboard/users:
   controller: Admin
   action: users
 
-
-/dashboard/menus:
-  controller: Admin
-  action: menus
-  
-
 /dashboard/comments:
   controller: Admin
   action: comments
+
+
+
+# MENU ---------------------------------------------------------------------------------------
+
+
+/dashboard/menus:
+  controller: Menu
+  action: index
+
+
+
+# PAGE ---------------------------------------------------------------------------------------
+
+/dashboard/pages:
+  controller: Pages
+  action: index
+
+/dashboard/pages/create:
+  controller: Pages
+  action: create

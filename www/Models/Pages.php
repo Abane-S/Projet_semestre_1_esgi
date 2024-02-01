@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
-use App\Core\Db;
+use App\Core\DB;
 use App\Core\Utils;
 
 class Pages extends DB
 {
+
     protected Int $id = -1;
     protected String $title;
     protected String $content;
