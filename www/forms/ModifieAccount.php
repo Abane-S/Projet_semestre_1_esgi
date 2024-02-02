@@ -16,6 +16,7 @@ class ModifieAccount extends Verificator
                 "method" => $this->method,
                 "action" => "",
                 "submit" => "Modifier",
+                "class" => "form",
             ],
             "inputs" => [
                 "user_firstname" => [

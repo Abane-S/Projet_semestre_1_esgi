@@ -16,6 +16,7 @@ class PwdForget extends Verificator
                 "method" => $this->method,
                 "action" => "",
                 "submit" => "Mot de passe oublié",
+                "class" => "form",
             ],
             "inputs" => [
                 "user_email" => [

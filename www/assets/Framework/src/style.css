@@ -69,6 +69,11 @@ li {
   text-align: center;
 }
 
+/* CKEDITOR */
+.ck-editor__editable {
+  min-height: 18.75rem;
+}
+
 .m-0 {
   margin: 0rem;
 }
@@ -1593,39 +1598,39 @@ nav.flex {
   text-decoration: underline;
 }
 
-form {
+.form {
   /* Style de base pour un bouton de succès Bootstrap */
   /* Style au survol du bouton */
   /* Style lorsque le bouton est activé (clic) */
   /* Style pour le focus du bouton */
 }
-form input {
+.form input {
   padding: 0.625rem;
   font-size: 0.875rem;
   width: 80%;
   margin-bottom: 1.5625rem;
 }
-form label {
+.form label {
   text-align: left;
   display: block;
   margin-left: 10%;
 }
-form input[type=submit] {
+.form input[type=submit] {
   color: #fff;
   background-color: #28a745;
   border-color: transparent;
 }
-form input[type=submit]:hover {
+.form input[type=submit]:hover {
   color: #fff;
   background-color: #218838;
   border-color: transparent;
 }
-form input[type=submit]:active {
+.form input[type=submit]:active {
   color: #fff;
   background-color: #1e7e34;
   border-color: transparent;
 }
-form input[type=submit]:focus {
+.form input[type=submit]:focus {
   color: #fff;
   background-color: #1e7e34;
   border-color: transparent;

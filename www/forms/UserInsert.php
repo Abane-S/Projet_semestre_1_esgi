@@ -16,6 +16,7 @@ class UserInsert extends Verificator
                 "method" => $this->method,
                 "action" => "",
                 "submit" => "S'inscrire",
+                "class" => "form",
             ],
             "inputs" => [
                 "user_firstname" => [

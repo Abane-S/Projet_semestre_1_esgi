@@ -65,7 +65,7 @@ class DB
     }  
 
 
-    public function save()
+    public function save()  
     {
         $data = $this->getDataObject();
 
@@ -80,8 +80,16 @@ class DB
             $sql = substr($sql, 0, -1);
             $sql .= " WHERE id = " . $this->getId();
         }
+        echo $sql;
+        echo "<br>";
+        var_dump($data);	
         $queryPrepared = $this->pdo->prepare($sql);
+        // vérifie si la clé comments est presente dans le tableau data et 
+        // $data['comments'] = isset($data['comments']) ? ($data['comments'] ? "t" : "f") : "f";
+
         $queryPrepared->execute($data);
+        
+        var_dump($queryPrepared->errorInfo());
     }
 
 

@@ -18,6 +18,7 @@ class EnvInstaller extends Verificator
                 "method" => $this->method,
                 "action" => "",
                 "submit" => "Valider",
+                "class" => "form",
             ],
             "select" => [
                 "db_engine" => [

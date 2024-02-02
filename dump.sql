@@ -80,3 +80,19 @@ CREATE TABLE esgi_menu (
     FOREIGN KEY (page_id) REFERENCES esgi_page(id) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT fk_esgi_menu_parent_id FOREIGN KEY (parent_id) REFERENCES esgi_menu(id) ON DELETE CASCADE
 );
+
+
+
+CREATE TABLE esgi_pages (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    meta_description TEXT,
+    miniature VARCHAR(255),
+    comments boolean DEFAULT false,
+    content TEXT
+);
+
+
+
+INSERT INTO esgi_pages (title, meta_description, miniature, content)
+VALUES ('Titre de l''article', 'Description méta de l''article', 'nom_miniature.jpg', true, 'Contenu de l''article');

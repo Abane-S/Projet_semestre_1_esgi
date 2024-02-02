@@ -116,6 +116,14 @@ class User extends DB
         $this->email = $email;
     }
 
+        /**
+     * Get the value of email
+     */ 
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
     /**
      * Get the value of pwd
      */ 
@@ -213,6 +221,8 @@ class User extends DB
             return false;
         }
     }
+
+
 
 
 }
