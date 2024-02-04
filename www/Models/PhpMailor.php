@@ -30,13 +30,13 @@ class PhpMailor
     {
         $mail = new PHPMailer(true);
         $mail->isSMTP();
-        $mail->Host = 'mailhog-server';
+        $mail->Host = SMTP_HOST;
         $mail->SMTPAuth = true;
-        $mail->Username = '';
-        $mail->Password = '';
+        $mail->Username = SMTP_USERNAME;
+        $mail->Password = SMTP_PASSWORD;
         $mail->Port = SMTP_PORT;
 
-        $mail->setFrom($this->senderEmail, $this->senderName);
+        $mail->setFrom(SMTP_EMAIL, SMTP_NAME);
         $mail->addAddress($receiver);
         $mail->isHTML(true);
         $mail->Subject = $subject;
