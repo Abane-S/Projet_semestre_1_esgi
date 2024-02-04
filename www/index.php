@@ -65,15 +65,15 @@ else if (file_exists('./.env'))
 {
     $EnvDecomposer = new EnvDecomposer();
 
-    define("TABLE_PREFIX", $EnvDecomposer->getTablePrefixString());
     define("PDO_DSN", $EnvDecomposer->getPdoString());
-
-    define("SMTP_HOST", "YOUR_HOST");
-    define("SMTP_PORT", 1025);
-    define("SMTP_USERNAME", "Admin");
-    define("SMTP_EMAIL", "notreadresseemailsite@gmail.com");
-    define("SMTP_NAME", "Admin");
-    define("SMTP_PASSWORD", "G@u#kZ4@dh563Z");
+    define("TABLE_PREFIX", $EnvDecomposer->getTablePrefixString());
+    define("SMTP_HOST", $EnvDecomposer->getSMTPHostString());
+    define("SMTP_USERNAME", $EnvDecomposer->getSMTPUserNameString());
+    define("SMTP_PASSWORD", $EnvDecomposer->getSMTPPasswordString());
+    define("SMTP_PORT", $EnvDecomposer->getSMTPPortString());
+    define("SMTP_EMAIL", $EnvDecomposer->getSMTPEmailString());
+    define("SMTP_NAME", $EnvDecomposer->getSmtpNameString());
+    define("SITE_NAME", $EnvDecomposer->getSiteNameString());
 }
 
 if ( !empty($listOfRoutes[$uri]) ){

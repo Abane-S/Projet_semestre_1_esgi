@@ -4,7 +4,7 @@
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>DJIMDO</title>
+            <title><?php echo SITE_NAME; ?></title>
             <link rel="icon" type="image/png" href="../../assets/Framework/public/images/favicon_djimdo.png">
             <link rel="stylesheet" href="../../assets/Framework/src/style.css">
             <script type="module" src="../../assets/Framework/src/js/main.js"></script>
