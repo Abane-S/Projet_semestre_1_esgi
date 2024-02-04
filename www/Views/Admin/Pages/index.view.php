@@ -12,7 +12,7 @@
             </tr>
         </thead>
         <tbody >
-            <?php if(!isset($pages)): ?>
+            <?php if (empty($pages)):?>
                 <tr>
                     <td colspan=3 class="table_none text-center fs-2 p-3">Aucune page pour le moment</td>
                 </tr>

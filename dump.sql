@@ -89,7 +89,9 @@ CREATE TABLE esgi_pages (
     meta_description TEXT,
     miniature VARCHAR(255),
     comments boolean DEFAULT false,
-    content TEXT
+    content TEXT,
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
 

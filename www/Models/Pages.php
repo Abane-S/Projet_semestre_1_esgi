@@ -98,10 +98,14 @@ class Pages extends DB
 
     public function getAllPages(): array
     {
-        $sql = "SELECT * FROM pages";
-        $query = $this->pdo->prepare($sql);
-        $query->execute();
-        return $query->fetchAll();
+        if ($this->pdo->query("SELECT EXISTS (SELECT FROM information_schema.tables WHERE table_name = 'esgi_pages')")->fetchColumn()) {
+            $sql = "SELECT * FROM esgi_pages";
+            $query = $this->pdo->prepare($sql);
+            $query->execute();
+            return $query->fetchAll();
+        } else {
+            return [];
+        }
     }
 
 

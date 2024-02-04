@@ -3,7 +3,7 @@
         <h1 class="fs-4 ">Creation de page</h1>
         <button type="button" class="button button-primary button-md">Voir la page</button>
     </div>
-    <form action="" method="POST" class="fs-2">
+    <form action="" method="POST" enctype="multipart/form-data" class="fs-2">
         <div class="d-flex justify-around gap-2">
             <div class="w-5">
                 <label for="title" class="form-label d-block mb-1">Titre de la page</label>
@@ -27,7 +27,7 @@
             </div>
         </div>
         <div class="page-content mt-7 ">
-            <textarea name="content" id="editor" class="w-10 border" rows="50" cols="33" placeholder="Contenu de la page"></textarea>
+            <div id="editor">This is some sample content.</div>
         </div>
 
         <div class="d-flex justify-end mt-5">
@@ -35,4 +35,8 @@
         </div>
 
     </form>
+    <footer>
+        <script src="../../node_modules/@ckeditpr/keditor5-build-classic/build/ckeditor.js"></script>
+        <script type="module" src="../../assets/Framework/src/js/main.js"></script>
+    </footer>
 </div>
