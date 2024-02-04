@@ -137,7 +137,7 @@ class Security
                 $user->setRole("user");
                 $user->save();
 
-                $phpMailer = new PhpMailor(SMTP_USERNAME, SMTP_EMAIL, SMTP_PASSWORD, SMTP_HOST);
+                $phpMailer = new PhpMailor();
                 $subject = "Verify your account";
                 $message = "
                     <h1>Thanks For Registration</h1>
@@ -184,7 +184,7 @@ class Security
                             <p>Click on the link below to change your password</p>
                             <a href='http://".$_SERVER['HTTP_HOST']."/verify2?token=".$token."'>Change your password</a>
                         ";
-                        $mailer = new PhpMailor(SMTP_USERNAME, SMTP_EMAIL, SMTP_PASSWORD, SMTP_HOST);
+                        $mailer = new PhpMailor();
                         $mailer->sendMail($account->getEmail(), $subject, $message);
                         echo '<style>#modal2 { display: flex; }</style>';
 

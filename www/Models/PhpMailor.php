@@ -13,20 +13,7 @@ include 'PHPMailer/src/SMTP.php';
 class PhpMailor
 {
 
-    private $senderName;
-    private $senderEmail;
-    private $password;
-    private $SMTPhost;
-
-    public function __construct($senderName,$senderEmail,$password,$SMTPhost)
-    {
-        $this->senderName = $senderName;
-        $this->senderEmail = $senderEmail;
-        $this->password = $password;
-        $this->SMTPhost = $SMTPhost;
-    }
-
-    public function sendMail($receiver, $subject = "Test subject", $body = "Test body"): void
+    public function sendMail($receiver, $subject = "Subject", $body = "Body"): void
     {
         $mail = new PHPMailer(true);
         $mail->isSMTP();
