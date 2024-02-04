@@ -54,6 +54,10 @@ class Installer
 
     public function installer(): void
     {
+        if (file_exists('./.env')) {
+            $view = new View("Error/page404", "front");
+            exit;
+        }
         if(isset($_SESSION['Account'])) {
             unset($_SESSION['Account']);
         }

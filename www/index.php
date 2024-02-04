@@ -72,6 +72,7 @@ else if (file_exists('./.env'))
     define("SMTP_PORT", 1025);
     define("SMTP_USERNAME", "Admin");
     define("SMTP_EMAIL", "notreadresseemailsite@gmail.com");
+    define("SMTP_NAME", "Admin");
     define("SMTP_PASSWORD", "G@u#kZ4@dh563Z");
 }
 
