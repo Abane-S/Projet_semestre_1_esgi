@@ -40,8 +40,15 @@ class Installer
         $user->setRole("admin");
         $user->save();
 
-        $phpMailer = new PhpMailor();
-        $phpMailer->sendMail($_POST['admin_email'], $_POST['admin_firstname'], $_POST['admin_lastname'], $token, "Verification");
+        $phpMailer = new PhpMailor(SMTP_USERNAME, SMTP_EMAIL, SMTP_PASSWORD, SMTP_HOST);
+        $subject = "Verify your account";
+        $message = "
+                    <h1>Thanks For Registration</h1>
+                    <p>Click on the link below to verify your account</p>
+                    <a href='http://".$_SERVER['HTTP_HOST']."/verify?token=".$token."'>Verify</a>
+                ";
+        $phpMailer->sendMail($user->getEmail(), $subject, $message);
+
         echo '<style>#modal4 { display: flex; }</style>';
     }
 
@@ -98,6 +105,9 @@ class Installer
                     $handle = fopen("./.env", "w+");
                     fwrite($handle, $envdata);
                     if (file_exists("./.env")) {
+                        $EnvDecomposer = new EnvDecomposer();
+                        define("PDO_DSN", $EnvDecomposer->getPdoString());
+                        define("TABLE_PREFIX", $EnvDecomposer->getTablePrefixString());
                         $DB = new DB();
                         $DB->CreateDB();
                         $this->CreateAdminAccount();

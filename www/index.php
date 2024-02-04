@@ -61,7 +61,19 @@ if (!file_exists('./.env') && $uri != "/installer") {
     header("Location: /installer");
     exit;
 }
-include "config/config.php";
+else if (file_exists('./.env'))
+{
+    $EnvDecomposer = new EnvDecomposer();
+
+    define("TABLE_PREFIX", $EnvDecomposer->getTablePrefixString());
+    define("PDO_DSN", $EnvDecomposer->getPdoString());
+
+    define("SMTP_HOST", "YOUR_HOST");
+    define("SMTP_PORT", 1025);
+    define("SMTP_USERNAME", "Admin");
+    define("SMTP_EMAIL", "notreadresseemailsite@gmail.com");
+    define("SMTP_PASSWORD", "G@u#kZ4@dh563Z");
+}
 
 if ( !empty($listOfRoutes[$uri]) ){
     if ( !empty($listOfRoutes[$uri]['controller']) ){
