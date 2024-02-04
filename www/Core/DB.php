@@ -2,25 +2,18 @@
 
 namespace App\Core;
 
-use App\Controllers\EnvDecomposer;
-
-
 class DB
 {
 
     protected $pdo;
     protected string $table;
     private static $instance;
-    private $table_prefix;
 
 
     public function __construct()
     {
-        $EnvDecomposer = new EnvDecomposer();
-        $PdoString = $EnvDecomposer->getPdoString();
-        $this->table_prefix = $EnvDecomposer->getTablePrefixString();
         try {
-            $this->pdo = new \PDO($PdoString);
+            $this->pdo = new \PDO(PDO_DSN);
         } catch (\PDOException $e) {
             echo "Erreur SQL : " . $e->getMessage();
         }
@@ -29,24 +22,7 @@ class DB
         $table = get_called_class();
         $table = explode("\\", $table);
         $table = array_pop($table);
-        $this->table = "esgi_" . strtolower($table);
-
-        $this->table = "esgi_" . strtolower($table);
-
-        // Vérifier si la base de données est vide 
-
-        // Vérifier si la base de données est vide
-
-        $checkTablesQuery = $this->pdo->prepare("
-            SELECT EXISTS (
-                SELECT 1
-                FROM information_schema.tables
-                WHERE table_schema = 'public'
-            )
-        ");
-        $checkTablesQuery->execute();
-        $tableExists = $checkTablesQuery->fetchColumn();
-
+        $this->table = TABLE_PREFIX . strtolower($table);
     }
 
     public static function getInstance(): self
@@ -128,17 +104,17 @@ class DB
     }
 
     public function CreateDB(){
-        $tables = ["user"];
+        $tables = ["user", "pages"];
         try {
             foreach ($tables as $table) {
-                $table = $this->table_prefix . $table;
+                $table = TABLE_PREFIX;
                 $this->pdo->exec("DROP TABLE IF EXISTS $table CASCADE");
             }
 
             try {
                 foreach ($tables as $table) {
-                    $table = $this->table_prefix . $table;
-                    if($table == $this->table_prefix . "user")
+                    $table = TABLE_PREFIX . $table;
+                    if($table == TABLE_PREFIX . "user")
                     {
                         $sql = "
                                 CREATE TABLE IF NOT EXISTS $table (
@@ -157,15 +133,15 @@ class DB
                             ";
                         $this->pdo->exec($sql);
                     };
-                    if ($table == $this->table_prefix . "pages")
+                    if ($table == TABLE_PREFIX . "pages")
                     {
                         $sql = "
-                                DROP TABLE IF EXISTS 'esgi_pages';
-                                DROP SEQUENCE IF EXISTS esgi_pages_id_seq;
-                                CREATE SEQUENCE esgi_pages_id_seq INCREMENT 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1;
+                                DROP TABLE IF EXISTS $table;
+                                DROP SEQUENCE IF EXISTS $table . '_id_seq';
+                                CREATE SEQUENCE $table . '_id_seq'  INCREMENT 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1;
                                 
-                                CREATE TABLE 'public'.'esgi_pages' (
-                                    'id' integer DEFAULT nextval('esgi_pages_id_seq') NOT NULL,
+                                CREATE TABLE 'public'.$table (
+                                    'id' integer DEFAULT nextval($table . '_id_seq') NOT NULL,
                                     'title' character varying(255) NOT NULL,
                                     'content' text,
                                     'user_id' integer NOT NULL,
@@ -175,9 +151,9 @@ class DB
                                     'controller_page' character varying(255) NOT NULL,
                                     'action_page' character varying(255) NOT NULL,
                                     'used_template' character varying(255),
-                                    CONSTRAINT 'esgi_pages_pkey' PRIMARY KEY ('id')
+                                    CONSTRAINT $table . '_pkey' PRIMARY KEY ('id')
                                 ) WITH (oids = false);
-                                INSERT INTO 'esgi_pages' ('id', 'title', 'content', 'user_id', 'date_created', 'date_modified', 'url_page', 'controller_page', 'action_page', 'used_template') VALUES
+                                INSERT INTO $table ('id', 'title', 'content', 'user_id', 'date_created', 'date_modified', 'url_page', 'controller_page', 'action_page', 'used_template') VALUES
                                 (2,	'dashboard',	'{'type':'body','children':[{'type':'img','attributes':{'src':'ImagePage\\/Uploads\\/ded\\/ded+logo fla.png'}},'dedLa FLA a permis de jouer contre de nombreuse equipe lors d\''un tournoi']}',	126,	'2023-06-28 09:35:28.62323',	NULL,	'/dashboard',	'Main',	'dashboard',	NULL),
                                 (3,	'contact',	'{'type':'body','children':[{'type':'img','attributes':{'src':'ImagePage\\/Uploads\\/ded\\/ded+logo fla.png'}},'dedLa FLA a permis de jouer contre de nombreuse equipe lors d\''un tournoi']}',	126,	'2023-06-28 09:36:18.308916',	NULL,	'/contact',	'Main',	'contact',	NULL),
                                 (4,	'login',	'{'type':'body','children':[{'type':'img','attributes':{'src':'ImagePage\\/Uploads\\/ded\\/ded+logo fla.png'}},'dedLa FLA a permis de jouer contre de nombreuse equipe lors d\''un tournoi']}',	126,	'2023-06-28 09:36:52.399549',	NULL,	'/login',	'Security',	'login',	NULL),

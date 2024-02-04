@@ -12,6 +12,6 @@
         }
     ],
     "require": {
-        "phpmailer/phpmailer": "^6.5"
+        "../PHPMailer/phpmailer": "^6.5"
     }
 }
