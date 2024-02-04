@@ -3,7 +3,7 @@
         <h1 class="fs-4 ">Creation de page</h1>
         <button type="button" class="button button-primary button-md">Voir la page</button>
     </div>
-    <div class="fs-2">
+    <form action="" method="POST" enctype="multipart/form-data" class="fs-2">
         <div class="d-flex justify-around gap-2">
             <div class="w-5">
                 <label for="title" class="form-label d-block mb-1">Titre de la page</label>
@@ -16,23 +16,27 @@
         </div>
         <div class="d-flex justify-around align-items-center gap-2 mt-3"> 
             <div class="w-5">
-                <label for="undefined" class="d-block mb-1">Choose a file </label>
-                <input type="file" class="" name="undefined custom-file-upload" id="undefined" placeholder="Choisir un fichier">
+                <label for="undefined" class="d-block mb-1">Choisir une miniature </label>
+                <input type="file" class="" name="files" id="undefined" placeholder="Choisir un fichier">
             </div>
             <div class="w-5">
                 <div class="d-flex align-items-center gap-1 form-check form-switch">
-                    <input type="checkbox" class="form-check-input" role="switch" id="is_commentable">
+                    <input type="checkbox" name="comments" class="form-check-input" role="switch" id="is_commentable">
                     <label for="is_commentable" class="form-check-label">Commentaires</label>
                 </div>
             </div>
         </div>
-        <div class="page-content mt-7 " style="height:1500px">
-            <textarea name="content" id="editor" class="w-10 border" rows="50" cols="33" placeholder="Contenu de la page"></textarea>
+        <div class="page-content mt-7 ">
+            <div id="editor">This is some sample content.</div>
         </div>
 
         <div class="d-flex justify-end mt-5">
-            <button type="submit" class="button button-primary button-md">Enregistrer</button>
+            <input type="submit" name="submit" class="button button-primary button-md" value="Enregistrer">
         </div>
 
-    </div>
+    </form>
+    <footer>
+        <script src="../../node_modules/@ckeditpr/keditor5-build-classic/build/ckeditor.js"></script>
+        <script type="module" src="../../assets/Framework/src/js/main.js"></script>
+    </footer>
 </div>

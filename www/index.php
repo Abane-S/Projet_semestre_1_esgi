@@ -61,7 +61,7 @@ if (!file_exists('./.env') && $uri != "/installer") {
     header("Location: /installer");
     exit;
 }
-
+include "config/config.php";
 
 if ( !empty($listOfRoutes[$uri]) ){
     if ( !empty($listOfRoutes[$uri]['controller']) ){

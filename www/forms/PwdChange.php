@@ -16,6 +16,7 @@ class PwdChange extends Verificator
                 "method" => $this->method,
                 "action" => "",
                 "submit" => "Changer mon mot de passe",
+                "class" => "form",
             ],
             "inputs" => [
                 "user_password" => [

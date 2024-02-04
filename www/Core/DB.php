@@ -65,7 +65,7 @@ class DB
     }  
 
 
-    public function save()
+    public function save()  
     {
         $data = $this->getDataObject();
 
@@ -82,6 +82,7 @@ class DB
         }
         $queryPrepared = $this->pdo->prepare($sql);
         $queryPrepared->execute($data);
+        
     }
 
 

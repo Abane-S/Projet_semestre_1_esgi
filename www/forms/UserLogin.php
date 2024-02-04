@@ -18,6 +18,7 @@ class UserLogin extends Verificator
                 "method" => $this->method,
                 "action" => "",
                 "submit" => "Se Connecter",
+                "class" => "form",
             ],
             "inputs" => [
                 "user_email" => [

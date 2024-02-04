@@ -3,8 +3,8 @@
     <button type="button" id="pageCreation" onclick="window.location.href='pages/create'"  class="button button-primary button-md">Créer une page</button>
 </div>
 <div>
-    <table class="table mt-4">
-        <thead class="thead-dark">
+    <table class="mt-4">
+        <thead>
             <tr>
                 <th>ID</th>
                 <th>Titre</th>
@@ -12,7 +12,7 @@
             </tr>
         </thead>
         <tbody >
-            <?php if(!isset($pages)): ?>
+            <?php if (empty($pages)):?>
                 <tr>
                     <td colspan=3 class="table_none text-center fs-2 p-3">Aucune page pour le moment</td>
                 </tr>

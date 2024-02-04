@@ -17,5 +17,3 @@
 function redirectOn(page) {
     window.location.href = "dashboard/" + page; // Ajoutez '/' pour spécifier le chemin complet
 }
-
-console.log("test");

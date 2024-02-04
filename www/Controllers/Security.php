@@ -137,8 +137,14 @@ class Security
                 $user->setRole("user");
                 $user->save();
 
-                $phpMailer = new PhpMailor();
-                $phpMailer->sendMail($_POST['user_email'], $_POST['user_firstname'], $_POST['user_lastname'], $token, "Verification");
+                $phpMailer = new PhpMailor(SMTP_USERNAME, SMTP_EMAIL, SMTP_PASSWORD, SMTP_HOST);
+                $subject = "Verify your account";
+                $message = "
+                    <h1>Thanks For Registration</h1>
+                    <p>Click on the link below to verify your account</p>
+                    <a href='http://".$_SERVER['HTTP_HOST']."/verify?email=".$user->getEmail()."&token=".$token."'>Verify</a>
+                ";
+                $phpMailer->sendMail($user->getEmail(), $subject, $message);
                 echo '<style>#modal1 { display: flex; }</style>';
             }
         }else{
@@ -172,8 +178,12 @@ class Security
                         $account->setVericationToken($token);
                         $account->save();
 
-                        $phpMailer = new PhpMailor();
-                        $phpMailer->sendMail($_POST['user_email'], $_POST['user_firstname'], $_POST['user_lastname'], $token, "VerificationPassword");
+                        $subject = "Change your password";
+                        $message = "
+                            <p>Click on the link below to change your password</p>
+                            <a href='http://".$_SERVER['HTTP_HOST']."/change-password?email=".$account->getEmail()."&code=".$token."'>Change your password</a>
+                        ";
+                        $mailer->sendMail($user->getEmail(), $subject, $message);
                         echo '<style>#modal2 { display: flex; }</style>';
 
                     }
