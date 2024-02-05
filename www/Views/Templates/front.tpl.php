@@ -7,7 +7,8 @@
             <title><?php echo SITE_NAME; ?></title>
             <link rel="icon" type="image/png" href="../../assets/Framework/public/images/favicon_djimdo.png">
             <link rel="stylesheet" href="../../assets/Framework/src/style.css">
-            <script type="module" src="../../assets/Framework/src/js/main.js"></script>
+            <script type="module" src="http://localhost:5175/@vite/client"></script>
+		    <script typ="module" src="http://localhost:5175/js/main.js"></script>
         </head>
 
         <main>

@@ -34,6 +34,7 @@ class View
             die("La vue Views/".$viewName.".view.php n'existe pas");
         }
         $this->viewName = "Views/".$viewName.".view.php";
+
     }
 
     public function assign(string $key, $value): void

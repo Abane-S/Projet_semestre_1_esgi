@@ -1,0 +1,1 @@
+optimiser l'upload faire un file avec toutes les méthode d'upload avec l'upload de ckeditor 
