@@ -17,7 +17,7 @@
                     <td colspan=3 class="table_none text-center fs-2 p-3">Aucune page pour le moment</td>
                 </tr>
             <?php else:  ?>
-                <?php foreach($pages as $page): ?>
+                <?php  foreach($pages as $page): ?>
                     <tr>
                         <td ><?= $page['id'] ?></td>
                         <td><?= $page['title'] ?></td>

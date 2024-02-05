@@ -11,7 +11,7 @@ error_reporting(E_ALL);
 
 class Upload 
 {
-    private const DOWNLOAD_PATH = "/var/www/html/assets/Framework/public/images/";
+    private const DOWNLOAD_PATH = "/var/www/html/assets/Framework/public/images_upload/";
 
     public static function uploadFile($file)
     {
@@ -79,34 +79,5 @@ class Upload
 
     }
 
-    public function ckeditor_upload()
-    {
-        if (isset($_FILES['upload']['name']))
-        {
-            $file_name = $_FILES['upload']['name'];
-            $file_path = $DOWNLOAD_PATH . $file_name;
-            $file_extension = strtolower(pathinfo($file_path, PATHINFO_EXTENSION));
-            if (in_array($file_extension, ['jpg', 'jpeg', 'png', 'gif']))
-            {
-                if (move_uploaded_file($_FILES['upload']['tmp_name'], $file_path))
-                {
-                    $data['file'] = $file_name;
-                    $data['url'] = $file_path;	
-                    $data['uploaded'] = 1;
-                }
-                else
-                {
-                    $data['uploaded'] = 0;
-                    $data['error']['message'] = 'An error occurred while uploading the file';
-                }
-            }
-            else
-            {
-                $data['uploaded'] = 0;
-                $data['error']['message'] = 'File type not allowed';
-            }
-        }
-
-        echo json_encode($data);
-    }
+ 
 }

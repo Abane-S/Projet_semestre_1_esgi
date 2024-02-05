@@ -32,11 +32,7 @@ class Pages
             $page->setMiniature($_FILES['files']['name']??"");
             $page->setComments(isset($_POST['comments']) ? 1 : 0);
             $page->setContent($_POST['content']);
-            // $page->save();
-            // var_dump($_POST);
-            // var_dump($_FILES);
-            Upload::uploadFile($_FILES['files']);
-            echo $_FILES['files']['error'];
+            $page->save();
 
         }
     }

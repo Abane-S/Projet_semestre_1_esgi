@@ -53,3 +53,8 @@ services:
 networks:
   my_bridge_network:
     driver: bridge
+
+
+
+# pour abane : - psql -h database -U Portfolio_USER -d Portfolio_DB 
+#              - ALTER USER "Portfolio_USER" WITH PASSWORD 'Portfolio_PASS123@';
