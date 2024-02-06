@@ -58,6 +58,7 @@ else if (file_exists('./.env'))
     define("SMTP_EMAIL", $EnvDecomposer->getSMTPEmailString());
     define("SMTP_NAME", $EnvDecomposer->getSmtpNameString());
     define("SITE_NAME", $EnvDecomposer->getSiteNameString());
+    define("SITE_LOGO", $EnvDecomposer->getSiteLogoString());
 }
 
 $routes = yaml_parse_file("routes.yaml");

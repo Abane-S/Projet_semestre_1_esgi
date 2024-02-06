@@ -7,6 +7,9 @@ class EnvDecomposer
     private string $pdoString;
     private string $tablePrefixString;
     private string $siteNameString;
+
+    private string $siteLogoString;
+
     private string $smtpHostString;
     private string $smtpUsernameString;
     private string $smtpPasswordString;
@@ -25,6 +28,7 @@ class EnvDecomposer
         $this->smtpPortString = $this->getSMTPPort();
         $this->smtpEmailString = $this->getSMTPEmail();
         $this->smtpNameString = $this->getSMTPName();
+        $this->siteLogoString = $this->getSiteLogo();
     }
 
     public function getSiteNameString(): string
@@ -45,6 +49,11 @@ class EnvDecomposer
     public function setSmtpHostString(string $smtpHostString): void
     {
         $this->smtpHostString = $smtpHostString;
+    }
+
+    public function getSiteLogoString(): string
+    {
+        return $this->siteLogoString;
     }
 
     public function getSmtpUsernameString(): string
@@ -181,6 +190,11 @@ class EnvDecomposer
     public function getSMTPName(): string
     {
         return $this->getEnvValue('SMTP_NAME');
+    }
+
+    public function getSiteLogo(): string
+    {
+        return $this->getEnvValue('SITE_LOGO');
     }
 
     private function getEnvValue(string $key): string

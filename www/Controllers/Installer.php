@@ -72,6 +72,39 @@ class Installer
                     $smtp_name = $_POST['smtp_name'];
                     $site_name = $_POST['site_name'];
 
+// Chemin temporaire du fichier uploadé
+                    $chemin_temporaire = $_FILES['site_img']['tmp_name'];
+
+// Vérifier si le fichier uploadé est une image
+                    if (getimagesize($chemin_temporaire) !== false) {
+                        // Obtenir l'extension du fichier
+                        $extension = pathinfo($_FILES['site_img']['name'], PATHINFO_EXTENSION);
+
+                        // Vérifier si l'extension est l'une des extensions d'image autorisées
+                        if (in_array($extension, array('jpeg', 'jpg', 'png', 'gif'))) {
+                            // Lire le contenu du fichier dans une variable
+                            $contenu_image = file_get_contents($chemin_temporaire);
+
+                            // Obtenir le type MIME de l'image
+                            $type_mime = mime_content_type($chemin_temporaire);
+
+                            // Convertir le contenu de l'image en une chaîne base64
+                            $image_base64 = base64_encode($contenu_image);
+
+                            // Créer l'URI de données pour l'image
+                            $image_data_uri = 'data:' . $type_mime . ';base64,' . $image_base64;
+                            $site_logo = $image_data_uri;
+                        } else {
+                            $view->assign("errors", ["-Format de l'image incorrect<br>(.PNG ou .JPEG ou .JPG ou .GIF)"]);
+                            exit;
+                        }
+                    }
+                    else {
+                        $view->assign("errors", ["-Format de l'image incorrect<br>(.PNG ou .JPEG ou .JPG ou .GIF)"]);
+                        exit;
+                    }
+
+
                     if ($dbengine == "pgsql") {
                         $db = "pgsql:host=$dbhost;port=$dbport;dbname=$dbname;user=$dbuser;password=$dbpassword";
                         $this->pdo = new \PDO($db);
@@ -123,7 +156,8 @@ class Installer
                         "SMTP_PORT=" . $smtp_port . "\n" .
                         "SMTP_EMAIL=" . $smtp_email . "\n" .
                         "SMTP_NAME=" . $smtp_name . "\n" .
-                        "SITE_NAME=" . $site_name . "\n";
+                        "SITE_NAME=" . $site_name . "\n".
+                        "SITE_LOGO=" . $site_logo . "\n";
                     $handle = fopen("./.env", "w+");
                     fwrite($handle, $envdata);
                     if (file_exists("./.env")) {

@@ -1592,10 +1592,11 @@ nav.flex {
 .forgot-password {
   display: flex;
   padding-left: 10%;
+  text-decoration: underline;
 }
 
 .forgot-password:hover {
-  text-decoration: underline;
+  color: var(--blue-hover);
 }
 
 .form {
@@ -1619,11 +1620,13 @@ nav.flex {
   color: #fff;
   background-color: #28a745;
   border-color: transparent;
+  border-radius: var(--main-radius);
 }
 .form input[type=submit]:hover {
   color: #fff;
   background-color: #218838;
   border-color: transparent;
+  border-radius: var(--main-radius);
 }
 .form input[type=submit]:active {
   color: #fff;
@@ -1736,7 +1739,7 @@ nav.flex {
   --bg-hover-color: var(--red-darker);
 }
 .button-lg {
-  padding: 1rem 1.5rem;
+  padding: 0.625rem 1.5rem;
 }
 .button-md {
   padding: 0.75rem 1rem;
@@ -1781,9 +1784,15 @@ nav.flex {
   display: grid;
   grid-template-columns: 21.875rem 21.875rem 21.875rem;
   grid-template-rows: auto auto auto;
-  column-gap: 3.125rem;
-  row-gap: 3.125rem;
+  column-gap: 0.625rem;
+  row-gap: 2.5rem;
   justify-items: center;
+}
+
+.card-container-base {
+  text-align: center;
+  display: grid;
+  justify-content: center;
 }
 
 .card {
