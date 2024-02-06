@@ -13,19 +13,6 @@ class Installer
 
     public function __construct()
     {
-        ?>
-
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                // Find the first <header> element and set its display property to none
-                var firstHeader = document.querySelector('header');
-                if (firstHeader) {
-                    firstHeader.style.display = 'none';
-                }
-            });
-        </script>
-
-        <?php
     }
 
     private function CreateAdminAccount() :void
@@ -55,7 +42,8 @@ class Installer
     public function installer(): void
     {
         if (file_exists('./.env')) {
-            $view = new View("Error/page404", "front");
+            $view = new View("Security/404", "front");
+            $view->assign("showNavbar", "false");
             exit;
         }
         if(isset($_SESSION['Account'])) {
@@ -63,6 +51,8 @@ class Installer
         }
         $form = new EnvInstaller();
             $view = new View("Installer/installer", "front");
+            $view->assign("showNavbar", "false");
+
             $view->assign('config', $form->getConfig());
             if ($form->isSubmit() && $form->isValidInstall()){
                 try {
