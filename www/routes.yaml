@@ -82,7 +82,7 @@
 
 /dashboard/menus:
   controller: Menu
-  action: index
+  action: menus
 
 
 
@@ -90,8 +90,13 @@
 
 /dashboard/pages:
   controller: Pages
-  action: index
+  action: pages
 
 /dashboard/pages/create:
   controller: Pages
   action: create
+
+/article/{slug}:
+    path: /article/{articleId}
+    controller: Pages
+    action: show

@@ -218,7 +218,8 @@ class Security
     public function DeleteAccount(): void
     {
         if (!$this->UserIsLogged()){
-            $view = new View("Error/page404", "front");
+            $view = new View("Security/404", "front");
+            $view->assign("showNavbar", "false");
             exit;
         }
         $form = new UserDelete();
@@ -293,7 +294,8 @@ class Security
         }
         else
         {
-            $view = new View("Error/page404", "front");
+            $view = new View("Security/404", "front");
+            $view->assign("showNavbar", "false");
         }
     }
 
@@ -304,14 +306,16 @@ class Security
         }
         else
         {
-            $view = new View("Error/page404", "front");
+            $view = new View("Security/404", "front");
+            $view->assign("showNavbar", "false");
         }
     }
 
     public function ChangePasswordVerification():void
     {
         if (!isset($_GET['token']) || empty($_GET['token'])) {
-            $view = new View("Error/page404", "front");
+            $view = new View("Security/404", "front");
+            $view->assign("showNavbar", "false");;
         } else {
             $token = $_GET['token'];
             $user = new User();
@@ -363,7 +367,8 @@ class Security
         }
         else
         {
-            $view = new View("Error/page404", "front");
+            $view = new View("Security/404", "front");
+            $view->assign("showNavbar", "false");
         }
     }
 
@@ -375,14 +380,16 @@ class Security
         }
         else
         {
-            $view = new View("Error/page404", "front");
+            $view = new View("Security/404", "front");
+            $view->assign("showNavbar", "false");
         }
     }
 
     public function verifyEmail()
     {
         if (!isset($_GET['token']) || empty($_GET['token'])) {
-            $view = new View("Error/page404", "front");
+            $view = new View("Security/404", "front");
+            $view->assign("showNavbar", "false");
         } else {
             $token = $_GET['token'];
             $user = new User();

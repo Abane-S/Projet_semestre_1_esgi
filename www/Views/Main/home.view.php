@@ -19,7 +19,7 @@
                         <p>
                             <?= $card['meta_description'] ?>
                         </p>
-                        <a href="<php? // $card['url_page'] . $card['title'] ?>">
+                        <a href="/article/<?= $card['id']; ?>">
                             <button class="button button-primary button-md" >See the portfolio</button>
                         </a>
                     </article>

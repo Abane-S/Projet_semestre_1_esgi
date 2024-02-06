@@ -12,9 +12,9 @@ class Pages
 {
 
 
-    public function index(): void
+    public function pages(): void
     {
-        $view = new View("Admin/Pages/index", "back");
+        $view = new View("Admin/Pages/pages", "back");
         $pages = new PagesModel();
         $view->assign("pages", $pages->getAllPages());
     }
@@ -32,8 +32,19 @@ class Pages
             $page->setMiniature($_FILES['files']['name']??"");
             $page->setComments(isset($_POST['comments']) ? 1 : 0);
             $page->setContent($_POST['content']);
+
+            $upload = new Upload();
+            $upload->uploadFile($_FILES['files']);
             $page->save();
 
         }
+    }
+
+    public function show(): void
+    {
+        $articleId = basename(strtolower($_SERVER["REQUEST_URI"]));
+        $view = new View("Admin/Pages/show", "front");
+        $page = new PagesModel();
+        $view->assign("pages", $page->getOneBy(["id"=>$articleId]));
     }
 }
