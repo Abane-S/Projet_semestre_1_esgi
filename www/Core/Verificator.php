@@ -110,12 +110,14 @@ class Verificator {
 
     public function isValidInstall(): bool
     {
-        if (count($this->config["inputs"]) + count($this->config["select"]) != count($this->data) - 1) {
+        if (count($this->config["inputs"]) + count($this->config["select"]) != count($this->data)) {
             die("Tentative de Hack 1");
         }
         foreach ($this->config["inputs"] as $name => $input) {
-            if (empty($this->data[$name])) {
-                die("Tentative de Hack 2");
+            if($name != "site_img") {
+                if (empty($this->data[$name])) {
+                    die("Tentative de Hack 2");
+                }
             }
 
             if (!$this->checkIdentical($this->data["csrf_token"], $_SESSION['csrf_token'])) {
@@ -182,8 +184,10 @@ class Verificator {
                     $this->listOfErrors[] = $input["error"];
                 }
 
-                if ($input["type"] == "file" && !($this->checkImg($this->data[$name]))) {
-                    $this->listOfErrors[] = $input["error"];
+                if(!empty($this->data["site_img"])) {
+                    if ($input["type"] == "file" && !($this->checkImg($this->data[$name]))) {
+                        $this->listOfErrors[] = $input["error"];
+                    }
                 }
             }
             else if (

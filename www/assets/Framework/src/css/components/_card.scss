@@ -2,11 +2,18 @@
 	display: grid;
 	grid-template-columns: rem(350) rem(350) rem(350);
 	grid-template-rows: auto auto auto; 
-	column-gap: rem(50);
-	row-gap: rem(50);
+	column-gap: rem(10);
+	row-gap: rem(40);
 	justify-items: center;
   }
-  
+
+.card-container-base
+{
+text-align: center;
+display: grid;
+justify-content: center;
+}
+
   .card {
 	width: rem(320);
 	padding: rem(20);

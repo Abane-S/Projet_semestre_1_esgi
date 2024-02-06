@@ -4,6 +4,7 @@
     method="<?= $config["config"]["method"]??"GET" ?>"
     action="<?= $config["config"]["action"]??"" ?>"
     class="<?= $config["config"]["class"]??"" ?>"
+    enctype="<?= $config["config"]["enctype"]??"" ?>"
     id="<?= $config["config"]["id"]??"" ?>">
 
     <?php

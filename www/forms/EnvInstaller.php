@@ -17,6 +17,7 @@ class EnvInstaller extends Verificator
             "config" => [
                 "method" => $this->method,
                 "action" => "",
+                "enctype" => "multipart/form-data",
                 "submit" => "Valider",
                 "class" => "form",
             ],
