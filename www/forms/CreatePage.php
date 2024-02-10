@@ -24,11 +24,10 @@ class CreatePage extends Verificator
             'inputs' => [
                 'name' => [
                     'type'        => 'text',
-                    "placeholder" => "nom de l'article",
                     'class'       => 'input-form',
                     'placeholder' => 'nom de l\'article',
                     'value'       => '',
-                    'errors'      => "Le nom de votre article doit contenir au moins 3 caractères et ne doit pas dépasser 255 caractères.",
+                    'errors'      => "-Le nom de votre article doit contenir au moins 3 caractères et ne doit pas dépasser 255 caractères.",
                 ],
                 'category' => [
                     'input'       => "textarea",
@@ -37,14 +36,14 @@ class CreatePage extends Verificator
                     'class'       => 'input-form',
                     'placeholder' => 'catégorie',
                     'value'       => '',
-                    'errors'      => "La catégorie de votre article doit contenir au moins 3 caractères et ne doit pas dépasser 255 caractères.",
+                    'errors'      => "-La catégorie de votre article doit contenir au moins 3 caractères et ne doit pas dépasser 255 caractères.",
                 ],
                 "meta_description" => [
                     "type"        => "text",
                     "class"       => "input-form",
                     "placeholder" => "meta description",
                     "value"       => "",
-                    "errors"      => "La meta description de votre article doit contenir au moins 3 caractères et ne doit pas dépasser 255 caractères.",
+                    "errors"      => "-La meta description de votre article doit contenir au moins 3 caractères et ne doit pas dépasser 255 caractères.",
                 ],
                 'images' => [
                     'type'        => 'file',
@@ -58,7 +57,7 @@ class CreatePage extends Verificator
                     'class'       => 'input-form',
                     'placeholder' => 'description',
                     'value'       => '',
-                    'errors'      => "La description de votre article doit contenir au moins 3 caractères et ne doit pas dépasser 255 caractères.",
+                    'errors'      => "-La description de votre article doit contenir au moins 3 caractères et ne doit pas dépasser 255 caractères.",
                     'type'       => "textarea",
                     'id'          => "editor",
                 ],

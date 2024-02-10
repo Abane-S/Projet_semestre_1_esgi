@@ -75,16 +75,11 @@
   controller: Admin
   action: comments
 
-
-
 # MENU ---------------------------------------------------------------------------------------
-
 
 /dashboard/menus:
   controller: Menu
   action: menus
-
-
 
 # PAGE ---------------------------------------------------------------------------------------
 
@@ -96,7 +91,7 @@
   controller: Pages
   action: create
 
-/article/{slug}:
+/article/{pages}:
     path: /article/{articleId}
     controller: Pages
     action: show

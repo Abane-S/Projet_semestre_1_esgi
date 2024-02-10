@@ -14,7 +14,7 @@
             <ul class="card-container">
             <?php foreach ($cards as $card) { ?>
                     <article class="card">
-                        <img src="<?= "http://localhost:8081/assets/Framework/public/images_upload/" . $card['miniature'] ?>">
+                        <img src="<?= SITE_URL . "/assets/Framework/public/images_upload/" . $card['miniature'] ?>">
                         <h1><?= $card['title'] ?></h1>
                         <p>
                             <?= $card['meta_description'] ?>

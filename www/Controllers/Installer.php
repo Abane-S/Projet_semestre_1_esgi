@@ -32,7 +32,7 @@ class Installer
         $message = "
                     <h1>Thanks For Registration</h1>
                     <p>Click on the link below to verify your account</p>
-                    <a href='http://".$_SERVER['HTTP_HOST']."/verify?token=".$token."'>Verify</a>
+                    <a href='".SITE_URL ."/verify?token=".$token."'>Verify</a>
                 ";
         $phpMailer->sendMail($user->getEmail(), $subject, $message);
 
@@ -161,6 +161,8 @@ class Installer
                     $handle = fopen("./.env", "w+");
                     fwrite($handle, $envdata);
                     if (file_exists("./.env")) {
+                        $URL_SITE = (isset($_SERVER['HTTPS']) ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'];
+                        define("SITE_URL", $URL_SITE);
                         $EnvDecomposer = new EnvDecomposer();
                         define("PDO_DSN", $EnvDecomposer->getPdoString());
                         define("TABLE_PREFIX", $EnvDecomposer->getTablePrefixString());
