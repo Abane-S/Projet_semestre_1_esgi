@@ -1,5 +1,5 @@
 <div class="div-form">
-    <div class="d-flex justify-between mb-4 pt-2">
+    <!-- <div class="d-flex justify-between mb-4 pt-2">
         <h1 class="fs-4 ">Creation de page</h1>
         <button type="button" class="button button-primary button-md">Voir la page</button>
     </div>
@@ -36,8 +36,6 @@
             <input type="submit" name="submit" id="submit_btn" class="button button-primary button-md" value="Enregistrer">
         </div>
 
-    </form>
+    </form> -->
+    <?php // $this->includeComponent("form", $config); ?>
 </div>
-<footer>
-    <script type="module" src="../../../assets/Framework/src/dist/assets/main-mbazXW8H.js"></script>
-</footer>

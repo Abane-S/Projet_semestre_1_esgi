@@ -18,15 +18,6 @@ class Admin
         $view->assign("pages", $pages->getAllPages());
     }
 
-    public function users(): void
-    {
-        $view = new View("Admin/users", "back");
-        $users = new User();
-        var_dump($users->getAllUsers());
-        $view->assign("users", $users->getAllUsers());
-    }
-
-
     public function comments(): void
     {
         $view = new View("Admin/comments", "back");

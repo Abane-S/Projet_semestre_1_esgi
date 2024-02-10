@@ -8,9 +8,9 @@ use App\Core\Menu as MenuModel;
 class Menu 
 {
 
-    public function index(): void
+    public function menus(): void
     {
-        $view = new View("Admin/Pages/index", "back");
+        $view = new View("Admin/Menus/menus", "back");
         $menus = new MenuModel();
         $view->assign("pages", $pages->getAllMenu());
     }

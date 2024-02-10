@@ -2059,7 +2059,6 @@ nav.flex {
   background-color: rgba(0, 0, 0, 0.9);
   display: flex;
   z-index: 999;
-  display: none;
 }
 .modal section {
   margin: auto;
