@@ -15,7 +15,7 @@
             </head>
             <main class="d-flex" style="height:100vh">
                 <aside class="sidebar">
-                    <h1 class="fs-4 mt-1 mb-3">Dashboard Admin</h1>
+                    <h1 class="fs-4 mt-1 mb-3">Dashboard</h1>
                     <nav class="sidebar-navigation">
                         <ul>
                             <li>

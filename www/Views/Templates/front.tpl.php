@@ -31,7 +31,7 @@ function CompareURI($uriToCheck): bool
                 <a href="/" class="esgi-logo">
 
                     <img style="width: 7rem;
-    height: 7rem;" src=<?=  defined('SITE_LOGO') ? SITE_LOGO : "" ?> alt="Logo site"/>
+    height: 7rem;" src=<?=  defined('SITE_LOGO') ? SITE_LOGO : "../../assets/Framework/public/images/logo_djimido_website.png" ?> alt="Logo site"/>
                 </a>
                 <nav>
                     <ul>
@@ -78,7 +78,7 @@ function CompareURI($uriToCheck): bool
             </div>
         </header>
         <?php endif; ?>
-        <main>  
+        <main>
             <?php include $this->viewName; ?>
         </main>
     </body>

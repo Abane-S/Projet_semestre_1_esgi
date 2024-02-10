@@ -41,11 +41,7 @@ class Installer
 
     public function installer(): void
     {
-        if (file_exists('./.env')) {
-            $view = new View("Security/404", "front");
-            $view->assign("showNavbar", "false");
-            exit;
-        }
+
         if(isset($_SESSION['Account'])) {
             unset($_SESSION['Account']);
         }

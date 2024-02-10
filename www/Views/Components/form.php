@@ -5,7 +5,9 @@
     action="<?= $config["config"]["action"]??"" ?>"
     class="<?= $config["config"]["class"]??"" ?>"
     enctype="<?= $config["config"]["enctype"]??"" ?>"
-    id="<?= $config["config"]["id"]??"" ?>">
+    <?php if (!empty($config["config"]["id"])): ?>
+        id="<?= $config["config"]["id"] ?>"
+    <?php endif; ?> >
 
     <?php
         // Définir les noms des champs que vous souhaitez récupérer
@@ -31,10 +33,12 @@
 
                 <select
                         name="<?= $name ?>"
-                        id="<?= $name ?>"
-                        class="<?= $configSelect["class"] ?? "" ?>"
+                        <?php if (!empty($configSelect["id"])): ?>
+                            id="<?= $configSelect["id"] ?>"
+                        <?php endif; ?>
+                        class="<?= $configSelect["class"] ?? "" ?>">
                     <?= (!empty($configSelect["required"])) ? "required" : "" ?>
-                >
+                
                     <?php foreach ($configSelect["options"] as $value => $label): ?>
                         <option value="<?= $value ?>" <?= (isset($valeurs[$name]) && $valeurs[$name] == $value) ? "selected" : "" ?>>
                             <?= $label ?>
@@ -57,7 +61,9 @@
         <input
                 name="<?= $name ?>"
                 type="<?= $configInput["type"] ?? "text" ?>"
-                id="<?= $configInput["id"] ?? "" ?>"
+                <?php if (!empty($configInput["id"])): ?>
+                    id="<?= $configInput["id"] ?>"
+                <?php endif; ?>
                 class="<?= $configInput["class"] ?? "" ?>"
                 placeholder="<?= $configInput["placeholder"] ?? "" ?>"
             <?php

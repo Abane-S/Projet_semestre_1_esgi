@@ -63,7 +63,11 @@ class Verificator {
 
     public function isValid(): bool
     {
-        if (count($this->config["inputs"]) != count($this->data) - 1) {
+        if (count($this->config["inputs"]) + count($this->config["select"] ?? []) != count($this->data) - 1) {
+            echo "<pre>";
+            var_dump($this->config["inputs"]);
+            var_dump($this->data);
+            echo "</pre>";
             die("Tentative de Hack 1");
         }
         foreach ($this->config["inputs"] as $name => $input) {

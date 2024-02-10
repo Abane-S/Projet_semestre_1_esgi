@@ -66,13 +66,4 @@ class CreatePage extends Verificator
 
         return $this->config;
     }
-
-    public function rules(): array
-    {
-        return [
-            'name'        => ['required', 'min:3'],
-            'category'    => ['required', 'min:3'],
-            'description' => ['required', 'min:3'],
-        ];
-    }
 }

@@ -7,7 +7,7 @@
                     use App\Models\User;
                     $user = new User();
                     $admin = $user->getOneBy(["role" => "admin"], "object");
-                    if ($admin) {
+                    if ($admin) { 
                         echo $admin->getFirstname() . " " . $admin->getLastname();
                     }
                     ?></b> le
@@ -19,4 +19,7 @@
             <?= $pages['content']?>
         </div>
     </main>
+    <footer>
+        
+    </footer>
 </article>
