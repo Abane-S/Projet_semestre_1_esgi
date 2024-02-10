@@ -107,6 +107,33 @@ class Verificator {
     }
 
 
+    public function isValidComment(): bool
+    {
+        if (count($this->config["inputs"]) != count($this->data) - 1) {
+            die("Tentative de Hack 1");
+        }
+        foreach ($this->config["inputs"] as $name => $input) {
+            if (empty($this->data[$name])) {
+                die("Tentative de Hack 2");
+            }
+
+            if (!$this->checkIdentical($this->data["csrf_token"], $_SESSION['csrf_token'])) {
+                die("Tentative de Hack 3");
+            }
+
+            if ($name == "comment_title" && $input["type"] == "text" && !($this->checkCommentTitle($this->data[$name]))) {
+                $this->listOfErrors[] = $input["error"];
+            }
+
+            if ($name == "comment" && $input["type"] == "text" && !($this->checkComment($this->data[$name]))) {
+                $this->listOfErrors[] = $input["error"];
+            }
+        }
+        if(empty($this->listOfErrors)){
+            return true;
+        }
+        return false;
+    }
 
     public function isValidInstall(): bool
     {
@@ -288,7 +315,17 @@ class Verificator {
         return preg_match("/\.png$|\.jpeg$|\.jpg$|\.gif$/i", $img);
     }
 
-    public function checkDBUsername($name): bool
+    public function checkComment($texte): bool
+    {
+        return preg_match("/^.{1,600}$/", $texte);
+    }
+
+    public function checkCommentTitle($texte): bool
+    {
+        return preg_match("/^.{1,60}$/", $texte);
+    }
+
+public function checkDBUsername($name): bool
     {
         return preg_match("/^[a-zA-Z0-9_]{3,20}$/", $name);
     }

@@ -8,6 +8,19 @@ use App\Core\DB;
 class User extends DB
 {
     private ?int $id = null;
+
+    protected int $id_page;
+
+    public function getIdPage(): int
+    {
+        return $this->id_page;
+    }
+
+    public function setIdPage(int $id_page): void
+    {
+        $this->id_page = $id_page;
+    }
+
     protected string $firstname;
     protected string $lastname;
     protected string $email;
@@ -223,6 +236,21 @@ class User extends DB
     }
 
 
+    public function ShowAllModerate(): array
+    {
+        try {
+            $sql = "SELECT email FROM " . $this->table . " WHERE role = 'moderateur'";
+            $queryPrepared = $this->pdo->prepare($sql);
+            $queryPrepared->execute();
 
+            $result = $queryPrepared->fetchAll(\PDO::FETCH_ASSOC);
+
+            $emails = array_column($result, 'email');
+
+            return $emails;
+        } catch (\PDOException $e) {
+            return [];
+        }
+    }
 
 }

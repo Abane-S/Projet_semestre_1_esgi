@@ -11,7 +11,7 @@ class Pages extends DB
     protected String $title;
     protected String $meta_description;
     protected String $miniature;
-    protected int $comments;
+    protected Int $comments;
     protected String $content;
 
 
@@ -147,4 +147,5 @@ class Pages extends DB
         $this->comments = $comments;
 
     }
+
 }

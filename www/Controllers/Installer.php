@@ -28,11 +28,11 @@ class Installer
         $user->save();
 
         $phpMailer = new PhpMailor();
-        $subject = "Verify your account";
+        $subject = "Veuillez vérifier votre compte";
         $message = "
-                    <h1>Thanks For Registration</h1>
-                    <p>Click on the link below to verify your account</p>
-                    <a href='".SITE_URL ."/verify?token=".$token."'>Verify</a>
+                    <h1>Merci de votre inscription</h1>
+                    <p>Merci de cliquer sur le lien ci-dessous pour vérifier votre compte</p>
+                    <a href='".SITE_URL."/verify?token=".$token."'>Verify</a>
                 ";
         $phpMailer->sendMail($user->getEmail(), $subject, $message);
 
