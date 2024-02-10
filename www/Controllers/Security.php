@@ -138,10 +138,10 @@ class Security
                 $user->save();
 
                 $phpMailer = new PhpMailor();
-                $subject = "Verify your account";
+                $subject = "Veuillez vérifier votre compte";
                 $message = "
-                    <h1>Thanks For Registration</h1>
-                    <p>Click on the link below to verify your account</p>
+                    <h1>Merci de votre inscription</h1>
+                    <p>Merci de cliquer sur le lien ci-dessous pour vérifier votre compte</p>
                     <a href='".SITE_URL."/verify?token=".$token."'>Verify</a>
                 ";
                 $phpMailer->sendMail($user->getEmail(), $subject, $message);
@@ -179,9 +179,9 @@ class Security
                         $account->setVericationToken($token);
                         $account->save();
 
-                        $subject = "Change your password";
+                        $subject = "Changer votre mot de passe";
                         $message = "
-                            <p>Click on the link below to change your password</p>
+                            <p>Merci de cliquer sur le lien ci-dessous pour changer votre mot de passe</p>
                             <a href='".SITE_URL."/verify2?token=".$token."'>Change your password</a>
                         ";
                         $mailer = new PhpMailor();

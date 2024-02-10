@@ -67,6 +67,10 @@
 
 # ADMIN ---------------------------------------------------------------------------------------
 
+/dashboard/users:
+  controller: Admin
+  action: users
+
 /dashboard/comments:
   controller: Admin
   action: comments
@@ -91,14 +95,3 @@
     path: /article/{articleId}
     controller: Pages
     action: show
-
-
-# USERS ---------------------------------------------------------------------------------------
-
-/dashboard/users:
-  controller: Users
-  action: users
-
-/dashboard/users/create:
-  controller: Users
-  action: create
