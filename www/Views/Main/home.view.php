@@ -1,4 +1,4 @@
-<div class="container">
+<div class="card-container-base">
     <!-- <h2>Les catégories</h2>
     <ul class="list-group">
         <?php
@@ -14,13 +14,13 @@
             <ul class="card-container">
             <?php foreach ($cards as $card) { ?>
                     <article class="card">
-                        <img src="<?= "http://localhost:8081/assets/Framework/public/images_upload/" . $card['miniature'] ?>" style="object-fit: contain;">
+                        <img src="<?= SITE_URL . "/assets/Framework/public/images_upload/" . $card['miniature'] ?>">
                         <h1><?= $card['title'] ?></h1>
                         <p>
                             <?= $card['meta_description'] ?>
                         </p>
                         <a href="/article/<?= $card['id']; ?>">
-                            <button class="button button-primary button-md" >See the portfolio</button>
+                            <button class="w-10 button button-primary button-md w-" >Voir la page</button>
                         </a>
                     </article>
             <?php } 

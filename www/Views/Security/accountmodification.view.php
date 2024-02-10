@@ -10,13 +10,7 @@
     }
     ?>
     <?php $this->includeComponent("form", $config);?>
-
-
-</div>
-<div style="margin-top:0% !important;" class="divform ml-auto mr-auto center-form">
-    <h2 class="mb-3 fs-3">Option du compte</h2>
-    <a href="\delete-account" class="button button-danger button-lg w-8 fs-4">Supprimer mon compte</a><br>
-</div>
+    <a href="\delete-account" style="font-size:0.88rem!important;" class="button button-danger button-lg w-8 fs-4">Supprimer mon compte</a><br>
 
 <div class="modal" id="modal3">
     <section>

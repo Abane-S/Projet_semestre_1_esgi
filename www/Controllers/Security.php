@@ -142,7 +142,7 @@ class Security
                 $message = "
                     <h1>Thanks For Registration</h1>
                     <p>Click on the link below to verify your account</p>
-                    <a href='http://".$_SERVER['HTTP_HOST']."/verify?token=".$token."'>Verify</a>
+                    <a href='".SITE_URL."/verify?token=".$token."'>Verify</a>
                 ";
                 $phpMailer->sendMail($user->getEmail(), $subject, $message);
 
@@ -182,7 +182,7 @@ class Security
                         $subject = "Change your password";
                         $message = "
                             <p>Click on the link below to change your password</p>
-                            <a href='http://".$_SERVER['HTTP_HOST']."/verify2?token=".$token."'>Change your password</a>
+                            <a href='".SITE_URL."/verify2?token=".$token."'>Change your password</a>
                         ";
                         $mailer = new PhpMailor();
                         $mailer->sendMail($account->getEmail(), $subject, $message);

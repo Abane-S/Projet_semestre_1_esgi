@@ -1,3 +1,17 @@
+<?php
+
+function CompareURI($uriToCheck): bool
+{
+    $uri = strtolower($_SERVER["REQUEST_URI"]);
+    $uri = strtok($uri, "?");
+    $uri = strlen($uri) > 1 ? rtrim($uri, "/") : $uri;
+
+    return $uriToCheck == $uri;
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="fr">
     <body>
@@ -11,27 +25,53 @@
             <script src="https://cdn.ckeditor.com/ckeditor5/41.0.0/classic/ckeditor.js"></script>
             <script type="module" src="../../assets/Framework/src/js/main.js"></script>
         </head>
-        
         <?php if ( (!isset($showNavbar)) || $showNavbar != "false") : ?>
         <header id="header" class="esgi-header">
             <div class="container">
                 <a href="/" class="esgi-logo">
-                    <img src="../../assets/Framework/public/images/logo_djimdo_website.png" alt="Logo site"/>
+
+                    <img style="width: 7rem;
+    height: 7rem;" src=<?=  defined('SITE_LOGO') ? SITE_LOGO : "" ?> alt="Logo site"/>
                 </a>
                 <nav>
                     <ul>
                         <?php if (isset($_SESSION['Account']) && $_SESSION['Account']['role'] == "admin"): ?>
-                            <li><a href="/dashboard">Dashboard</a></li>
+                            <li><a href="/dashboard">Dashboard (Admin)</a></li>
                         <?php endif; ?>
-                        <li><a href="/portfolio">Portfolio</a></li>
-                        <li><a href="/contact">Contact</a></li>
+                        <?php if (CompareURI('/')): ?>
+                            <li><a style="color:#2256FA" href="/">Pages</a></li>
+                        <?php else: ?>
+                            <li><a href="/">Pages</a></li>
+                        <?php endif; ?>
+
+                        <?php if (CompareURI('/contact')): ?>
+                            <li><a style="color:#2256FA" href="/contact">Contact</a></li>
+                        <?php else: ?>
+                            <li><a href="/contact">Contact</a></li>
+                        <?php endif; ?>
                         <?php if (isset($_SESSION['Account'])): ?>
-                            <li><a href="/account">Compte</a></li>
-                            <li><a href="/logout">Déconnexion</a></li>
+                            <?php if (CompareURI('/account')): ?>
+                                <li><a style="color:#2256FA"  href="/account">Compte</a></li>
+                            <?php else: ?>
+                                <li><a href="/account">Compte</a></li>
+                            <?php endif; ?>
+                            <?php if (CompareURI('/logout')): ?>
+                                <li><a style="color:#2256FA" href="/logout">Déconnexion</a></li>
+                            <?php else: ?>
+                                <li><a href="/logout">Déconnexion</a></li>
+                            <?php endif; ?>
                         <?php endif; ?>
                         <?php if (!isset($_SESSION['Account'])): ?>
-                            <li><a href="/login">Connexion</a></li>
-                            <li><a href="/register">Inscription</a></li>
+                            <?php if (CompareURI('/login')): ?>
+                                <li><a style="color:#2256FA" href="/login">Connexion</a></li>
+                            <?php else: ?>
+                                <li><a href="/login">Connexion</a></li>
+                            <?php endif; ?>
+                            <?php if (CompareURI('/register')): ?>
+                                <li><a style="color:#2256FA" href="/register">Inscription</a></li>
+                            <?php else: ?>
+                                <li><a href="/register">Inscription</a></li>
+                            <?php endif; ?>
                         <?php endif; ?>
                     </ul>
                 </nav>

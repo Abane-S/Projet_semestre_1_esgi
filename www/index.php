@@ -49,6 +49,7 @@ else if (file_exists('./.env'))
 {
     $EnvDecomposer = new EnvDecomposer();
 
+    $URL_SITE = (isset($_SERVER['HTTPS']) ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'];
     define("PDO_DSN", $EnvDecomposer->getPdoString());
     define("TABLE_PREFIX", $EnvDecomposer->getTablePrefixString());
     define("SMTP_HOST", $EnvDecomposer->getSMTPHostString());
@@ -58,6 +59,8 @@ else if (file_exists('./.env'))
     define("SMTP_EMAIL", $EnvDecomposer->getSMTPEmailString());
     define("SMTP_NAME", $EnvDecomposer->getSmtpNameString());
     define("SITE_NAME", $EnvDecomposer->getSiteNameString());
+    define("SITE_LOGO", $EnvDecomposer->getSiteLogoString());
+    define("SITE_URL", $URL_SITE);
 }
 
 $routes = yaml_parse_file("routes.yaml");
@@ -65,7 +68,7 @@ $routes = yaml_parse_file("routes.yaml");
 $found = false;
 
 foreach($routes as $pattern => $route) {
-    $pattern = str_replace("{slug}", "([^/]+)", $pattern);
+    $pattern = str_replace("{pages}", "([^/]+)", $pattern);
     $pattern = "@^".$pattern."$@i";
     
     if(preg_match($pattern, $uri, $matches)) {
