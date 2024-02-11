@@ -15,9 +15,15 @@
             </head>
             <main class="d-flex" style="height:100vh">
                 <aside class="sidebar">
-                    <h1 class="fs-4 mt-1 mb-3">Dashboard</h1>
+                    <h1 class="fs-4 mt-1 mb-3">Dashboard (Admin)</h1>
                     <nav class="sidebar-navigation">
                         <ul>
+                            <li>
+                                <a class="nav-link" href="/">
+                                    <i class="ri-store-2-line"></i>
+                                    <span>Aller sur le front</span>
+                                </a>
+                            </li>
                             <li>
                                 <a class="nav-link" href="/dashboard">
                                 <i class="ri-dashboard-line"></i>
@@ -28,12 +34,6 @@
                                 <a class="nav-link" href="/">
                                     <i class="ri-equalizer-line"></i>
                                     <span>Style du site</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="nav-link" href="/">
-                                    <i class="ri-store-2-line"></i>
-                                    <span>Aller sur le site</span>
                                 </a>
                             </li>
                             <li>
@@ -69,18 +69,6 @@
                                         <a href="/dashboard/users" class="nav-links">
                                             <i class="ri-team-line"></i>
                                             <span>Utilisateurs</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="/account" class="nav-links">
-                                            <i class="ri-account-circle-fill"></i>
-                                            <span>Profil</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="/logout" class="nav-links">
-                                            <i class="ri-logout-box-line"></i>
-                                            <span>logout</span>
                                         </a>
                                     </li>
                                 </ul>

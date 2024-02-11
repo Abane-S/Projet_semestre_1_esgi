@@ -45,7 +45,7 @@ if (!file_exists('./.env') && $uri != "/installer") {
     header("Location: /installer");
     exit;
 }
-else if (file_exists('./.env'))
+else if (file_exists('./.env') && $uri != "/installer")
 {
     $EnvDecomposer = new EnvDecomposer();
 
@@ -61,6 +61,11 @@ else if (file_exists('./.env'))
     define("SITE_NAME", $EnvDecomposer->getSiteNameString());
     define("SITE_LOGO", $EnvDecomposer->getSiteLogoString());
     define("SITE_URL", $URL_SITE);
+}
+else if (file_exists('./.env') && $uri == "/installer") {
+    $view = new View("Security/404", "front");
+    $view->assign("showNavbar", "false");
+    exit;
 }
 
 $routes = yaml_parse_file("routes.yaml");
