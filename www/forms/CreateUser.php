@@ -83,9 +83,8 @@ class CreateUser extends Verificator
                     "options" => [
                         "user" => "Utilisateur",
                         "moderateur" => "Modérateur",
-                        "admin" => "Admin"
                     ],
-                    "error" => "-Veuillez sélectionner un type de base de données",
+                    "error" => "-Veuillez sélectionner un rôle de l'utilisateur",
                     "required" => true
                 ]
             ],

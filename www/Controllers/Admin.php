@@ -7,7 +7,7 @@ use App\Models\User;
 use App\Models\Categories;
 use App\Models\Pages;
 use App\Models\Menu;
-use App\Models\Comments;
+use App\Models\Comment;
 
 class Admin
 {
@@ -21,7 +21,7 @@ class Admin
     public function comments(): void
     {
         $view = new View("Admin/comments", "back");
-        $comments = new Comments();
+        $comments = new Comment();
         $view->assign("comments", $comments->getAllComments());
     }
 }

@@ -11,7 +11,7 @@
                 <th>Prénom</th>
                 <th>Email</th>
                 <th>Rôle</th>
-                <th>Statut</th>
+                <th>Email verifier</th>
                 <th>Actions</th>
             </tr>
         </thead>

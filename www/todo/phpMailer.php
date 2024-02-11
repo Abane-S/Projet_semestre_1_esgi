@@ -1,8 +1,6 @@
 todo : 
 
 
-faire un component model qu'on peut appeler n'importe ou pour afficher les errors comme les errors pour la taille ou le type de fichier
-
 optimiser l'upload faire un file avec toutes les méthode d'upload avec l'upload de ckeditor 
 
 
@@ -15,8 +13,6 @@ Dashboard avec de la datavisualisation
 Configuration du templating / style du site
 
 Enleve rlocalhsot ou c'est utiliser dans le code (ex : js)
-
-ajouter icon navbar
 
 CRUD des commentaires et modération
 
