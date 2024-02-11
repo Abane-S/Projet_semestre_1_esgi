@@ -23,3 +23,9 @@
         
     </footer>
 </article>
+
+<p id ="needtologin" style="display:none; text-align: center;
+    justify-content: center;
+    color: red;">
+    Merci de vous connecter ou de vous inscrire<br>afin d'afficher les commentaires disponibles ou pour en ajouter.
+</p>

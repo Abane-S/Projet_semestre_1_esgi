@@ -125,7 +125,7 @@ text-decoration: none;">Ne pas valider le commentaire</a>';
             }
             else if($current_page_obj->getComments() && !Security::UserIsLogged())
             {
-                echo "merci de vous co ou register pr voir les commentaires";
+                echo '<style>#needtologin { display: flex !important; }</style>';
             }
         }
         else
