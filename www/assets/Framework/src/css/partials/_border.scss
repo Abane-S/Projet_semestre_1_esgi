@@ -1,6 +1,6 @@
 .border{
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    padding: 10px;
-    margin-bottom: 10px;
+    border: rem(1) solid #ccc;
+    border-radius: rem(3);
+    padding: rem(10);
+    margin-bottom: rem(10);
 }

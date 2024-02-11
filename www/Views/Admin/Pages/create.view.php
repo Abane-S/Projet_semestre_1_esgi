@@ -36,6 +36,6 @@
             <input type="submit" name="submit" id="submit_btn" class="button button-primary button-md" value="Enregistrer">
         </div>
 
-    </form> -->
+    </form>
     <?php // $this->includeComponent("form", $config); ?>
 </div>

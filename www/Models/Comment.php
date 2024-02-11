@@ -95,4 +95,19 @@ class Comment extends DB
         }
     }
 
+    public function getAllComments(): array
+    {
+        try {
+            $sql = "SELECT * FROM " . $this->table;
+            $queryPrepared = $this->pdo->prepare($sql);
+            $queryPrepared->execute();
+
+            $result = $queryPrepared->fetchAll(\PDO::FETCH_ASSOC);
+
+            return $result;
+        } catch (\PDOException $e) {
+            return [];
+        }
+    }
+
 }

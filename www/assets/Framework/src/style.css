@@ -1297,10 +1297,10 @@ li {
 }
 
 .border {
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  padding: 10px;
-  margin-bottom: 10px;
+  border: 0.0625rem solid #ccc;
+  border-radius: 0.1875rem;
+  padding: 0.625rem;
+  margin-bottom: 0.625rem;
 }
 
 h2 {
@@ -1316,7 +1316,7 @@ table {
   border-style: solid;
   border-radius: 0.625rem;
   overflow: hidden;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.527);
+  box-shadow: 0 0.125rem 0.75rem 0 rgba(0, 0, 0, 0.527);
 }
 table thead, table tbody {
   width: 100%;
@@ -1582,7 +1582,7 @@ nav.flex {
 }
 
 .input-select2 {
-  height: 40px;
+  height: 2.5rem;
 }
 
 .input-select {
@@ -1687,12 +1687,12 @@ nav.flex {
 
 .sidebar {
   padding: 1.875rem;
-  flex: 0 0 250px;
+  flex: 0 0 15.625rem;
   background-color: var(--white);
   color: var(--black);
   position: sticky;
   z-index: 2;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.06);
+  box-shadow: 0 0.125rem 0.75rem 0 rgba(0, 0, 0, 0.06);
 }
 .sidebar .sidebar-navigation {
   margin-left: 1.25rem;
@@ -1961,7 +1961,7 @@ nav.flex {
   position: sticky;
   top: 0;
   z-index: 2;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.06);
+  box-shadow: 0 0.125rem 0.75rem 0 rgba(0, 0, 0, 0.06);
 }
 .esgi-header .container {
   display: flex;
@@ -2097,8 +2097,8 @@ input[type=checkbox] {
   -webkit-appearance: none;
   background: #c6c6c6;
   outline: none;
-  border-radius: 20px;
-  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 1.25rem;
+  box-shadow: inset 0 0 0.3125rem rgba(0, 0, 0, 0.2);
   transition: 0.3s;
   cursor: pointer;
 }
@@ -2117,7 +2117,7 @@ input[type=checkbox]:before {
   left: 0;
   background: #fff;
   transform: scale(0.98);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0.125rem 0.3125rem rgba(0, 0, 0, 0.2);
   transition: 0.3s;
 }
 
