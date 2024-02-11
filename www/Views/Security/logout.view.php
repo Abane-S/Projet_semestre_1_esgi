@@ -1,5 +1,5 @@
 <div class="divform ml-auto mr-auto center-form">
-    <h2>Déconnexion.</h2>
+    <h1>Déconnexion.</h1>
 
     <span>Vous avez été déconnecté.<br>Vous allez être redirigé vers la page de connexion.</span>
     <div class="loader-dot">

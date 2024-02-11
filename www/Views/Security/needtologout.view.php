@@ -1,5 +1,5 @@
 <div class="divform ml-auto mr-auto center-form">
-    <h2>Merci de vous déconnecter pour accéder à cette page.</h2>
+    <h1>Merci de vous déconnecter pour accéder à cette page.</h1>
 
     <span>Vous devez d'abord vous déconnecter avant d'accéder à cette page.</span>
     <br>

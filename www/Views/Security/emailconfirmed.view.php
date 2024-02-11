@@ -1,5 +1,5 @@
 <div class="divform ml-auto mr-auto center-form">
-    <h2>Email confirmer</h2>
+    <h1>Email confirmer</h1>
 
     <span>Votre adresse e-mail a bien été confirmée, votre compte est maintenant activé.<br>Vous allez être redirigé vers la page de connexion</span>
     <div class="loader-dot">

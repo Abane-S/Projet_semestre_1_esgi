@@ -1,5 +1,5 @@
 <div class="divform ml-auto mr-auto center-form">
-    <h2>Supprimer mon compte</h2><br>
+    <h1>Supprimer mon compte</h1><br>
     <div class='alert alert-danger m-auto mb-2' style='width: 80%'>Attention !<br>La suppression de votre compte sera définitive et irreversible.
     </div>
     <?php
