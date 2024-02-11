@@ -19,6 +19,34 @@ class Verificator {
         return false;
     }
 
+    public function isValidEmail(): bool
+    {
+        if (count($this->config["inputs"]) != count($this->data) - 1) {
+            die("Tentative de Hack 1");
+        }
+        foreach ($this->config["inputs"] as $name => $input) {
+            if (empty($this->data[$name])) {
+                die("Tentative de Hack 2");
+            }
+
+            if (!$this->checkIdentical($this->data["csrf_token"], $_SESSION['csrf_token'])) {
+                die("Tentative de Hack 3");
+            }
+
+            if ($name == "contact_subject" && $input["type"] == "text" && !($this->checkSubject($this->data[$name]))) {
+                $this->listOfErrors[] = $input["error"];
+            }
+
+            if ($name == "contact_message" && $input["type"] == "text" && !($this->checkMessage($this->data[$name]))) {
+                $this->listOfErrors[] = $input["error"];
+            }
+        }
+        if(empty($this->listOfErrors)){
+            return true;
+        }
+        return false;
+    }
+
     public function isValidAccountModification(): bool
     {
         if (count($this->config["inputs"]) != count($this->data) - 1) {
@@ -64,10 +92,6 @@ class Verificator {
     public function isValid(): bool
     {
         if (count($this->config["inputs"]) + count($this->config["select"] ?? []) != count($this->data) - 1) {
-            echo "<pre>";
-            var_dump($this->config["inputs"]);
-            var_dump($this->data);
-            echo "</pre>";
             die("Tentative de Hack 1");
         }
         foreach ($this->config["inputs"] as $name => $input) {
@@ -347,6 +371,16 @@ public function checkDBUsername($name): bool
     public function checkSMTPHost($host): bool
     {
         return preg_match('/^[\w.-]{2,50}$/', $host);
+    }
+
+    public function checkSubject($subject): bool
+    {
+        return preg_match('/^.{1,255}$/', $subject);
+    }
+
+    public function checkMessage($msg): bool
+    {
+        return preg_match('/^.{1,10000}$/', $msg);
     }
 
     public function checkTablePrefix($prefix): bool

@@ -36,41 +36,41 @@ function CompareURI($uriToCheck): bool
                 <nav>
                     <ul>
                         <?php if (isset($_SESSION['Account']) && $_SESSION['Account']['role'] == "admin"): ?>
-                            <li><a href="/dashboard">Dashboard (Admin)</a></li>
+                            <i class="ri-dashboard-line"></i><li><a href="/dashboard">Dashboard (Admin)</a></li>
                         <?php endif; ?>
                         <?php if (CompareURI('/')): ?>
-                            <li><a style="color:#2256FA" href="/">Pages</a></li>
+                            <i class="ri-pages-line"></i><li><a style="color:#2256FA" href="/">Pages</a></li>
                         <?php else: ?>
-                            <li><a href="/">Pages</a></li>
+                            <i class="ri-pages-line"></i><li><a href="/">Pages</a></li>
                         <?php endif; ?>
 
                         <?php if (CompareURI('/contact')): ?>
-                            <li><a style="color:#2256FA" href="/contact">Contact</a></li>
+                            <i class="ri-chat-settings-line"></i><li><a style="color:#2256FA" href="/contact">Contact</a></li>
                         <?php else: ?>
-                            <li><a href="/contact">Contact</a></li>
+                            <i class="ri-chat-settings-line"></i><li><a href="/contact">Contact</a></li>
                         <?php endif; ?>
                         <?php if (isset($_SESSION['Account'])): ?>
                             <?php if (CompareURI('/account')): ?>
-                                <li><a style="color:#2256FA"  href="/account">Compte</a></li>
+                                <i class="ri-account-circle-fill"></i><li><a style="color:#2256FA"  href="/account">Compte</a></li>
                             <?php else: ?>
-                                <li><a href="/account">Compte</a></li>
+                                <i class="ri-account-circle-fill"></i><li><a href="/account">Compte</a></li>
                             <?php endif; ?>
                             <?php if (CompareURI('/logout')): ?>
-                                <li><a style="color:#2256FA" href="/logout">Déconnexion</a></li>
+                                <i class="ri-logout-box-line"></i><li><a style="color:#2256FA" href="/logout">Déconnexion</a></li>
                             <?php else: ?>
-                                <li><a href="/logout">Déconnexion</a></li>
+                                <i class="ri-logout-box-line"></i><li><a href="/logout">Déconnexion</a></li>
                             <?php endif; ?>
                         <?php endif; ?>
                         <?php if (!isset($_SESSION['Account'])): ?>
                             <?php if (CompareURI('/login')): ?>
-                                <li><a style="color:#2256FA" href="/login">Connexion</a></li>
+                                <i class="ri-login-box-line"></i><li><a style="color:#2256FA" href="/login">Connexion</a></li>
                             <?php else: ?>
-                                <li><a href="/login">Connexion</a></li>
+                                <i class="ri-login-box-line"></i><li><a href="/login">Connexion</a></li>
                             <?php endif; ?>
                             <?php if (CompareURI('/register')): ?>
-                                <li><a style="color:#2256FA" href="/register">Inscription</a></li>
+                                <i class="mdi--register-outline"></i><li><a style="color:#2256FA" href="/register">Inscription</a></li>
                             <?php else: ?>
-                                <li><a href="/register">Inscription</a></li>
+                                <i class="mdi--register-outline"></i><li><a href="/register">Inscription</a></li>
                             <?php endif; ?>
                         <?php endif; ?>
                     </ul>

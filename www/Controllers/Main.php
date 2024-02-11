@@ -29,13 +29,13 @@ class Main
             $admin = $user->getOneBy(["role" => "admin"], "object");
 
             $phpMailer = new PhpMailor();
-            $subject = "";
-            $message = "";
+            $subject = $_POST['contact_subject'];
+            $message = $_POST['contact_message'];
             $phpMailer->sendMail($admin->getEmail(), $subject, $message);
 
             $modal = [
-                "title" => "msg envoyer",
-                "content" => "avec succs",
+                "title" => "Message envoyé avec succès",
+                "content" => "Votre message a bien été envoyé",
                 "redirect" => "/contact"
             ];
             $view->assign("modal", $modal);

@@ -21,20 +21,20 @@ class ContactUs extends Verificator
             "inputs" => [
                 "contact_subject" => [
                     "type" => "text",
-                    "min" => 8,
-                    "max" => 45,
+                    "min" => 1,
+                    "max" => 255,
                     "label" => "Sujet : ",
                     "placeholder" => "Comment aller vous",
-                    "error" => "",
+                    "error" => "-Votre sujet est incorrect (min 1, max 255 caractères)",
                     "required" => true
                 ],
                 "contact_message" => [
                     "type" => "text",
-                    "min" => 8,
-                    "max" => 45,
+                    "min" => 1,
+                    "max" => 10000,
                     "label" => "Message : ",
                     "placeholder" => "Bonjour, vous allez bien ?",
-                    "error" => "",
+                    "error" => "-Votre message est incorrect (min 1, max 10 000 caractères)",
                     "required" => true
                 ],
                 "csrf_token" => [
