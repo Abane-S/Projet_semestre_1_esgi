@@ -24,6 +24,12 @@
     </footer>
 </article>
 
+<?php
+if (isset($modal)) {
+    $this->includeComponent("modal", $modal);
+}
+?>
+
 <p id ="needtologin" style="display:none; text-align: center;
     justify-content: center;
     color: red;">

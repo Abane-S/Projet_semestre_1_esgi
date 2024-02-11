@@ -12,7 +12,11 @@ Gestion des commentaires
 
 Dashboard avec de la datavisualisation 
 
-Configuration du templating / style du site 
+Configuration du templating / style du site
+
+Enleve rlocalhsot ou c'est utiliser dans le code (ex : js)
+
+ajouter icon navbar
 
 CRUD des commentaires et modération
 

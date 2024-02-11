@@ -1,5 +1,13 @@
+<?php
+use App\Models\Comment;
+
+$commentModel = new Comment();
+
+$comments = $commentModel->ShowAllValidComments($articleId);
+?>
+
 <hr>
-<div class="divform ml-auto mr-auto center-form">
+<div style="margin-bottom:0% !important;" class="divform ml-auto mr-auto center-form">
     <h2>Ajouter un commentaire</h2>
     <?php
     if (isset($errors) && !empty($errors)) {
@@ -12,21 +20,31 @@
     ?>
     <?php $this->includeComponent("form", $config);?>
 </div>
+<hr>
+<br>
+<h2 class="center-form">Commentaire</h2>
+<section style="margin-left: 30%">
+    <?php if (empty($comments)): ?>
+    <br>
+        <p style="margin-left: 8%;
+    justify-content: center;
+    color: red;">
+            Aucun commentaire est présent sur cette pages.
+        </p>
+    <br>
+    <?php else: ?>
+    <?php foreach ($comments as $comment): ?>
+        <div>
+            <br>
+            <p><b><?php echo $comment['commenttitle']; ?></b></p>
+            <p><?php echo $comment['comment']; ?></p>
+            <p style="font-size: small;color: #343333;">publié par <?php echo $comment['fullname']; ?><br>le <?php echo date('d/m/Y H:i:s', strtotime($comment['updated_at'])); ?></p>
 
-<div class="modal" id="modal1" >
-    <section>
-        <header>
-            <h1>Commentaire en attente de modération</h1>
-        </header>
-        <div class="modal_content ">
-            <p>
-                Votre commentaire est actuellement en cours de modération.<br>Vous serez averti(e) par e-mail lors de sa publication.
-            </p>
         </div>
-        <footer>
-            <a href="/" class="button button-primary button-sm">
-                Fermer
-            </a>
-        </footer>
-    </section>
-</div>
+        <br>
+    <?php endforeach; ?>
+    <?php endif; ?>
+</section>
+<br>
+<hr>
+<br>

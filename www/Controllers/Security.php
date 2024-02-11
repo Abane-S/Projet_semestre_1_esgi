@@ -146,7 +146,13 @@ class Security
                 ";
                 $phpMailer->sendMail($user->getEmail(), $subject, $message);
 
-                echo '<style>#modal1 { display: flex; }</style>';
+                $modal = [
+                    "title" => "Email confirmation",
+                    "content" => "Un mail de confirmation vous a été envoyé.<br>Merci de confirmer votre adresse e-mail afin de pouvoir vous connecter.",
+                    "redirect" => "/login"
+                ];
+                $view->assign("modal", $modal);
+
             }
         }else{
             $view->assign('errors', $form->listOfErrors);
@@ -186,7 +192,12 @@ class Security
                         ";
                         $mailer = new PhpMailor();
                         $mailer->sendMail($account->getEmail(), $subject, $message);
-                        echo '<style>#modal2 { display: flex; }</style>';
+                        $modal = [
+                            "title" => "Email confirmation",
+                            "content" => "Un mail de confirmation vous a été envoyé afin que vous puissiez changer votre mot de passe.",
+                            "redirect" => "/login"
+                        ];
+                        $view->assign("modal", $modal);
 
                     }
                     else
@@ -235,14 +246,24 @@ class Security
                 $account->setIsdeleted(1);
                 $account->save();
                 session_destroy();
-                echo '<style>#modal5 { display: flex; }</style>';
+                $modal = [
+                    "title" => "Suppression du compte",
+                    "content" => "Votre compte a été supprimé avec succès",
+                    "redirect" => "/login"
+                ];
+                $view->assign("modal", $modal);
             }
             else
             {
                 if($account->HardDeleteAccount($_SESSION['Account']['email']))
                 {
                     session_destroy();
-                    echo '<style>#modal5 { display: flex; }</style>';
+                    $modal = [
+                        "title" => "Suppression du compte",
+                        "content" => "Votre compte a été supprimé avec succès",
+                        "redirect" => "/login"
+                    ];
+                    $view->assign("modal", $modal);
                 }
                 else
                 {
@@ -286,7 +307,12 @@ class Security
                 }
                 $account->save();
                 session_destroy();
-                echo '<style>#modal3 { display: flex; }</style>';
+                $modal = [
+                    "title" => "Compte modifié",
+                    "content" => "Les données du compte ont bien été modifiées.<br>Vous pouvez désormais vous connecter avec vos nouvelles modifications.",
+                    "redirect" => "/logout"
+                ];
+                $view->assign("modal", $modal);
 
             } else {
                 $view->assign('errors', $form->listOfErrors);
