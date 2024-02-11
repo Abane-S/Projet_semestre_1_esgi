@@ -59,6 +59,7 @@ class Pages
                 $view2 = new View("Admin/Pages/comments", "blank");
                 $view2->assign('config', $form->getConfig());
                 $view2->assign("showNavbar", "false");
+                $view2->assign("articleId", $articleId);
 
                 if ($form->isSubmit() && $form->isValidComment()) {
                     $comment = new Comment();
@@ -120,12 +121,18 @@ text-decoration: none;">Ne pas valider le commentaire</a>';
                         $phpMailer->sendMail($admin->getEmail(), $subject, $message);
                     }
 
-                    echo '<style>#modal1 { display: flex; }</style>';
+                    $modal = [
+                        "title" => "Commentaire en attente de modération",
+                        "content" => "Votre commentaire est actuellement en cours de modération.<br>Vous serez averti(e) par e-mail lors de sa publication.",
+                        "redirect" => "/"
+                    ];
+                    $view->assign("modal", $modal);
+
                 }
             }
             else if($current_page_obj->getComments() && !Security::UserIsLogged())
             {
-                echo "merci de vous co ou register pr voir les commentaires";
+                echo '<style>#needtologin { display: flex !important; }</style>';
             }
         }
         else

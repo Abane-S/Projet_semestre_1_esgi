@@ -35,8 +35,6 @@ class Installer
                     <a href='".SITE_URL."/verify?token=".$token."'>Verify</a>
                 ";
         $phpMailer->sendMail($user->getEmail(), $subject, $message);
-
-        echo '<style>#modal4 { display: flex; }</style>';
     }
 
     public function installer(): void
@@ -165,6 +163,12 @@ class Installer
                         $DB = new DB();
                         $DB->CreateDB();
                         $this->CreateAdminAccount();
+                        $modal = [
+                            "title" => "Email confirmation",
+                            "content" => "Un mail de confirmation vous a été envoyé.<br>Merci de confirmer votre adresse e-mail afin de pouvoir vous connecter.",
+                            "redirect" => "/login"
+                        ];
+                        $view->assign("modal", $modal);
                     } else {
                         $errors['user_email'] = "Une erreur s'est produite durant l'installation de votre environement.";
                         $view->assign('errors', $errors);

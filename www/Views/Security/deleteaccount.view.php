@@ -15,20 +15,8 @@
     <?php $this->includeComponent("form", $config);?>
 </div>
 
-<div class="modal" id="modal5">
-    <section>
-        <header>
-            <h1>Suppression du compte</h1>
-        </header>
-        <div class="modal_content">
-            <p>
-                Votre compte a été supprimé avec succès.
-            </p>
-        </div>
-        <footer>
-            <a href="/login" class="button button-primary">
-                Fermer
-            </a>
-        </footer>
-    </section>
-</div>
+<?php
+if (isset($modal)) {
+    $this->includeComponent("modal", $modal);
+}
+?>
