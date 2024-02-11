@@ -8,7 +8,7 @@
         ?>
         <button style="display: inline" onclick="window.location.href='/'">Toutes les pages</button>
     </ul> -->
-    <h2 class="ml-3 mt-5 mb-6" >Les Pages</h2>
+    <h1 class="ml-3 mt-5 mb-6" >Pages</h1>
         <?php
         if (!empty($cards)) { ?>
             <ul class="card-container">

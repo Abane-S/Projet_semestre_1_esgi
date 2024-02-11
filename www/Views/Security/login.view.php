@@ -1,5 +1,5 @@
 <div class="divform ml-auto mr-auto center-form">
-    <h2>Se connecter</h2>
+    <h1>Se connecter</h1>
     <?php
     if (isset($errors) && !empty($errors)) {
             echo "<div class='alert alert-danger' style='width: 80%;margin: auto;'>";

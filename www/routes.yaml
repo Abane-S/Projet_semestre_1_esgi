@@ -25,6 +25,10 @@
   controller: Main
   action: dashboard
 
+/contact:
+  controller: Main
+  action: contact
+
 
 # SECURITY ------------------------------------------------------------------------------------
 

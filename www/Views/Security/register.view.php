@@ -1,5 +1,5 @@
 <div class="divform ml-auto mr-auto center-form mt-4">
-    <h2 class="fs-4 ">S' inscrire</h2>
+    <h1>S'inscrire</h1>
     <?php
 
         if (isset($errors) && !empty($errors)) {
