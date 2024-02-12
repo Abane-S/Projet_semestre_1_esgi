@@ -1982,7 +1982,7 @@ nav.flex {
   transition: all 0.2s ease-out;
 }
 .esgi-header nav i {
-  margin-top: 2.8%;
+  margin-top: 4%;
 }
 .esgi-header nav a:hover {
   color: var(--blue-hover);

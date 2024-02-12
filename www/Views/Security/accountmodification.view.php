@@ -1,5 +1,8 @@
 <div class="divform ml-auto mr-auto center-form" style="margin-bottom:3% !important;">
     <h2 class="fs-3 mb-5 mt-5">Modifier les données du compte</h2>
+    <p class="ml-6" style="display: flex;
+    text-align: justify;">Adresse email : <br>
+        <?php echo $_SESSION['Account']['email'] ?></p><br>
     <?php
     if (isset($errors) && !empty($errors)) {
         echo "<div class='alert alert-danger m-auto mb-2'>";

@@ -1,5 +1,5 @@
 
-<?php  if ($_SESSION['Account']["role"] == "admin"): ?>
+<?php if (isset($_SESSION['Account']) && $_SESSION['Account']['role'] == "admin"): ?>
     <!DOCTYPE html>
     <html lang="fr">
         <body>
@@ -82,4 +82,6 @@
             </main>
         </body>
     </html>
+<?php else: ?>
+    <?php header('Location: /404'); exit; ?>
 <?php endif; ?>

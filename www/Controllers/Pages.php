@@ -6,44 +6,12 @@ namespace App\Controllers;
 use App\Core\View;
 use App\Forms\CommentInsert;
 use App\Models\Pages as PagesModel;
-use App\Forms\CreatePage;
-use App\FileStorage\Upload;
 use App\Models\Comment;
 use App\Models\PhpMailor;
 use App\Models\User;
 
 class Pages
 {
-
-
-    public function pages(): void
-    {
-        $view = new View("Admin/Pages/pages", "back");
-        $pages = new PagesModel();
-        $view->assign("pages", $pages->getAllPages());
-    }
-
-    public function create(): void
-    {
-        $view = new View("Admin/Pages/create", "back");
-        $form = new CreatePage();
-        $view->assign('config', $form->getConfig());
-
-        if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['title'] != "") {
-            $page = new PagesModel();
-            $page->setTitle($_POST['title']);
-            $page->setMeta_description($_POST['meta_description']);
-            $page->setMiniature($_FILES['files']['name']??"");
-            $page->setComments(isset($_POST['comments']) ? 1 : 0);
-            $page->setContent($_POST['content']);
-
-            $upload = new Upload();
-            $upload->uploadFile($_FILES['files']);
-            $page->save();
-
-        }
-    }
-
     public function show(): void
     {
         $articleId = basename(strtolower($_SERVER["REQUEST_URI"]));
@@ -56,7 +24,7 @@ class Pages
             if($current_page_obj->getComments() && Security::UserIsLogged())
             {
                 $form = new CommentInsert();
-                $view2 = new View("Admin/Pages/comments", "blank");
+                $view2 = new View("Admin/Comments/commentsShowArticle", "blank");
                 $view2->assign('config', $form->getConfig());
                 $view2->assign("showNavbar", "false");
                 $view2->assign("articleId", $articleId);
@@ -70,7 +38,7 @@ class Pages
                     $comment->setValid(0);
                     $comment->save();
                     $phpMailer = new PhpMailor();
-                    $subject = "Commentaire actuellemnt en cours de modération";
+                    $subject = "Comments actuellemnt en cours de modération";
                     $message = "<p>Votre commentaire est actuellement en cours de modération.<br>Vous serez averti(e) par e-mail lors de sa publication.</p>";
                     $phpMailer->sendMail($_SESSION['Account']['email'], $subject, $message);
                     $user = new User();
@@ -83,7 +51,7 @@ class Pages
                                 ": <br><br>" .
                                 "Nom complet : <b>" . $_SESSION['Account']['lastname'] . " " . $_SESSION['Account']['firstname'] . "</b>" .
                                 "<br>Titre du commentaire : <b>" . $_POST['comment'] . "</b>" .
-                            "<br>Commentaire : <b>" . $_POST['comment_title'] . "</b>" .
+                            "<br>Comments : <b>" . $_POST['comment_title'] . "</b>" .
                                 "<br>Date et heure de publication : <b>" . date("Y-m-d H:i:s") . "</b>" . "<br><br>" .
                                 '<a href="#" style="    display: inline-block;
     font-weight: 500;
@@ -122,7 +90,7 @@ text-decoration: none;">Ne pas valider le commentaire</a>';
                     }
 
                     $modal = [
-                        "title" => "Commentaire en attente de modération",
+                        "title" => "Comments en attente de modération",
                         "content" => "Votre commentaire est actuellement en cours de modération.<br>Vous serez averti(e) par e-mail lors de sa publication.",
                         "redirect" => "/"
                     ];
