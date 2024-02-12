@@ -91,7 +91,7 @@ class Verificator {
 
     public function isValid(): bool
     {
-        if (count($this->config["inputs"]) + count($this->config["select"] ?? []) != count($this->data) - 1) {
+        if (count($this->config["inputs"]) != count($this->data) - 1) {
             die("Tentative de Hack 1");
         }
         foreach ($this->config["inputs"] as $name => $input) {
@@ -157,6 +157,92 @@ class Verificator {
                 $this->listOfErrors[] = $input["error"];
             }
         }
+        if(empty($this->listOfErrors)){
+            return true;
+        }
+        return false;
+    }
+
+    public function isValidCommentUpdate(): bool
+    {
+        if (count($this->config["inputs"]) + count($this->config["select"]) != count($this->data) - 1) {
+            die("Tentative de Hack 1");
+        }
+        foreach ($this->config["inputs"] as $name => $input) {
+            if (empty($this->data[$name])) {
+                die("Tentative de Hack 2");
+            }
+
+            if (!$this->checkIdentical($this->data["csrf_token"], $_SESSION['csrf_token'])) {
+                die("Tentative de Hack 3");
+            }
+
+            if ($name == "comment_title" && $input["type"] == "text" && !($this->checkCommentTitle($this->data[$name]))) {
+                $this->listOfErrors[] = $input["error"];
+            }
+
+            if ($name == "comment" && $input["type"] == "text" && !($this->checkComment($this->data[$name]))) {
+                $this->listOfErrors[] = $input["error"];
+            }
+
+        }
+        foreach ($this->config["select"] as $name => $input) {
+            if ($name == "comment_valid" && !($this->checkValidBool($this->data[$name]))) {
+                $this->listOfErrors[] = $input["error"];
+            }
+        }
+        if(empty($this->listOfErrors)){
+            return true;
+        }
+        return false;
+    }
+
+    public function isValidUserCreation(): bool
+    {
+        if (count($this->config["inputs"]) + count($this->config["select"] ?? []) != count($this->data) - 1) {
+            die("Tentative de Hack 1");
+        }
+        foreach ($this->config["inputs"] as $name => $input) {
+            if (empty($this->data[$name])) {
+                die("Tentative de Hack 2");
+            }
+
+            if (!$this->checkIdentical($this->data["csrf_token"], $_SESSION['csrf_token'])) {
+                die("Tentative de Hack 3");
+            }
+
+            if ($input["type"] == "email" && !$this->checkEmail($this->data[$name]) && $name != "user_confirm_email") {
+                $this->listOfErrors[] = $input["error"];
+            }
+
+
+            if ($input["type"] == "password" && !($this->checkPassword($this->data[$name])) && $name != "user_confirm_password") {
+                $this->listOfErrors[] = $input["error"];
+            }
+
+            if ($input["type"] == "text" && !($this->checkName($this->data[$name])) && $name != "user_lastname") {
+                $this->listOfErrors[] = $input["error"];
+            }
+
+            if ($input["type"] == "text" && !($this->checkName($this->data[$name])) && $name != "user_firstname") {
+                $this->listOfErrors[] = $input["error"];
+            }
+
+            if ($input["type"] == "email" && !$this->checkIdentical($this->data["user_email"],  $this->data[$name])) {
+                $this->listOfErrors[] = $input["error"];
+            }
+
+            if ($input["type"] == "password" && !$this->checkIdentical($this->data["user_password"], $this->data[$name])) {
+                $this->listOfErrors[] = $input["error"];
+            }
+        }
+
+        foreach ($this->config["select"] as $name => $input) {
+            if ($name == "role" && !($this->checkValidRole($this->data[$name]))) {
+                $this->listOfErrors[] = $input["error"];
+            }
+        }
+
         if(empty($this->listOfErrors)){
             return true;
         }
@@ -291,6 +377,11 @@ class Verificator {
             }
 
         }
+        foreach ($this->config["select"] as $name => $input) {
+            if ($name == "db_engine" && !($this->checkValidPDO($this->data[$name]))) {
+                $this->listOfErrors[] = $input["error"];
+            }
+        }
         if(empty($this->listOfErrors)){
             return true;
         }
@@ -324,6 +415,14 @@ class Verificator {
         return $filterMail;
     }
 
+    function checkValidPDO($chaine) {
+        return preg_match("/^(pgsql|mysql|sqlsrv|oracle|cubrid|odbc|firebird)$/", $chaine);
+    }
+
+    function checkValidRole($chaine) {
+        return preg_match("/^(user|moderateur)$/", $chaine);
+    }
+
     public function checkPassword($password): bool
     {
         return preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])/", $password);
@@ -338,6 +437,11 @@ class Verificator {
     {
         return preg_match("/^[a-zA-Z0-9\-_\. ]{3,50}$/", $name);
     }
+
+    function checkValidBool($valeur) {
+        return preg_match('/^[01]$/', $valeur) === 1;
+    }
+
     public function checkImg($img): bool
     {
         return preg_match("/\.png$|\.jpeg$|\.jpg$|\.gif$/i", $img);

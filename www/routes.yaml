@@ -75,21 +75,31 @@
   controller: Admin
   action: comments
 
+/commentUpdate/{pages}:
+  path: /pages/{pages}
+  controller: Admin
+  action: commentsUpdate
+
+/commentDelete/{pages}:
+  path: /pages/{pages}
+  controller: Admin
+  action: commentsDelete
+
 # MENU ---------------------------------------------------------------------------------------
 
 /dashboard/menus:
-  controller: Menu
+  controller: Admin
   action: menus
 
 # PAGE ---------------------------------------------------------------------------------------
 
 /dashboard/pages:
-  controller: Pages
-  action: pages
+  controller: Admin
+  action: pagesShowAdmin
 
 /dashboard/pages/create:
-  controller: Pages
-  action: create
+  controller: Admin
+  action: createPages
 
 /article/{pages}:
     path: /article/{articleId}
@@ -100,9 +110,9 @@
 # USERS ---------------------------------------------------------------------------------------
 
 /dashboard/users:
-  controller: Users
+  controller: Admin
   action: users
 
 /dashboard/users/create:
-  controller: Users
-  action: create
+  controller: Admin
+  action: createUsers

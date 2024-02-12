@@ -24,7 +24,7 @@ class EnvInstaller extends Verificator
             "select" => [
                 "db_engine" => [
                     "label" => "Système de gestion de base de données :",
-                    "class" => "w-8 input-select",
+                    "class" => "p-1-1 w-8 input-select",
                     "options" => [
                         "pgsql" => "PostgreSQL",
                         "mysql" => "MySQL",
@@ -34,7 +34,7 @@ class EnvInstaller extends Verificator
                         "odbc" => "ODBC",
                         "firebird" => "Firebird"
                     ],
-                    "error" => "-Veuillez sélectionner un type de base de données",
+                    "error" => "-Veuillez sélectionner un type de base de données valide",
                     "required" => true
                 ]
             ],

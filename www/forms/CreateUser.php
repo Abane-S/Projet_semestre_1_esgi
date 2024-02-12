@@ -84,7 +84,7 @@ class CreateUser extends Verificator
                         "user" => "Utilisateur",
                         "moderateur" => "Modérateur",
                     ],
-                    "error" => "-Veuillez sélectionner un rôle de l'utilisateur",
+                    "error" => "-Veuillez sélectionner un rôle de l'utilisateur valide",
                     "required" => true
                 ]
             ],

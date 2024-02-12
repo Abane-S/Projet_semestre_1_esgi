@@ -1,12 +1,12 @@
 <?php
 
 
-namespace App\Forms;
+namespace App\forms;
 
 use App\Core\Verificator;
 
 
-class CommentInsert extends Verificator
+class CommentUpdate extends Verificator
 {
 
     protected $method = "POST";
@@ -19,8 +19,20 @@ class CommentInsert extends Verificator
             "config" => [
                 "method" => $this->method,
                 "action" => "",
-                "submit" => "Poster un commentaire",
+                "submit" => "Modifier le commentaire",
                 "class" => "form",
+            ],
+            "select" => [
+                "comment_valid" => [
+                    "label" => "Validité : ",
+                    "class" => "p-1-1 w-8 input-select",
+                    "options" => [
+                        "1" => "Valide",
+                        "0" => "Non Valide",
+                    ],
+                    "error" => "-Veuillez sélectionner si le commentaire est valide ou non",
+                    "required" => true
+                ]
             ],
             "inputs" => [
                 "comment_title" => [
