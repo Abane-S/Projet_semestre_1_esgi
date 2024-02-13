@@ -1,12 +1,12 @@
 
-<?php  if ($_SESSION['Account']["role"] == "admin"): ?>
+<?php if (isset($_SESSION['Account']) && $_SESSION['Account']['role'] == "admin"): ?>
     <!DOCTYPE html>
     <html lang="fr">
         <body>
             <head>
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>DJIMDO</title>
+                <title><?=  defined('SITE_NAME') ? SITE_NAME : "" ?></title>
                 <link rel="apple-touch-icon" sizes="180x180" href="../../assets/Framework/public/images/favicon_djimdo.png">
                 <link rel="stylesheet" href="../../assets/Framework/src/style.css">
                 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
@@ -15,9 +15,15 @@
             </head>
             <main class="d-flex" style="height:100vh">
                 <aside class="sidebar">
-                    <h1 class="fs-4 mt-1 mb-3">Dashboard</h1>
+                    <h1 class="fs-4 mt-1 mb-3">Dashboard (Admin)</h1>
                     <nav class="sidebar-navigation">
                         <ul>
+                            <li>
+                                <a class="nav-link" href="/">
+                                    <i class="ri-store-2-line"></i>
+                                    <span>Aller sur le front</span>
+                                </a>
+                            </li>
                             <li>
                                 <a class="nav-link" href="/dashboard">
                                 <i class="ri-dashboard-line"></i>
@@ -28,12 +34,6 @@
                                 <a class="nav-link" href="/">
                                     <i class="ri-equalizer-line"></i>
                                     <span>Style du site</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="nav-link" href="/">
-                                    <i class="ri-store-2-line"></i>
-                                    <span>Aller sur le site</span>
                                 </a>
                             </li>
                             <li>
@@ -71,18 +71,6 @@
                                             <span>Utilisateurs</span>
                                         </a>
                                     </li>
-                                    <li>
-                                        <a href="/account" class="nav-links">
-                                            <i class="ri-account-circle-fill"></i>
-                                            <span>Profil</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="/logout" class="nav-links">
-                                            <i class="ri-logout-box-line"></i>
-                                            <span>logout</span>
-                                        </a>
-                                    </li>
                                 </ul>
                             </li>
                         </ul>
@@ -94,4 +82,6 @@
             </main>
         </body>
     </html>
+<?php else: ?>
+    <?php header('Location: /404'); exit; ?>
 <?php endif; ?>

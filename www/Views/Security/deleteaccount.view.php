@@ -1,5 +1,5 @@
 <div class="divform ml-auto mr-auto center-form">
-    <h2>Supprimer mon compte</h2>
+    <h1>Supprimer mon compte</h1><br>
     <div class='alert alert-danger m-auto mb-2' style='width: 80%'>Attention !<br>La suppression de votre compte sera définitive et irreversible.
     </div>
     <?php
@@ -15,20 +15,8 @@
     <?php $this->includeComponent("form", $config);?>
 </div>
 
-<div class="modal" id="modal5">
-    <section>
-        <header>
-            <h1>Suppression du compte</h1>
-        </header>
-        <div class="modal_content">
-            <p>
-                Votre compte a été supprimé avec succès.
-            </p>
-        </div>
-        <footer>
-            <a href="/login" class="button button-primary">
-                Fermer
-            </a>
-        </footer>
-    </section>
-</div>
+<?php
+if (isset($modal)) {
+    $this->includeComponent("modal", $modal);
+}
+?>

@@ -4,11 +4,14 @@
     method="<?= $config["config"]["method"]??"GET" ?>"
     action="<?= $config["config"]["action"]??"" ?>"
     class="<?= $config["config"]["class"]??"" ?>"
-    id="<?= $config["config"]["id"]??"" ?>">
+    enctype="<?= $config["config"]["enctype"]??"" ?>"
+    <?php if (!empty($config["config"]["id"])): ?>
+        id="<?= $config["config"]["id"] ?>"
+    <?php endif; ?> >
 
     <?php
         // Définir les noms des champs que vous souhaitez récupérer
-        $champs = ['user_firstname', 'user_lastname', 'user_email', 'user_confirm_email', 'user_password', 'user_confirm_password', 'csrf_token', 'db_name', 'db_host', 'db_port', 'db_username', 'db_port', "db_password", "db_confirm_password", "db_engine", "db_table_prefix", 'admin_firstname', 'admin_lastname', 'admin_email', 'admin_confirm_email', 'admin_password', 'admin_confirm_password', 'account_delete'];
+        $champs = ['user_firstname', 'user_lastname', 'user_email', 'user_confirm_email', 'user_password', 'user_confirm_password', 'csrf_token', 'db_name', 'db_host', 'db_port', 'db_username', 'db_port', "db_password", "db_confirm_password", "db_engine", "db_table_prefix", 'admin_firstname', 'admin_lastname', 'admin_email', 'admin_confirm_email', 'admin_password', 'admin_confirm_password', 'account_delete', 'site_name', 'site_img', 'smtp_name', 'smtp_username', 'smtp_name', 'smtp_confirm_password', 'smtp_password', 'smtp_confirm_email', 'smtp_email', 'smtp_port', 'smtp_host', 'comment_title', 'comment', 'contact_subject', 'contact_message', 'comment_valid'];
 
         // Initialiser un tableau pour stocker les valeurs
         $valeurs = [];
@@ -30,10 +33,12 @@
 
                 <select
                         name="<?= $name ?>"
-                        id="<?= $name ?>"
-                        class="<?= $configSelect["class"] ?? "" ?>"
+                        <?php if (!empty($configSelect["id"])): ?>
+                            id="<?= $configSelect["id"] ?>"
+                        <?php endif; ?>
+                        class="<?= $configSelect["class"] ?? "" ?>">
                     <?= (!empty($configSelect["required"])) ? "required" : "" ?>
-                >
+                
                     <?php foreach ($configSelect["options"] as $value => $label): ?>
                         <option value="<?= $value ?>" <?= (isset($valeurs[$name]) && $valeurs[$name] == $value) ? "selected" : "" ?>>
                             <?= $label ?>
@@ -56,7 +61,9 @@
         <input
                 name="<?= $name ?>"
                 type="<?= $configInput["type"] ?? "text" ?>"
-                id="<?= $configInput["id"] ?? "" ?>"
+                <?php if (!empty($configInput["id"])): ?>
+                    id="<?= $configInput["id"] ?>"
+                <?php endif; ?>
                 class="<?= $configInput["class"] ?? "" ?>"
                 placeholder="<?= $configInput["placeholder"] ?? "" ?>"
             <?php
@@ -84,6 +91,18 @@
                 <h2> Installation - Compte Admin</h2>
         <br>
             <?php endif; ?>
+
+                <?php if ($name == "admin_confirm_password"): ?>
+                    <br>
+                    <h2> Installation - Serveur SMTP</h2>
+                    <br>
+                <?php endif; ?>
+
+                <?php if ($name == "smtp_name"): ?>
+                    <br>
+                    <h2> Installation - Site</h2>
+                    <br>
+                <?php endif; ?>
 
 
     <?php endforeach; ?>

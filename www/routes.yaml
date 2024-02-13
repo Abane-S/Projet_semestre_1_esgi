@@ -25,6 +25,10 @@
   controller: Main
   action: dashboard
 
+/contact:
+  controller: Main
+  action: contact
+
 
 # SECURITY ------------------------------------------------------------------------------------
 
@@ -67,31 +71,48 @@
 
 # ADMIN ---------------------------------------------------------------------------------------
 
-/dashboard/users:
-  controller: Admin
-  action: users
-
 /dashboard/comments:
   controller: Admin
   action: comments
 
+/commentUpdate/{pages}:
+  path: /pages/{pages}
+  controller: Admin
+  action: commentsUpdate
 
+/commentDelete/{pages}:
+  path: /pages/{pages}
+  controller: Admin
+  action: commentsDelete
 
 # MENU ---------------------------------------------------------------------------------------
 
-
 /dashboard/menus:
-  controller: Menu
-  action: index
-
-
+  controller: Admin
+  action: menus
 
 # PAGE ---------------------------------------------------------------------------------------
 
 /dashboard/pages:
-  controller: Pages
-  action: index
+  controller: Admin
+  action: pagesShowAdmin
 
 /dashboard/pages/create:
-  controller: Pages
-  action: create
+  controller: Admin
+  action: createPages
+
+/article/{pages}:
+    path: /article/{articleId}
+    controller: Pages
+    action: show
+
+
+# USERS ---------------------------------------------------------------------------------------
+
+/dashboard/users:
+  controller: Admin
+  action: users
+
+/dashboard/users/create:
+  controller: Admin
+  action: createUsers

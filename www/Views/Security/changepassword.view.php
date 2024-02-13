@@ -1,5 +1,5 @@
 <div class="divform ml-auto mr-auto center-form">
-    <h2>Changer votre mot de passe</h2>
+    <h1>Changer votre mot de passe</h1>
     <?php
 
     if (isset($errors) && !empty($errors)) {

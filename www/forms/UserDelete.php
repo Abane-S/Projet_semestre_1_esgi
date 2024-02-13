@@ -13,6 +13,7 @@ class UserDelete extends Verificator
     {
         $this->config =  [
             "config" => [
+                "class" => "form",
                 "method" => $this->method,
                 "action" => "",
                 "submit" => "Supprimer",

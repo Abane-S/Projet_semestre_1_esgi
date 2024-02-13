@@ -137,15 +137,22 @@ class Security
                 $user->setRole("user");
                 $user->save();
 
-                $phpMailer = new PhpMailor(SMTP_USERNAME, SMTP_EMAIL, SMTP_PASSWORD, SMTP_HOST);
-                $subject = "Verify your account";
+                $phpMailer = new PhpMailor();
+                $subject = "Veuillez vérifier votre compte";
                 $message = "
-                    <h1>Thanks For Registration</h1>
-                    <p>Click on the link below to verify your account</p>
-                    <a href='http://".$_SERVER['HTTP_HOST']."/verify?email=".$user->getEmail()."&token=".$token."'>Verify</a>
+                    <h1>Merci de votre inscription</h1>
+                    <p>Merci de cliquer sur le lien ci-dessous pour vérifier votre compte</p>
+                    <a href='".SITE_URL."/verify?token=".$token."'>Verify</a>
                 ";
                 $phpMailer->sendMail($user->getEmail(), $subject, $message);
-                echo '<style>#modal1 { display: flex; }</style>';
+
+                $modal = [
+                    "title" => "Email confirmation",
+                    "content" => "Un mail de confirmation vous a été envoyé.<br>Merci de confirmer votre adresse e-mail afin de pouvoir vous connecter.",
+                    "redirect" => "/login"
+                ];
+                $view->assign("modal", $modal);
+
             }
         }else{
             $view->assign('errors', $form->listOfErrors);
@@ -178,13 +185,19 @@ class Security
                         $account->setVericationToken($token);
                         $account->save();
 
-                        $subject = "Change your password";
+                        $subject = "Changer votre mot de passe";
                         $message = "
-                            <p>Click on the link below to change your password</p>
-                            <a href='http://".$_SERVER['HTTP_HOST']."/change-password?email=".$account->getEmail()."&code=".$token."'>Change your password</a>
+                            <p>Merci de cliquer sur le lien ci-dessous pour changer votre mot de passe</p>
+                            <a href='".SITE_URL."/verify2?token=".$token."'>Change your password</a>
                         ";
-                        $mailer->sendMail($user->getEmail(), $subject, $message);
-                        echo '<style>#modal2 { display: flex; }</style>';
+                        $mailer = new PhpMailor();
+                        $mailer->sendMail($account->getEmail(), $subject, $message);
+                        $modal = [
+                            "title" => "Email confirmation",
+                            "content" => "Un mail de confirmation vous a été envoyé afin que vous puissiez changer votre mot de passe.",
+                            "redirect" => "/login"
+                        ];
+                        $view->assign("modal", $modal);
 
                     }
                     else
@@ -216,7 +229,8 @@ class Security
     public function DeleteAccount(): void
     {
         if (!$this->UserIsLogged()){
-            $view = new View("Error/page404", "front");
+            $view = new View("Security/404", "front");
+            $view->assign("showNavbar", "false");
             exit;
         }
         $form = new UserDelete();
@@ -232,14 +246,24 @@ class Security
                 $account->setIsdeleted(1);
                 $account->save();
                 session_destroy();
-                echo '<style>#modal5 { display: flex; }</style>';
+                $modal = [
+                    "title" => "Suppression du compte",
+                    "content" => "Votre compte a été supprimé avec succès",
+                    "redirect" => "/login"
+                ];
+                $view->assign("modal", $modal);
             }
             else
             {
                 if($account->HardDeleteAccount($_SESSION['Account']['email']))
                 {
                     session_destroy();
-                    echo '<style>#modal5 { display: flex; }</style>';
+                    $modal = [
+                        "title" => "Suppression du compte",
+                        "content" => "Votre compte a été supprimé avec succès",
+                        "redirect" => "/login"
+                    ];
+                    $view->assign("modal", $modal);
                 }
                 else
                 {
@@ -283,7 +307,12 @@ class Security
                 }
                 $account->save();
                 session_destroy();
-                echo '<style>#modal3 { display: flex; }</style>';
+                $modal = [
+                    "title" => "Compte modifié",
+                    "content" => "Les données du compte ont bien été modifiées.<br>Vous pouvez désormais vous connecter avec vos nouvelles modifications.",
+                    "redirect" => "/logout"
+                ];
+                $view->assign("modal", $modal);
 
             } else {
                 $view->assign('errors', $form->listOfErrors);
@@ -291,7 +320,8 @@ class Security
         }
         else
         {
-            $view = new View("Error/page404", "front");
+            $view = new View("Security/404", "front");
+            $view->assign("showNavbar", "false");
         }
     }
 
@@ -302,14 +332,16 @@ class Security
         }
         else
         {
-            $view = new View("Error/page404", "front");
+            $view = new View("Security/404", "front");
+            $view->assign("showNavbar", "false");
         }
     }
 
     public function ChangePasswordVerification():void
     {
         if (!isset($_GET['token']) || empty($_GET['token'])) {
-            $view = new View("Error/page404", "front");
+            $view = new View("Security/404", "front");
+            $view->assign("showNavbar", "false");;
         } else {
             $token = $_GET['token'];
             $user = new User();
@@ -361,7 +393,8 @@ class Security
         }
         else
         {
-            $view = new View("Error/page404", "front");
+            $view = new View("Security/404", "front");
+            $view->assign("showNavbar", "false");
         }
     }
 
@@ -373,14 +406,16 @@ class Security
         }
         else
         {
-            $view = new View("Error/page404", "front");
+            $view = new View("Security/404", "front");
+            $view->assign("showNavbar", "false");
         }
     }
 
     public function verifyEmail()
     {
         if (!isset($_GET['token']) || empty($_GET['token'])) {
-            $view = new View("Error/page404", "front");
+            $view = new View("Security/404", "front");
+            $view->assign("showNavbar", "false");
         } else {
             $token = $_GET['token'];
             $user = new User();
