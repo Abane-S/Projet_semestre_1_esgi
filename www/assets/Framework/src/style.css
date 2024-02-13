@@ -1798,18 +1798,12 @@ nav.flex {
   display: grid;
   grid-template-columns: 21.875rem 21.875rem 21.875rem;
   grid-template-rows: auto auto auto;
+  justify-content: center;
   column-gap: 0.625rem;
   row-gap: 2.5rem;
   text-align: center;
 }
-
-.card-container-base {
-  text-align: center;
-  display: grid;
-  justify-content: center;
-}
-
-.card {
+.card-container .card {
   width: 20rem;
   padding: 1.25rem;
   border-radius: var(--main-radius);
@@ -1818,37 +1812,37 @@ nav.flex {
   position: relative;
   overflow: hidden;
 }
-.card img {
+.card-container .card img {
   width: 100%;
   height: 12.5rem;
   object-fit: cover;
   object-position: center;
 }
-.card h1 {
+.card-container .card h1 {
   font-weight: 600;
   font-size: 1.25rem;
   line-height: 1;
   margin: 1.25rem 0 0.625rem;
 }
-.card p {
+.card-container .card p {
   font-size: 1rem;
   line-height: 1.5;
   font-weight: 400;
   margin: 0.625rem 0;
 }
-.card a {
+.card-container .card a {
   display: block;
   margin-top: 1.875rem;
   text-align: center;
 }
-.card-full img {
+.card-container .card-full img {
   height: 100%;
 }
-.card-full *:not(img) {
+.card-container .card-full *:not(img) {
   position: relative;
   z-index: 1;
 }
-.card-full::after {
+.card-container .card-full::after {
   content: "";
   position: absolute;
   top: 0;

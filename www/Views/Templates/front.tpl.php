@@ -18,8 +18,8 @@ function CompareURI($uriToCheck): bool
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title><?=  defined('SITE_NAME') ? SITE_NAME : "" ?></title>
-            <link rel="apple-touch-icon" sizes="180x180" href="../../assets/Framework/public/images/favicon_djimdo.png">
+            <title><?=  SITE_NAME ? SITE_NAME : "" ?></title>
+            <link rel="apple-touch-icon" href="/assets/Framework/public/images/logo_djimdo_website.png">
             <link rel="stylesheet" href="../../assets/Framework/src/style.css">
             <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
             <script src="https://cdn.ckeditor.com/ckeditor5/41.0.0/classic/ckeditor.js"></script>
@@ -29,14 +29,12 @@ function CompareURI($uriToCheck): bool
         <header id="header" class="esgi-header">
             <div class="container">
                 <a href="/" class="esgi-logo">
-
-                    <img style="width: 7rem;
-    height: 7rem;" src=<?=  defined('SITE_LOGO') ? SITE_LOGO : "../../assets/Framework/public/images/logo_djimido_website.png" ?> alt="Logo site"/>
+                    <img src=<?=  SITE_LOGO ? SITE_LOGO : "/assets/Framework/public/images/logo_djimdo_website.png" ?> alt="Logo site"/>
                 </a>
                 <nav>
                     <ul>
                         <?php if (isset($_SESSION['Account']) && $_SESSION['Account']['role'] == "admin"): ?>
-                            <a href="/dashboard">Dashboard (Admin)</a>
+                            <a href="/dashboard">Dashboard</a>
                         <?php endif; ?>
                         <?php if (CompareURI('/')): ?>
                             <a style="color:#2256FA" href="/">Pages</a>
