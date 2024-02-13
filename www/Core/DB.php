@@ -152,4 +152,11 @@ class DB
             echo "Erreur lors de la suppression des tables : " . $e->getMessage();
         }
     }
+
+    public function delete(): void
+    {
+        $sql = "DELETE FROM " . $this->table . " WHERE id = " . $this->getId();
+        $queryPrepared = $this->pdo->prepare($sql);
+        $queryPrepared->execute();
+    }
 }

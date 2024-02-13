@@ -10,8 +10,9 @@ class Pages extends DB
     private ?int $id = null;
     protected String $title;
     protected String $meta_description;
-    protected String $miniature;
-    protected Int $comments;
+    protected String $titre;
+    protected string $banniere;
+    protected int $articleid;
     protected String $content;
 
 
@@ -75,40 +76,60 @@ class Pages extends DB
         $this->meta_description = $meta_description;
 
     }
-
     /**
-     * Get the value of miniature
+     * Get the value of titre
      */ 
-    public function getminiature()
+    public function getTitre()
     {
-        return $this->miniature;
+        return $this->titre;
     }
 
     /**
-     * Set the value of miniature
+     * Set the value of titre
      *
      * @return  self
      */ 
-    public function setMiniature($miniature)
+    public function setTitre($titre)
     {
-        $this->miniature = $miniature;
+        $this->titre = $titre;
 
     }
 
-
-    public function getAllPages(): array
+    /**
+     * Get the value of bannière
+     */ 
+    public function getBannière()
     {
-        if ($this->pdo->query("SELECT EXISTS (SELECT FROM information_schema.tables WHERE table_name = 'esgi_pages')")->fetchColumn()) {
-            $sql = "SELECT * FROM esgi_pages";
-            $query = $this->pdo->prepare($sql);
-            $query->execute();
-            return $query->fetchAll();
-        } else {
-            return [];
-        }
+        return $this->bannière;
     }
 
+    /**
+     * Set the value of bannière
+     *
+     * @return  self
+     */ 
+    public function setBannière($bannière)
+    {
+        $this->bannière = $bannière;
+    }
 
+    /**
+     * Get the value of articleid
+     */ 
+    public function getArticleid()
+    {
+        return $this->articleid;
+    }
+
+    /**
+     * Set the value of articleid
+     *
+     * @return  self
+     */ 
+    public function setArticleid($articleid)
+    {
+        $this->articleid = $articleid;
+    }
 
     /**
      * Get the value of content
@@ -127,25 +148,6 @@ class Pages extends DB
     {
         $this->content = $content;
 
+        return $this;
     }
-
-    /**
-     * Get the value of comments
-     */ 
-    public function getComments(): bool
-    {
-        return $this->comments;
     }
-
-    /**
-     * Set the value of comments
-     *
-     * @return  self
-     */ 
-    public function setComments(bool $comments)
-    {
-        $this->comments = $comments;
-
-    }
-
-}

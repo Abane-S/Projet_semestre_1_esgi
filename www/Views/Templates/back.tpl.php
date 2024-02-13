@@ -1,5 +1,4 @@
-
-<?php if (isset($_SESSION['Account']) && $_SESSION['Account']['role'] == "admin"): ?>
+<?php if (isset($_SESSION['Account']) && $_SESSION['Account']['role'] == "admin") : ?>
     <!DOCTYPE html>
     <html lang="fr">
         <body>
@@ -7,21 +6,22 @@
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <title><?=  defined('SITE_NAME') ? SITE_NAME : "" ?></title>
-                <link rel="apple-touch-icon" sizes="180x180" href="../../assets/Framework/public/images/favicon_djimdo.png">
-                <link rel="stylesheet" href="../../assets/Framework/src/style.css">
+                <link rel="apple-touch-icon" sizes="180x180" href="/assets/Framework/public/images/favicon_djimdo.png">
+                <link rel="stylesheet" href="/assets/Framework/src/style.css">
                 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
                 <script src="https://cdn.ckeditor.com/ckeditor5/41.0.0/classic/ckeditor.js"></script>
                 <script type="module" src="../../assets/Framework/src/js/main.js"></script>
             </head>
             <main class="d-flex" style="height:100vh">
                 <aside class="sidebar">
-                    <h1 class="fs-4 mt-1 mb-3">Dashboard (Admin)</h1>
+                    <h1 class="fs-4 mt-1">Dashboard</h1>
+                    <h3 class="mb-3" style="font-weight: 200"><?= $_SESSION['Account']['role'] ?></h3>
                     <nav class="sidebar-navigation">
                         <ul>
                             <li>
                                 <a class="nav-link" href="/">
                                     <i class="ri-store-2-line"></i>
-                                    <span>Aller sur le front</span>
+                                    <span>Aller sur le site</span>
                                 </a>
                             </li>
                             <li>
@@ -45,9 +45,9 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/dashboard/menus" class="nav-link">
+                                    <a href="/dashboard/articles" class="nav-link">
                                         <i class="ri-menu-line"></i>
-                                        <span>Menus</span>
+                                        <span>Articles</span>
                                     </a>
                                 </li>
                             </li>

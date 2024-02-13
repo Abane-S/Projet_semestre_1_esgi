@@ -5,10 +5,11 @@
 
 <?php //  $this->includeComponent(table, $config); ?>
 <div>
-    <table class="mt-4">
-        <thead>
+    <table class="table mt-4">
+        <thead class="thead-dark">
             <tr>
                 <th>ID</th>
+                <th>Title</th>
                 <th>Titre</th>
                 <th>Actions</th>
             </tr>
@@ -22,6 +23,7 @@
                 <?php  foreach($pages as $page): ?>
                     <tr>
                         <td ><?= $article['id'] ?></td>
+                        <td><?= $article['title'] ?></td>
                         <td><?= $article['title'] ?></td>
                         <td>
                             <a href="#" class="button button-primary button-sm">Modifier</a>

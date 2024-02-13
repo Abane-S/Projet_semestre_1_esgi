@@ -1,4 +1,4 @@
-<h1 class="fs-4">Créer un utilisateur</h1>
+<h1 class="fs-4"><?= $this->data['title'] ?></h1>
 <div class="divform ml-auto mr-auto center-form mt-4">
     <?php
 

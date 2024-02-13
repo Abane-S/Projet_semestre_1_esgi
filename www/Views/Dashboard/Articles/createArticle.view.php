@@ -6,30 +6,23 @@
     <form action="" method="POST" enctype="multipart/form-data" class="fs-2">
         <div class="d-flex justify-around gap-2">
             <div class="w-5">
-                <label for="title" class="form-label d-block mb-1">Titre de l'article</label>
-                <input type="text" name="title" class="w-10 pt-1 border" id="title" placeholder="Titre de la page" required="required">
+                <label for="titre" class="form-label d-block mb-1">Titre de l'article</label>
+                <input type="text" name="titre" class="w-10 pt-1 border" id="title" placeholder="Titre de la page" required="required">
             </div>
             <div class="w-5">
-                <label for="meta-description" class="meta_description d-block mb-1">Description</label>
-                <input type="text" name="meta_description" class="w-10 pt-1 border" id="meta_description" placeholder="Description courte de l'article" required="required">
+                <label for="description" class="meta_description d-block mb-1">Description</label>
+                <input type="text" name="description" class="w-10 pt-1 border" id="description" placeholder="Description courte de l'article" required="required">
             </div>
-        </div>
-        <div class="d-flex justify-around gap-2">
-            <div class="w-5">
-                <label for="title" class="form-label d-block mb-1">Meta Description</label>
-                <input type="text" name="meta_description" class="w-10 pt-1 border" id="meta_description" placeholder="Description courte de l'article" required="required">
-            </div>
-
         </div>
         <div class="d-flex justify-around align-items-center gap-2 mt-3"> 
             <div class="w-5">
-                <label for="undefined" class="d-block mb-1">Choisir une miniature </label>
-                <input type="file" class="" name="files" id="undefined" placeholder="Choisir un fichier" required="required">
+                <label for="miniature" class="d-block mb-1">Choisir une miniature </label>
+                <input type="file" class="" name="miniature" id="miniature" placeholder="Choisir un fichier" required="required">
             </div>
             <div class="w-5">
                 <div class="d-flex align-items-center gap-1 form-check form-switch">
                     <input type="checkbox" name="comments" class="form-check-input" role="switch" id="is_commentable">
-                    <label for="is_commentable" class="form-check-label">Commentaires</label>
+                    <label for="is_commentable" id="comments" class="form-check-label">Commentaires</label>
                 </div>
             </div>
         </div>

@@ -11,11 +11,10 @@ use App\Models\Pages as PagesModel;
 use App\Models\User;
 use App\Models\Categories;
 use App\Models\Pages;
-use App\Models\Comment;
+use App\Models\Comments;
 use App\Forms\CommentUpdate;
-use App\Models\PhpMailor;
 
-class Admin
+class Comment
 {
     public function pages(): void
     {
@@ -101,107 +100,7 @@ class Admin
     public function comments(): void
     {
         $view = new View("Admin/Comments/commentsShowAdmin", "back");
-        $comments = new Comment();
-        $view->assign("comments", $comments->getAllComments());
-    }
-
-    public function menus(): void
-    {
-        $view = new View("Admin/Menus/menus", "back");
-        $menus = new MenuModel();
-        $view->assign("pages", $pages->getAllMenu());
-    }
-
-
-    public function pagesShowAdmin(): void
-    {
-        $view = new View("Admin/Pages/pages", "back");
-        $pages = new PagesModel();
-        $view->assign("pages", $pages->getAllPages());
-    }
-
-    public function createPages(): void
-    {
-        $view = new View("Admin/Pages/create", "back");
-        $form = new CreatePage();
-        $view->assign('config', $form->getConfig());
-
-        if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['title'] != "") {
-            $page = new PagesModel();
-            $page->setTitle($_POST['title']);
-            $page->setMeta_description($_POST['meta_description']);
-            $page->setMiniature($_FILES['files']['name']??"");
-            $page->setComments(isset($_POST['comments']) ? 1 : 0);
-            $page->setContent($_POST['content']);
-
-            $upload = new Upload();
-            $upload->uploadFile($_FILES['files']);
-            $page->save();
-
-        }
-    }
-
-    public function createMenus(): void
-    {
-        $view = new View("Admin/Pages/create", "back");
-
-        if ($_SERVER["REQUEST_METHOD"] == "POST")
-        {
-            $menu = new MenuModel();
-            $menu->setTitle($_POST["title"]);
-            $menu->setUrl($_POST["url"]);
-            $menu->setParentId($_POST["parent_id"]);
-            $menu->setOrder($_POST["order"]);
-            $menu->setIsVisible($_POST["is_visible"]);
-            $menu->setIsDeleted($_POST["is_deleted"]);
-            $menu->create();
-            header("Location: /admin/pages");
-        }
-    }
-
-    public function users(): void
-    {
-        $view = new View("Admin/users/Users", "back");
-        $users = new User();
-        $view->assign("users", $users->findAll());
-    }
-
-    public function createUsers(): void
-    {
-        $view = new View("Admin/Users/CreateUser", "back");
-        $form = new CreateUser();
-        $view->assign("form", $form->getConfig());
-
-
-        if ($form->isSubmit() && $form->isValidUserCreation()){
-            $user = new User();
-            $account = $user->getOneBy(["email" => $_POST['user_email']], "object");
-            if ($account)
-            {
-                $errors['user_email'] = "-L'adresse e-mail est déjà utilisée. Merci de bien vouloir renseigner une autre adresse e-mail.";
-                $view->assign('errors', $errors);
-                exit;
-            }else{
-                $token = bin2hex(random_bytes(32));
-                $user->setVericationToken($token);
-                $user->setFirstname($_POST['user_firstname']);
-                $user->setLastname($_POST['user_lastname']);
-                $user->setEmail($_POST['user_email']);
-                $user->setPassword($_POST['user_password']);
-                $user->setRole($_POST['role']);
-                $user->save();
-
-                $modal = [
-                    "title" => "Utilisateur enregistré avec succès !",
-                    "content" => "Félicitations ! L'utilisateur a été enregistré avec succès. Vous pouvez maintenant accéder à son profil et gérer ses informations.",
-                    "redirect" => "/dashboard/users"
-                ];
-                $view->assign("modal", $modal);
-
-            }
-        }else{
-            $view->assign('errors', $form->listOfErrors);
-        }
-
+        $comments = new Comments();
+        $view->assign("comments", $comments->findAll());
     }
 }

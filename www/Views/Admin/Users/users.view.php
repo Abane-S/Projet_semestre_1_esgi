@@ -30,8 +30,8 @@
                         <td><?= $user['role'] ?></td>
                         <td><?= $user['email_verified'] ?></td>
                         <td>
-                            <a href="#" class="button button-primary button-sm">Modifier</a>
-                            <a href="#" class="button button-danger button-sm">Supprimer</a>
+                            <a href="/users/<?= $user['id'] ?>" class="button button-primary button-sm">Modifier</a>
+                            <a href="<?php  ?>" class="button button-danger button-sm">Supprimer</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

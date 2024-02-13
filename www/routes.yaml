@@ -69,7 +69,7 @@
   action: installer
 
 
-# ADMIN ---------------------------------------------------------------------------------------
+# COMMENTS ---------------------------------------------------------------------------------------
 
 /dashboard/comments:
   controller: Admin
@@ -85,34 +85,69 @@
   controller: Admin
   action: commentsDelete
 
-# MENU ---------------------------------------------------------------------------------------
-
-/dashboard/menus:
-  controller: Admin
-  action: menus
 
 # PAGE ---------------------------------------------------------------------------------------
 
 /dashboard/pages:
-  controller: Admin
-  action: pagesShowAdmin
+  controller: Page
+  action: showAllPages
 
-/dashboard/pages/create:
-  controller: Admin
-  action: createPages
+/dashboard/pages/createPage:
+  controller: Page
+  action: createPage
 
-/article/{pages}:
-    path: /article/{articleId}
-    controller: Pages
-    action: show
+/dashboard/pages/editPage:
+  controller: Page
+  action: editPage
+
+/page/{pageId}:
+    controller: Page
+    action: showPage
+
+
+
+# ARTICLES ---------------------------------------------------------------------------------------
+
+/dashboard/articles:
+  controller: Article
+  action: showAllArticles
+
+/dashboard/articles/createArticle:
+  controller: Article
+  action: createArticle
+
+/dashboard/articles/editArticle:
+  controller: Article
+  action: editArticle
+
+/article/{articleId}:
+    controller: Article
+    action: showArticle
 
 
 # USERS ---------------------------------------------------------------------------------------
 
 /dashboard/users:
-  controller: Admin
-  action: users
+  controller: User
+  action: showAllUsers
 
-/dashboard/users/create:
-  controller: Admin
-  action: createUsers
+/dashboard/users/createUser:
+  controller: User
+  action: createUser
+
+/dashboard/users/deleteUser/{userId}:
+  controller: User
+  action: deleteUser
+
+/dashboard/users/confirmDeleteUser/{userId}:
+  controller: User
+  action: confirmDeleteUser
+
+/dashboard/users/editUser/{userId}:
+  controller: User
+  action: editUser
+
+
+
+
+

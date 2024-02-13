@@ -6,32 +6,18 @@ namespace App\Models;
 
 use App\Core\DB;
 
-class Comment extends DB
+class Comments extends DB
 {
     private ?int $id = null;
-
     protected Int $id_page;
-
     protected Int $valid;
+    protected String $fullname;
+    protected String $commenttitle;
+    protected String $comment;
 
-    public function getValid(): int
+    public function __construct()
     {
-        return $this->valid;
-    }
-
-    public function setValid(int $valid): void
-    {
-        $this->valid = $valid;
-    }
-
-    public function getIdPage(): int
-    {
-        return $this->id_page;
-    }
-
-    public function setIdPage(int $id_page): void
-    {
-        $this->id_page = $id_page;
+        parent::__construct();
     }
 
     public function getId(): ?int
@@ -44,7 +30,27 @@ class Comment extends DB
         $this->id = $id;
     }
 
-    protected string $fullname;
+
+    public function getIdPage(): int
+    {
+        return $this->id_page;
+    }
+
+    public function setIdPage(int $id_page): void
+    {
+        $this->id_page = $id_page;
+    }
+
+
+    public function getValid(): int
+    {
+        return $this->valid;
+    }
+
+    public function setValid(int $valid): void
+    {
+        $this->valid = $valid;
+    }
 
     public function getFullname(): string
     {
@@ -75,8 +81,7 @@ class Comment extends DB
     {
         $this->comment = $comment;
     }
-    protected string $commenttitle;
-    protected string $comment;
+
 
     public function ShowAllValidComments($id_page): array
     {

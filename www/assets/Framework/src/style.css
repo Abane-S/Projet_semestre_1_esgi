@@ -1800,7 +1800,7 @@ nav.flex {
   grid-template-rows: auto auto auto;
   column-gap: 0.625rem;
   row-gap: 2.5rem;
-  justify-items: center;
+  text-align: center;
 }
 
 .card-container-base {

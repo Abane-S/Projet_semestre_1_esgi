@@ -1,25 +1,17 @@
-<?php
-use App\Models\Comment;
-
-$commentModel = new Comment();
-
-$comments = $commentModel->ShowAllValidComments($articleId);
-?>
-
 <hr>
-<div style="margin-bottom:0% !important;" class="divform ml-auto mr-auto center-form">
-    <h2>Ajouter un commentaire</h2>
-    <?php
-    if (isset($errors) && !empty($errors)) {
-        echo "<div class='alert alert-danger' style='width: 80%;margin: auto;'>";
-        foreach ($errors as $error) {
-            echo "<p>" . $error . "</p>";
+    <div style="margin-bottom:0% !important;" class="divform ml-auto mr-auto center-form">
+        <h2>Ajouter un commentaire</h2>
+        <?php
+        if (isset($errors) && !empty($errors)) {
+            echo "<div class='alert alert-danger' style='width: 80%;margin: auto;'>";
+            foreach ($errors as $error) {
+                echo "<p>" . $error . "</p>";
+            }
+            echo "</div>";
         }
-        echo "</div>";
-    }
-    ?>
-    <?php $this->includeComponent("form", $config);?>
-</div>
+        ?>
+        <?php $this->includeComponent("form", $config);?>
+    </div>
 <hr>
 <br>
 <h2 class="center-form">Commentaire</h2>

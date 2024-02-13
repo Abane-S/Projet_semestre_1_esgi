@@ -52,7 +52,7 @@ class Page
     public function showPage(): void
     {
         $articleId = basename(strtolower($_SERVER["REQUEST_URI"]));
-        $view = new View("Dashboard/Pages/show", "front");
+        $view = new View("Main/showArticle", "front");
         $page = new Pages();
         $current_page = $page->getOneBy(["id"=>$articleId]);
         if($current_page) {
@@ -61,7 +61,7 @@ class Page
             if($current_page_obj->getComments() && Security::UserIsLogged())
             {
                 $form = new CommentInsert();
-                $view2 = new View("Dashboard/Pages/comments", "blank");
+                $view2 = new View("Dashboard/Articles/comments", "blank");
                 $view2->assign('config', $form->getConfig());
                 $view2->assign("showNavbar", "false");
                 $view2->assign("articleId", $articleId);

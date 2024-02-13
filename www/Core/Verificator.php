@@ -91,7 +91,8 @@ class Verificator {
 
     public function isValid(): bool
     {
-        if (count($this->config["inputs"]) != count($this->data) - 1) {
+
+        if (count($this->config["inputs"]) + count($this->config["select"] ?? []) != count($this->data) - 1) {
             die("Tentative de Hack 1");
         }
         foreach ($this->config["inputs"] as $name => $input) {
@@ -100,6 +101,7 @@ class Verificator {
             }
 
             if (!$this->checkIdentical($this->data["csrf_token"], $_SESSION['csrf_token'])) {
+                var_dump($this->data["csrf_token"]);
                 die("Tentative de Hack 3");
             }
 

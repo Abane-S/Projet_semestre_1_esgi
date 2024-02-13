@@ -8,14 +8,15 @@ use App\Models\PhpMailor;
 use App\Models\User;
 use App\Models\Categories;
 use App\Models\Pages;
+use App\Models\Articles;
 
 class Main
 {
     public function home(): void
     {
         $view = new View("Main/home", "front");
-        $pages = new Pages();
-        $view->assign("cards", $pages->getAllPages());
+        $article = new Articles();
+        $view->assign("cards", $article->findAll());
 
     }
 

@@ -1,10 +1,10 @@
 <div class="d-flex justify-between">
     <h1 class="fs-4">Liste des Articles</h1>
-    <button type="button" id="pageCreation" onclick="window.location.href='pages/createArticle'"  class="button button-primary button-md">Créer une article</button>
+    <button type="button" id="pageCreation" onclick="window.location.href='articles/createArticle'"  class="button button-primary button-md">Créer une article</button>
 </div>
 <div>
-    <table class="mt-4">
-        <thead>
+    <table class="table mt-4">
+        <thead class="thead-dark">
             <tr>
                 <th>ID</th>
                 <th>Titre</th>
@@ -18,9 +18,9 @@
                 </tr>
             <?php else:  ?>
                 <?php  foreach($articles as $article): ?>
-                    <tr>
+                    <tr class="row">
                         <td ><?= $article['id'] ?></td>
-                        <td><?= $article['title'] ?></td>
+                        <td><?= $article['titre'] ?></td>
                         <td>
                             <a href="#" class="button button-primary button-sm">Modifier</a>
                             <a href="#" class="button button-danger button-sm">Supprimer</a>

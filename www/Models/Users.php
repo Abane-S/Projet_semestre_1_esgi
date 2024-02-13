@@ -8,52 +8,22 @@ use App\Core\DB;
 class Users extends DB
 {
     private ?int $id = null;
-
-    protected int $id_page;
-
-    public function getIdPage(): int
-    {
-        return $this->id_page;
-    }
-
-    public function setIdPage(int $id_page): void
-    {
-        $this->id_page = $id_page;
-    }
-
     protected string $firstname;
     protected string $lastname;
     protected string $email;
     protected string $pwd;
     protected string $role;
-
     protected String $verification_token;
     protected Int $email_verified;
     protected $date_inserted;
     protected $date_updated;
     protected int $isdeleted;
+    protected int $id_page;
 
-    public function getRole(): string
-    {
-        return $this->role;
-    }
 
-    public function setRole(string $role): void
-    {
-        $this->role = $role;
-    }
 
-    public function getIsdeleted(): int
-    {
-        return $this->isdeleted;
-    }
 
-    public function setIsdeleted(int $isdeleted): void
-    {
-        $this->isdeleted = $isdeleted;
-    }
 
-    
     public function __toString()
     {
         return $this->getFirstname()." ".$this->getLastname();
@@ -217,6 +187,41 @@ class Users extends DB
     {
         $this->date_updated = $date_updated;
     }
+
+    public function getRole(): string
+    {
+        return $this->role;
+    }
+
+    public function setRole(string $role): void
+    {
+        $this->role = $role;
+    }
+
+
+    
+    public function getIsdeleted(): int
+    {
+        return $this->isdeleted;
+    }
+
+    public function setIsdeleted(int $isdeleted): void
+    {
+        $this->isdeleted = $isdeleted;
+    }
+
+    
+
+    public function getIdPage(): int
+    {
+        return $this->id_page;
+    }
+
+    public function setIdPage(int $id_page): void
+    {
+        $this->id_page = $id_page;
+    }
+
 
     public function HardDeleteAccount($email): bool
     {

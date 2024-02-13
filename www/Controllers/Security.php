@@ -12,7 +12,7 @@ use App\Forms\PwdChange;
 use App\Forms\ModifieAccount;
 use App\Core\Verificator;
 use App\Models\PhpMailor;
-use App\Models\User;
+use App\Models\Users;
 
 class Security
 {
@@ -31,7 +31,7 @@ class Security
         $view = new View("Security/login", "front");
         $view->assign('config', $form->getConfig());
         if ($form->isSubmit() && $form->isValid()){
-            $user = new User();
+            $user = new Users();
             $account = $user->getOneBy(["email" => strtolower($_POST['user_email'])], "object");
             if ($account)
             {
@@ -120,7 +120,7 @@ class Security
         $view->assign('config', $form->getConfig());
 
         if ($form->isSubmit() && $form->isValid()){
-            $user = new User();
+            $user = new Users();
             $account = $user->getOneBy(["email" => $_POST['user_email']], "object");
             if ($account)
             {
@@ -174,7 +174,7 @@ class Security
         $view->assign('config', $form->getConfig());
 
         if ($form->isSubmit() && $form->isValid()){
-            $user = new User();
+            $user = new Users();
             $account = $user->getOneBy(["email" => strtolower($_POST['user_email'])], "object");
             if ($account)
             {
@@ -239,7 +239,7 @@ class Security
 
         if ($form->isSubmit() && $form->isValidDelete())
         {
-            $user = new User();
+            $user = new Users();
             $account = $user->getOneBy(["email" => strtolower($_SESSION['Account']['email'])], "object");
             if($_POST["account_delete"] == "soft")
             {
@@ -286,7 +286,7 @@ class Security
             $view = new View("Security/accountmodification", "front");
             $view->assign('config', $form->getConfig());
             if ($form->isSubmit() && $form->isValidAccountModification()) {
-                $user = new User();
+                $user = new Users();
                 $account = $user->getOneBy(["email" => strtolower($_SESSION['Account']['email'])], "object");
                 if(!empty($_POST["user_firstname"]))
                 {
@@ -344,7 +344,7 @@ class Security
             $view->assign("showNavbar", "false");;
         } else {
             $token = $_GET['token'];
-            $user = new User();
+            $user = new Users();
             $account = $user->getOneBy(["verification_token" => $token], "object");
             if (!$account) {
                 die("Page 404");
@@ -418,7 +418,7 @@ class Security
             $view->assign("showNavbar", "false");
         } else {
             $token = $_GET['token'];
-            $user = new User();
+            $user = new Users();
             $account = $user->getOneBy(["verification_token" => $token], "object");
             if (!$account) {
                 die("Page 404");

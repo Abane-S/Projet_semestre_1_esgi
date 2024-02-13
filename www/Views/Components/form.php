@@ -59,24 +59,19 @@
         <?php // endif; ?>
 
         <input
-                name="<?= $name ?>"
-                type="<?= $configInput["type"] ?? "text" ?>"
-                <?php if (!empty($configInput["id"])): ?>
-                    id="<?= $configInput["id"] ?>"
-                <?php endif; ?>
-                class="<?= $configInput["class"] ?? "" ?>"
-                placeholder="<?= $configInput["placeholder"] ?? "" ?>"
+            name="<?= $name ?>"
+            type="<?= $configInput["type"] ?? "text" ?>"
+            id="<?= $configInput["id"] ?? "" ?>"
+            class="<?= $configInput["class"] ?? "" ?>"
+            placeholder="<?= $configInput["placeholder"] ?? "" ?>"
             <?php
             if ($name == "csrf_token") {
-                echo 'value="' . GenerateCSRFToken() . '"';
-            }
-            if ($name != "csrf_token" && isset($configInput["value"]) && $configInput["value"] != "")
-            {
-                echo 'value="' . $configInput["value"] . '"';
-            }
-            if ($name != "csrf_token" && !isset($configInput["value"]))
-            {
-                echo 'value="' . $valeurs[$name] . '"';
+                $csrfToken = GenerateCSRFToken(); // Ceci devrait idéalement être fait en amont dans le script
+                echo 'value="' . $csrfToken . '"';
+            } elseif (isset($configInput["value"])) {
+                echo 'value="' . htmlspecialchars($configInput["value"], ENT_QUOTES, 'UTF-8') . '"';
+            } else {
+                echo 'value="' . (isset($valeurs[$name]) ? htmlspecialchars($valeurs[$name], ENT_QUOTES, 'UTF-8') : '') . '"';
             }
             ?>
             <?= (!empty($configInput["required"])) ? "required" : "" ?>
@@ -111,6 +106,7 @@
     <input type="submit" name="submit" value="<?= $config["config"]["submit"]??"Envoyer" ?>">
 </form>
 
+
 <?php
 // Function to generate CSRF token
 function GenerateCSRFToken()
@@ -124,6 +120,7 @@ function GenerateCSRFToken()
     } else {
         // Retrieve the existing CSRF token from the session
         $token = $_SESSION['csrf_token'];
+
     }
 
     return $token;

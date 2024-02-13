@@ -23,46 +23,24 @@ class Article
         $view->assign("articles", $article->findAll());
     }
 
-    public function createArticle(): void
-    {
-        $view = new View("Dashboard/Pages/create", "back");
-        $form = new CreatePage();
-        $view->assign('config', $form->getConfig());
-
-        if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['title'] != "") {
-            $page = new PagesModel();
-            $page->setTitle($_POST['title']);
-            $page->setMeta_description($_POST['meta_description']);
-            $page->setMiniature($_FILES['files']['name']??"");
-            $page->setComments(isset($_POST['comments']) ? 1 : 0);
-            $page->setContent($_POST['content']);
-
-            $upload = new Upload();
-            $upload->uploadFile($_FILES['files']);
-            $page->save();
-
-        }
-    }
-
     public function showArticle(): void
     {
-        $articleId = basename(strtolower($_SERVER["REQUEST_URI"]));
-        $view = new View("Dashboard/Pages/show", "front");
-        $page = new PagesModel();
-        $current_page = $page->getOneBy(["id"=>$articleId]);
-        if($current_page) {
-            $view->assign("pages", $current_page);
-            $current_page_obj = $page->getOneBy(["id"=>$articleId], "object");
-            if($current_page_obj->getComments() && Security::UserIsLogged())
+        $articleId = $_GET[0];
+        $view = new View("Main/showArticle", "front");
+        $article = new Articles();
+        $article = $article->getOneBy(["id"=>$articleId], "table");
+        $view->assign("article", $article);
+        if($article) {
+            if($article['comments'] && Security::UserIsLogged())
             {
                 $form = new CommentInsert();
-                $view2 = new View("Dashboard/Pages/comments", "blank");
+                $view2 = new View("Dashboard/Articles/comments", "blank");
                 $view2->assign('config', $form->getConfig());
                 $view2->assign("showNavbar", "false");
                 $view2->assign("articleId", $articleId);
 
                 if ($form->isSubmit() && $form->isValidComment()) {
-                    $comment = new Comment();
+                    $comment = new Comments();
                     $comment->setIdPage($articleId);
                     $comment->setFullname($_SESSION['Account']['lastname'] . " " . $_SESSION['Account']['firstname']);
                     $comment->setComment($_POST['comment']);
@@ -130,7 +108,7 @@ class Article
 
                 }
             }
-            else if($current_page_obj->getComments() && !Security::UserIsLogged())
+            else if($article['comments'] && !Security::UserIsLogged())
             {
                 echo '<style>#needtologin { display: flex !important; }</style>';
             }
@@ -143,9 +121,35 @@ class Article
         }
     }
 
+
+    public function createArticle(): void
+    {
+        $view = new View("Dashboard/articles/createArticle", "back");
+        $form = new CreatePage();
+        $view->assign('config', $form->getConfig());
+
+        if ($form->isSubmit()) {
+            $article = new Articles();
+            $article->setTitre($_POST['titre']);
+            $article->setDescription($_POST['description']);
+            $article->setMiniature($_FILES['miniature']['name']??"");
+            $article->setComments(isset($_POST['comments']) ? 1 : 0);
+            $article->setContent($_POST['content']);
+
+            $upload = new Upload();
+            $upload->uploadFile($_FILES['miniature']);
+            $article->save();
+
+        }
+    }
+
     public function editArticle(): void
     {
 
     }
 
+    public function deleteArticle(): void
+    {
+        
+    }
 }
