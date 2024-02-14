@@ -16,8 +16,9 @@ class Main
     {
         $view = new View("Main/home", "front");
         $article = new Articles();
-        $view->assign("cards", $article->findAll());
-
+        $articles = $article->findAll();
+        if (is_array($articles) && !empty($articles)) 
+            $view->assign("cards", $article->findAll());
     }
 
     public function contact(): void
@@ -52,7 +53,7 @@ class Main
     {
 
         if ($_SESSION['Account']['role'] == "admin"){
-            $view = new View("Admin/dashboard", "back");
+            $view = new View("Dashboard/Dashboard", "back");
             $user = new User();
             $view->assign("users", $user->findAll());
         }

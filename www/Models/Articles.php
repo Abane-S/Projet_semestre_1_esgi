@@ -8,6 +8,7 @@ use App\Core\DB;
 class Articles extends DB
 {
     private ?int $id = null;
+    protected int $id_user;
     protected String $titre;
     protected String $description;
     protected String $miniature;
@@ -39,6 +40,26 @@ class Articles extends DB
         return $this;
     }
 
+    
+    /**
+     * Get the value of id_user
+     */ 
+    public function getIdUser()
+    {
+        return $this->id_user;
+    }
+
+    /**
+     * Set the value of id_user
+     *
+     * @return  self
+     */ 
+    public function setIdUser($id_user)
+    {
+        $this->id_user = $id_user;
+
+        return $this;
+    }
 
     /**
      * Get the value of titre
@@ -139,6 +160,7 @@ class Articles extends DB
 
         return $this;
     }
+
 
 
 }

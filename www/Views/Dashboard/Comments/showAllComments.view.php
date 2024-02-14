@@ -30,8 +30,8 @@
                         <td><?= $comment['valid'] ?></td>
                         <td><?= $comment['created_at'] ?></td>
                         <td>
-                            <a href="#" class="button button-primary button-sm">Modifier</a>
-                            <a href="#" class="button button-danger button-sm">Supprimer</a>
+                            <a href="/commentUpdate/<?= $comment['id'] ?>" class="button button-primary button-sm">Modifier</a>
+                            <a href="/commentDelete/<?= $comment['id'] ?>" class="button button-danger button-sm">Supprimer</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

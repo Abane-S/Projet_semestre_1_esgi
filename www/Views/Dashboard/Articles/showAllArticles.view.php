@@ -6,8 +6,8 @@
     <table class="table mt-4">
         <thead class="thead-dark">
             <tr>
-                <th>ID</th>
                 <th>Titre</th>
+                <th>Description</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -19,11 +19,11 @@
             <?php else:  ?>
                 <?php  foreach($articles as $article): ?>
                     <tr class="row">
-                        <td ><?= $article['id'] ?></td>
+                        <td><?= $article['description'] ?></td>
                         <td><?= $article['titre'] ?></td>
                         <td>
-                            <a href="#" class="button button-primary button-sm">Modifier</a>
-                            <a href="#" class="button button-danger button-sm">Supprimer</a>
+                            <a href="/dashboard/articles/editArticle/<?= $article['id'] ?>" class="button button-primary button-sm">Modifier</a>
+                            <a href="/dashboard/articles/deleteArticle/<?= $article['id'] ?>" class="button button-danger button-sm">Supprimer</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -32,5 +32,8 @@
     </table>
 </div>  
 
-
-
+<?php
+    if (isset($modal)) {
+        $this->includeComponent("modal", $modal);
+    }
+?>

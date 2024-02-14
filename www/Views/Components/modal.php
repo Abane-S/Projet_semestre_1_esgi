@@ -10,7 +10,7 @@
             <footer>
                 <a href="<?= $config['redirect']; ?>" class="button button-<?= $config['button-color']??"primary"?> button-md"><?=$config['button-message']??"fermer"?></a>
                 <?php if (isset($config['second-button'])): ?>
-                    <a href="/dashboard/users" class="button button-primary button-md ml-2"><?= $config['second-button'] ?></a>
+                    <a href="<?= $config['second-button-redirect']?? "/dasboard" ?>" class="button button-primary button-md ml-2"><?= $config['second-button'] ?></a>
                 <?php endif; ?>
             </footer>
         </section>

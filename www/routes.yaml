@@ -72,18 +72,16 @@
 # COMMENTS ---------------------------------------------------------------------------------------
 
 /dashboard/comments:
-  controller: Admin
-  action: comments
+  controller: Comment
+  action: showAllComments
 
-/commentUpdate/{pages}:
-  path: /pages/{pages}
-  controller: Admin
-  action: commentsUpdate
+/commentUpdate/{commentId}:
+  controller: Comment
+  action: commentUpdate
 
-/commentDelete/{pages}:
-  path: /pages/{pages}
-  controller: Admin
-  action: commentsDelete
+/commentDelete/{CommentId}:
+  controller: Comment
+  action: commentDelete
 
 
 # PAGE ---------------------------------------------------------------------------------------
@@ -116,9 +114,13 @@
   controller: Article
   action: createArticle
 
-/dashboard/articles/editArticle:
+/dashboard/articles/editArticle/{articleId}:
   controller: Article
   action: editArticle
+
+/dashboard/articles/deleteArticle/{articleId}:
+  controller: Article
+  action: deleteArticle
 
 /article/{articleId}:
     controller: Article

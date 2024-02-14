@@ -58,6 +58,14 @@ class DB
         }
         $queryPrepared = $this->pdo->prepare($sql);
         $queryPrepared->execute($data);
+
+        try {
+            $queryPrepared = $this->pdo->prepare($sql);
+            $queryPrepared->execute($data);
+        } catch (PDOException $e) {
+            error_log("Erreur SQL : " . $e->getMessage());
+            echo "Erreur SQL : " . $e->getMessage();
+        }
         
     }
 
@@ -77,30 +85,41 @@ class DB
     // $data = ["id"=>1] ou ["email"=>"y.skrypczyk@gmail.com"]
     public function getOneBy(array $data, string $return = "array")
     {
-        $sql = "SELECT * FROM " . $this->table . " WHERE ";
-        foreach ($data as $column => $value) {
-            $sql .= " " . $column . "=:" . $column . "AND";
+        try {
+            $sql = "SELECT * FROM " . $this->table . " WHERE ";
+            foreach ($data as $column => $value) {
+                $sql .= $column . "=:" . $column . " AND ";
+            }
+            $sql = rtrim($sql, ' AND ');
+            $queryPrepared = $this->pdo->prepare($sql);
+            $queryPrepared->execute($data);
+    
+            if ($return == "object") {
+                return $queryPrepared->fetchObject(get_called_class()) ?: false;
+            } else {
+                return $queryPrepared->fetch(\PDO::FETCH_ASSOC) ?: false;
+            }
+        } catch (\PDOException $e) {
+            error_log('Erreur SQL dans getOneBy : ' . $e->getMessage());
+            return null; // Signale une erreur SQL
         }
-        $sql = substr($sql, 0, -3);
-        $queryPrepared = $this->pdo->prepare($sql);
-        $queryPrepared->execute($data);
-
-        if ($return == "object") {
-            $queryPrepared->setFetchMode(\PDO::FETCH_CLASS, get_called_class());
-        }
-
-        return $queryPrepared->fetch();
     }
 
 
-    public function findAll($sort = null, $order = null ): array
+    public function findAll($sort = null, $order = null ): array|string
     {
-        if ($sort && $order) {
-            $query = $this->pdo->query("SELECT * FROM " . $this->table . " ORDER BY " . $sort . " " . $order);
-        } else {
-            $query = $this->pdo->query("SELECT * FROM " . $this->table);
+        try {
+            if ($sort && $order) {
+                $query = $this->pdo->query("SELECT * FROM " . $this->table . " ORDER BY " . $sort . " " . $order);
+            } else {
+                $query = $this->pdo->query("SELECT * FROM " . $this->table);
+            }
+            
+            return $query->fetchAll(\PDO::FETCH_ASSOC);
+        } catch (\PDOException $e) {
+            return "Aucun article trouvé";
         }
-        return $query->fetchAll(\PDO::FETCH_ASSOC);
+
     }
 
     public function CreateDB(){

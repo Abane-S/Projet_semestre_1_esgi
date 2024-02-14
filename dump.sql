@@ -50,6 +50,7 @@ DROP TABLE IF EXISTS esgi_articles CASCADE;
 
 CREATE TABLE esgi_articles (
     id SERIAL PRIMARY KEY,
+    id_user smallint NOT NULL,
     titre VARCHAR(255) NOT NULL,
     description varchar(50) NOT NULL,
     miniature varchar(100) NOT NULL,
@@ -81,5 +82,3 @@ CREATE TABLE esgi_comments (
 
 
 
-INSERT INTO esgi_pages (title, meta_description, miniature, content)
-VALUES ('Titre de l''article', 'Description méta de l''article', 'nom_miniature.jpg', true, 'Contenu de l''article');

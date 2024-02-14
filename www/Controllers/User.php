@@ -140,6 +140,7 @@ class User
                     "button-message" => "Supprimer",
                     "button-color" => "danger",
                     "redirect" => "/dashboard/users/confirmDeleteUser/$userId",
+                    "second-button-redirect" => "/dashboard/users",
                     "second-button" => "Annuler",
                 ];
                 // $user->delete($userId);

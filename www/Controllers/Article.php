@@ -6,7 +6,7 @@ namespace App\Controllers;
 use App\Core\View;
 use App\Forms\CommentInsert;
 use App\Models\Articles;
-use App\Forms\CreatePage;
+use App\Forms\createArticle;
 use App\FileStorage\Upload;
 use App\Models\Comments;
 use App\Models\PhpMailor;
@@ -125,31 +125,106 @@ class Article
     public function createArticle(): void
     {
         $view = new View("Dashboard/articles/createArticle", "back");
-        $form = new CreatePage();
+        $form = new CreateArticle();
         $view->assign('config', $form->getConfig());
 
-        if ($form->isSubmit()) {
+        if ($form->isSubmit() && $form->isValid()) {
             $article = new Articles();
+            $article->setIdUser($_SESSION['Account']['id']);
             $article->setTitre($_POST['titre']);
             $article->setDescription($_POST['description']);
-            $article->setMiniature($_FILES['miniature']['name']??"");
+            $article->setMiniature($_FILES['images']['name']??"");
             $article->setComments(isset($_POST['comments']) ? 1 : 0);
             $article->setContent($_POST['content']);
-
             $upload = new Upload();
-            $upload->uploadFile($_FILES['miniature']);
+            $upload->uploadFile($_FILES['images']);
             $article->save();
-
         }
     }
 
     public function editArticle(): void
     {
+        if (isset($_GET[0])){
+            $articleId = $_GET[0];
+            $article = new Articles();
+            $article = $article->getOneBy(["id" => $articleId]);
+            if ($article)
+            {
+                $view = new View("Dashboard/articles/editArticle", "back");
+                $article['submit'] = "Modifier";
+                $form = new CreateArticle($article);
+                $view->assign("config", $form->getConfig());
+                $view->assign("title", "Modifier un article");
 
+                if ($form->isSubmit() && $form->isValid()){
+                    $article = new Articles();
+                    $article->setId($articleId);
+                    $article->setIdUser($_SESSION['Account']['id']);
+                    $article->setTitre($_POST['titre']);
+                    $article->setDescription($_POST['description']);
+                    $article->setMiniature($_FILES['images']['name']??"");
+                    $article->setComments(isset($_POST['comments']) ? 1 : 0);
+                    $article->setContent($_POST['content']);
+                    $upload = new Upload();
+                    $upload->uploadFile($_FILES['images']);
+                    $article->save();
+                    
+                    $modal = [
+                        "title" => "Données modifiées avec succès !",
+                        "content" => "L'article a été modifié avec succès. Vous pouvez maintenant le consulter sur le site.",
+                        "redirect" => "/dashboard/articles"
+                    ];
+                    $view->assign("modal", $modal);
+                }
+            }else{
+                $view->assign('errors', $form->listOfErrors);
+            }
+        }else{
+            $modal = [
+                "title" => "Article Introuvable !",
+                "content" => "L'article que vous souhaitez modifier n'existe pas.",
+                "redirect" => "/dashboard/articles"
+            ];
+            $view = new View("Dashboard/Articles/showAllArticles", "back");
+            $article = new Articles();
+            $view->assign("articles", $article->findAll());
+        }   
     }
 
     public function deleteArticle(): void
     {
+        if (isset($_GET[0])) {
+            $articleId = $_GET[0];
+            $article = new Articles();
+            $account = $article->getOneBy(["id" => $articleId]);
+            if ($account) {
+                $modal = [
+                    "title" => "Suppression de l'article",
+                    "content" => "Êtes-vous sûr(e) de vouloir supprimer cette article ?",
+                    "button-message" => "Supprimer",
+                    "button-color" => "danger",
+                    "redirect" => "/dashboard/users/confirmDeleteUser/$articleId",
+                    "second-button-redirect" => "/dashboard/articles",
+                    "second-button" => "Annuler",
+                ];
+                // $user->delete($userId);
+                $view = new View("Dashboard/Articles/showAllArticles", "back");
+                $article = new Articles();
+                $view->assign("articles", $article->findAll());
+                $view->assign("modal", $modal);
+            }
+            else {
+                $modal = [
+                    "title" => "Utilisateur introuvable !",
+                    "content" => "L'utilisateur que vous souhaitez supprimer n'existe pas.",
+                    "redirect" => "/dashboard/users"
+                ];
+                $view = new View("Dashboard/Articles/showAllArticles", "back");
+                $article = new Articles();
+                $view->assign("articles", $article->findAll());
+                $view->assign("modal", $modal);
+            }
+        }
         
     }
 }

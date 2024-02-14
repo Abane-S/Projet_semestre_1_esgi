@@ -1,6 +1,6 @@
 <div>
     <h1 class="ml-23 mt-5 mb-6 " >Pages</h1>
-    <?php
+    <?php 
     if (!empty($cards)) { ?>
         <ul class="card-container" >
         <?php foreach ($cards as $card) { ?>

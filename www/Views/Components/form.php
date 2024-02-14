@@ -53,29 +53,37 @@
 
 
         <?php if (isset($config["inputs"])): ?>
-    <?php foreach ($config["inputs"] as $name => $configInput): ?>
-        <?php // if ($configInput["label"]): ?>
-            <label for="<?= $name ?>"><?= $configInput["label"] ?? "" ?></label>
-        <?php // endif; ?>
-
-        <input
-            name="<?= $name ?>"
-            type="<?= $configInput["type"] ?? "text" ?>"
-            id="<?= $configInput["id"] ?? "" ?>"
-            class="<?= $configInput["class"] ?? "" ?>"
-            placeholder="<?= $configInput["placeholder"] ?? "" ?>"
-            <?php
-            if ($name == "csrf_token") {
-                $csrfToken = GenerateCSRFToken(); // Ceci devrait idéalement être fait en amont dans le script
-                echo 'value="' . $csrfToken . '"';
-            } elseif (isset($configInput["value"])) {
-                echo 'value="' . htmlspecialchars($configInput["value"], ENT_QUOTES, 'UTF-8') . '"';
-            } else {
-                echo 'value="' . (isset($valeurs[$name]) ? htmlspecialchars($valeurs[$name], ENT_QUOTES, 'UTF-8') : '') . '"';
-            }
-            ?>
-            <?= (!empty($configInput["required"])) ? "required" : "" ?>
-        >
+            <?php foreach ($config["inputs"] as $name => $configInput): ?>
+                <?php if (isset($configInput["id"]) && $configInput["id"] == "editor"): ?>
+                    <label for="<?= $name ?>"><?= $configInput["label"] ?? "" ?></label>
+                    <textarea
+                        name="<?= $name ?>"
+                        id="<?= $configInput["id"] ?? "" ?>"
+                        class="<?= $configInput["class"] ?? "" ?>"
+                        <?= (!empty($configInput["required"])) ? "required" : "" ?>
+                    ><?= isset($valeurs[$name]) ? htmlspecialchars($valeurs[$name], ENT_QUOTES, 'UTF-8') : '' ?><?= $configInput["content"] ?></textarea>
+                <?php else: ?>
+                    <label for="<?= $name ?>"><?= $configInput["label"] ?? "" ?></label>
+                    <input
+                        name="<?= $name ?>"
+                        type="<?= $configInput["type"] ?? "text" ?>"
+                        id="<?= $configInput["id"] ?? "" ?>"
+                        class="<?= $configInput["class"] ?? "" ?>"
+                        placeholder="<?= $configInput["placeholder"] ?? "" ?>"
+                        <?php
+                        if ($name == "csrf_token") {
+                            $csrfToken = GenerateCSRFToken(); // Ceci devrait idéalement être fait en amont dans le script
+                            echo 'value="' . $csrfToken . '"';
+                        } elseif (isset($configInput["value"])) {
+                            echo 'value="' . htmlspecialchars($configInput["value"], ENT_QUOTES, 'UTF-8') . '"';
+                        } else {
+                            echo 'value="' . (isset($valeurs[$name]) ? htmlspecialchars($valeurs[$name], ENT_QUOTES, 'UTF-8') : '') . '"';
+                        }
+                        ?>
+                        <?= (!empty($configInput["required"])) ? "required" : "" ?>
+                    >
+                <?php endif; ?>
+                <br>
 
         <?php if ($name !== "csrf_token"): ?>
             <br>
@@ -98,10 +106,8 @@
                     <h2> Installation - Site</h2>
                     <br>
                 <?php endif; ?>
-
-
     <?php endforeach; ?>
-        <?php endif; ?>
+<?php endif; ?>
 
     <input type="submit" name="submit" value="<?= $config["config"]["submit"]??"Envoyer" ?>">
 </form>

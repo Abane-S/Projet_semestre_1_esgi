@@ -13,7 +13,13 @@ class Verificator {
     public function isSubmit(): bool
     {
         $this->data = ($this->method == "POST")?$_POST:$_GET;
+        $lolo = explode("\\", get_class($this));
+        $class_name = end($lolo);
         if(isset($this->data["submit"])){
+            if ($class_name == "createArticle") {
+                $this->data['images'] = $_FILES['images'];
+                $this->data['comments'] = isset($_POST['comments']) ? 1 : 0;
+            }
             return true;
         }
         return false;
@@ -92,16 +98,17 @@ class Verificator {
     public function isValid(): bool
     {
 
+
         if (count($this->config["inputs"]) + count($this->config["select"] ?? []) != count($this->data) - 1) {
             die("Tentative de Hack 1");
         }
         foreach ($this->config["inputs"] as $name => $input) {
-            if (empty($this->data[$name])) {
+            if (empty($this->data[$name]) && $this->data[$name] != 0){
                 die("Tentative de Hack 2");
             }
 
+
             if (!$this->checkIdentical($this->data["csrf_token"], $_SESSION['csrf_token'])) {
-                var_dump($this->data["csrf_token"]);
                 die("Tentative de Hack 3");
             }
 

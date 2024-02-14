@@ -47,11 +47,6 @@ class Security
                                 header("Location: /");
                                 exit;
                             }
-                            if($account->getRole() == "moderator")
-                            {
-                                header("Location: /moderator");
-                                exit;
-                            }
                             if($account->getRole() == "admin")
                             {
                                 header("Location: /dashboard");
@@ -98,16 +93,6 @@ class Security
         $view = new View("Security/logout", "front");
     }
 
-    /**
-     * This code handles the login functionality and user registration.
-     * If the user is already logged in, it redirects to the dashboard.
-     * It creates a new UserInsert form and assigns it to the view.
-     * If the form is submitted, it validates the form data and performs user registration if there are no errors.
-     * If the email already exists, it displays an error message.
-     * After successful registration, it generates a verification token, saves the user data, and redirects to the login page.
-     * If there are any errors in the form data, it assigns the errors to the view.
-     */
-
     public function register(): void
     {
         if ($this->UserIsLogged()){
@@ -122,12 +107,8 @@ class Security
         if ($form->isSubmit() && $form->isValid()){
             $user = new Users();
             $account = $user->getOneBy(["email" => $_POST['user_email']], "object");
-            if ($account)
+            if ($account === false) 
             {
-                $errors['user_email'] = "-L'adresse e-mail est déjà utilisée. Merci de bien vouloir renseigner une autre adresse e-mail.";
-                $view->assign('errors', $errors);
-                exit;
-            }else{
                 $token = bin2hex(random_bytes(32));
                 $user->setVericationToken($token);
                 $user->setFirstname($_POST['user_firstname']);
@@ -153,11 +134,22 @@ class Security
                 ];
                 $view->assign("modal", $modal);
 
+                } elseif (is_object($account)) {
+                    // L'email est déjà utilisé
+                    $errors['user_email'] = "-L'adresse e-mail est déjà utilisée. Merci de bien vouloir renseigner une autre adresse e-mail.";
+                    $view->assign('errors', $errors);
+                } else {
+                    // Erreur SQL (account === null)
+                    $modal = [
+                        "title" => "Erreur SQL",
+                        "content" => "La base de données n'est pas initialisée. Contactez l'administrateur du site pour plus d'informations.",
+                        "redirect" => "/register"
+                    ];
+                    $view->assign("modal", $modal);
+                }
+            } else {
+                $view->assign('errors', $form->listOfErrors);
             }
-        }else{
-            $view->assign('errors', $form->listOfErrors);
-        }
-
     }
 
 
