@@ -26,7 +26,7 @@ class PhpMailor
         $mail->setFrom(SMTP_EMAIL, SMTP_NAME);
         $mail->addAddress($receiver);
         $mail->isHTML(true);
-        $mail->Subject = $subject;
+        $mail->Subject = '=?UTF-8?B?' . base64_encode($subject) . '?=';
         $mail->Body    = $body;
         $mail->AltBody = $body;
         try {

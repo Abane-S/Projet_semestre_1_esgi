@@ -133,7 +133,7 @@ class Security
                 $user->save();
 
                 $phpMailer = new PhpMailor();
-                $subject = "Veuillez vérifier votre compte";
+                $subject = "Veuillez verifier votre compte";
                 $message = "
                     <h1>Merci de votre inscription</h1>
                     <p>Merci de cliquer sur le lien ci-dessous pour vérifier votre compte</p>
