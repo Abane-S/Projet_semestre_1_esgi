@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ClassicEditor
             .create(editorElement, {
                 ckfinder: {
-                    uploadUrl: 'http://localhost:8081/FileStorage/ckeditor_upload.php'
+                    uploadUrl: '/FileStorage/ckeditor_upload.php'
                 }
             })
             .then(newEditor => {

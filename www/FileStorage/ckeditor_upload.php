@@ -3,7 +3,7 @@
 $data = [];
 
 // URL de base où les images sont accessibles publiquement
-$base_url = "http://localhost:8081/assets/Framework/public/images_upload/";
+$base_url = "/assets/Framework/public/images_upload/";
 
 if (isset($_FILES['upload']['name']))
 {

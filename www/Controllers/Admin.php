@@ -52,6 +52,7 @@ class Admin
                         "redirect" => "/dashboard/comments"
                     ];
                     $view->assign("modal", $modal);
+                    $_SESSION['Comment'] = null;
                 }
                 else
                 {
@@ -208,6 +209,7 @@ class Admin
                     $upload = new Upload();
                     $upload->uploadFile($_FILES['page_file']);
                     $pageToUpdate->save();
+                    $_SESSION['Page'] = null;
                 $modal = [
                     "title" => "Page modifié avec succes",
                     "content" => "La Page a bien été modifié.",
@@ -302,6 +304,7 @@ class Admin
                             "redirect" => "/dashboard/users"
                         ];
                         $view->assign("modal", $modal);
+                        $_SESSION['User'] = null;
 
                     }
                 }
