@@ -1,0 +1,139 @@
+
+# MAIN ----------------------------------------------------------------------------------------
+
+/:
+  controller: Main
+  action: home
+
+/a-propos:
+  controller: Main
+  action: aboutUs
+
+/login:
+  controller: Security
+  action: login
+
+/register:
+  controller: Security
+  action: register
+
+/account:
+  controller: Security
+  action: modifieAccount
+
+/dashboard:
+  controller: Main
+  action: dashboard
+
+/contact:
+  controller: Main
+  action: contact
+
+
+# SECURITY ------------------------------------------------------------------------------------
+
+/logout:
+  controller: Security
+  action: logout
+
+/forgot-password:
+  controller: Security
+  action: pwdForget
+
+/verify2:
+  controller: Security
+  action: ChangePasswordVerification
+
+/verify:
+  controller: Security
+  action: verifyEmail
+
+/email-confirmed:
+  controller: Security
+  action: confirmedEmail
+
+/needtologout:
+  controller: Security
+  action: needToLogout
+
+/password-changed:
+  controller: Security
+  action: passwordChangedSucces
+
+/delete-account:
+  controller: Security
+  action: DeleteAccount
+
+/installer:
+  controller: Installer
+  action: installer
+
+
+# ADMIN ---------------------------------------------------------------------------------------
+
+/dashboard/comments:
+  controller: Admin
+  action: comments
+
+/commentUpdate/{pages}:
+  path: /pages/{pages}
+  controller: Admin
+  action: commentsUpdate
+
+/commentDelete/{pages}:
+  path: /pages/{pages}
+  controller: Admin
+  action: commentsDelete
+
+# MENU ---------------------------------------------------------------------------------------
+
+/dashboard/menus:
+  controller: Admin
+  action: menus
+
+# PAGE ---------------------------------------------------------------------------------------
+
+/dashboard/pages:
+  controller: Admin
+  action: pagesShowAdmin
+
+/dashboard/pages/create:
+  controller: Admin
+  action: createPages
+
+/editPage/{pages}:
+  path: /pages/{pages}
+  controller: Admin
+  action: editPages
+
+/deletePage/{pages}:
+  path: /pages/{pages}
+  controller: Admin
+  action: deletePages
+
+/page/{pages}:
+    path: /article/{articleId}
+    controller: Pages
+    action: show
+
+
+
+# USERS ---------------------------------------------------------------------------------------
+
+/dashboard/users:
+  controller: Admin
+  action: users
+
+/dashboard/users/create:
+  controller: Admin
+  action: createUsers
+
+/userUpdate/{pages}:
+  path: /pages/{pages}
+  controller: Admin
+  action: userUpdate
+
+/userDelete/{pages}:
+  path: /pages/{pages}
+  controller: Admin
+  action: userDelete

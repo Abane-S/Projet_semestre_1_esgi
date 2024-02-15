@@ -1,0 +1,92 @@
+.divform{
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
+    max-width: 50%;
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+    margin-bottom: 7%;
+}
+
+.center-form{
+    text-align: center;
+}
+
+.input-select2
+{
+    height: rem(40);
+}
+
+.input-select
+{
+    height: 5%;
+}
+
+.alert {
+    padding: rem(10);
+    margin-bottom: (20);
+    border: rem(1) solid transparent;
+    border-radius: (4);
+    margin-bottom:3% !important;
+}
+
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+
+.forgot-password{
+    display: flex;
+    padding-left: 10%;
+    text-decoration: underline;
+}
+
+.forgot-password:hover{
+    color: var(--blue-hover);
+}
+
+.form{
+    input{
+        padding: rem(10);
+        font-size: rem(14);
+        width: 80%;
+        margin-bottom: rem(25);
+    }
+    label{
+        text-align: left;
+        display: block;
+        margin-left: 10%;
+    }
+
+    /* Style de base pour un bouton de succès Bootstrap */
+    input[type=submit] {
+        color: #fff;
+        background-color: #28a745;
+        border-color: transparent;
+        border-radius: var(--main-radius);
+    }
+
+    /* Style au survol du bouton */
+    input[type=submit]:hover {
+        color: #fff;
+        background-color: #218838;
+        border-color: transparent;
+        border-radius: var(--main-radius);
+    }
+
+    /* Style lorsque le bouton est activé (clic) */
+    input[type=submit]:active {
+        color: #fff;
+        background-color: #1e7e34;
+        border-color: transparent;
+    }
+
+    /* Style pour le focus du bouton */
+    input[type=submit]:focus {
+        color: #fff;
+        background-color: #1e7e34;
+        border-color: transparent;
+        box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.5);
+    }
+}

@@ -1,0 +1,52 @@
+.button {
+	--bg-color: var(--black);
+	--bg-hover-color: var(--grey);
+	display: inline-block;
+	border-radius: var(--main-radius);
+	font-weight: 500;
+	letter-spacing: rem(.8);
+	font-size: rem(16);
+	border: none;
+	background-color: var(--bg-color);
+	transition: all var(--transition-duration);
+	color: white;
+	cursor: pointer;
+
+
+	&:hover,
+	&:focus {
+		background-color: var(--bg-hover-color);
+	}
+
+	/* Modificateurs de couleur */
+	&-primary {
+		--bg-color: var(--blue);
+		--bg-hover-color: var(--blue-darker);
+	}
+	&-secondary {
+		--bg-color: var(--grey);
+		--bg-hover-color: var(--grey-darker);
+	}
+	&-danger {
+		--bg-color: var(--red);
+		--bg-hover-color: var(--red-darker);
+	}
+	&-succes {
+		--bg-color: #28a745;
+		--bg-hover-color: #218838;
+	}
+
+
+	/* Modificateurs de taille */
+	&-lg {
+		padding: rem(10) rem(24);
+	}
+	&-md {
+		padding: rem(12) rem(16);
+	}
+	&-sm {
+		font-size: rem(14);
+		line-height: rem(16);
+		padding: rem(8) rem(12);
+	}
+}
