@@ -13,3 +13,4 @@ assets/Framework/public/images_uploads/
 
 .env
 pgdata/
+www/node_modules/
