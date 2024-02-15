@@ -47,12 +47,7 @@ class Security
                                 header("Location: /");
                                 exit;
                             }
-                            if($account->getRole() == "moderator")
-                            {
-                                header("Location: /moderator");
-                                exit;
-                            }
-                            if($account->getRole() == "admin")
+                            if($account->getRole() == "admin" || $account->getRole() == "moderateur")
                             {
                                 header("Location: /dashboard");
                                 exit;

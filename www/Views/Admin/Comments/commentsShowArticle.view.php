@@ -1,11 +1,3 @@
-<?php
-use App\Models\Comment;
-
-$commentModel = new Comment();
-
-$comments = $commentModel->ShowAllValidComments($articleId);
-?>
-
 <hr>
 <div style="margin-bottom:0% !important;" class="divform ml-auto mr-auto center-form">
     <h2>Ajouter un commentaire</h2>
@@ -38,7 +30,7 @@ $comments = $commentModel->ShowAllValidComments($articleId);
             <br>
             <p><b><?php echo $comment['commenttitle']; ?></b></p>
             <p><?php echo $comment['comment']; ?></p>
-            <p style="font-size: small;color: #343333;">publié par <?php echo $comment['fullname']; ?><br>le <?php echo date('d/m/Y H:i:s', strtotime($comment['updated_at'])); ?></p>
+            <p style="font-size: small;color: #343333;">publié par <?php echo $comment['fullname']; ?><br>le <?php echo date('d/m/Y H:i:s', strtotime($comment['created_at'])); ?></p>
 
         </div>
         <br>

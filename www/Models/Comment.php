@@ -81,14 +81,13 @@ class Comment extends DB
     public function ShowAllValidComments($id_page): array
     {
         try {
-            $sql = "SELECT fullname, commenttitle, comment, updated_at 
+            $sql = "SELECT *
                 FROM " . $this->table . " 
                 WHERE valid = true AND id_page = :id_page";
             $queryPrepared = $this->pdo->prepare($sql);
             $queryPrepared->execute(['id_page' => $id_page]);
 
             $result = $queryPrepared->fetchAll(\PDO::FETCH_ASSOC);
-
             return $result;
         } catch (\PDOException $e) {
             return [];

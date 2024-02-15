@@ -89,6 +89,69 @@ class Verificator {
         return false;
     }
 
+    public function isValidImages($chemin_temporaire, $chemin_name): bool
+    {
+
+        if (getimagesize($chemin_temporaire) !== false) {
+            $extension = pathinfo($chemin_name, PATHINFO_EXTENSION);
+
+            // Vérifier si l'extension est l'une des extensions d'image autorisées
+            if (in_array($extension, array('jpeg', 'jpg', 'png', 'gif'))) {
+                return true;
+            } else {
+                $this->listOfErrors[] = "-Format de l'image incorrect<br>(.PNG ou .JPEG ou .JPG ou .GIF)";
+                return false;
+            }
+        }
+        else {
+            $this->listOfErrors[] = "-Format de l'image incorrect<br>(.PNG ou .JPEG ou .JPG ou .GIF)";
+            return false;
+        }
+    }
+
+    public function isValidPages(): bool
+    {
+        if (count($this->config["inputs"]) + count($this->config["select"]) + count($this->config["textarea"]) != count($this->data)) {
+            die("Tentative de Hack 1");
+        }
+        foreach ($this->config["inputs"] as $name => $input) {
+            if($name != "page_file") {
+                if (empty($this->data[$name])) {
+                    die("Tentative de Hack 2");
+                }
+            }
+
+            if (!$this->checkIdentical($this->data["csrf_token"], $_SESSION['csrf_token'])) {
+                die("Tentative de Hack 3");
+            }
+
+            if ($name == "page_title" && $input["type"] == "text" && !($this->checkTitrePage($this->data[$name]))) {
+                $this->listOfErrors[] = $input["error"];
+            }
+
+            if ($name == "page_meta_description" || $name == "page_title") {
+                if ($input["type"] == "text" && !($this->checkTitrePage($this->data[$name]))) {
+                    $this->listOfErrors[] = $input["error"];
+                }
+            }
+
+            if(!empty($this->data["page_file"])) {
+                if ($input["type"] == "file" && !($this->checkImg($this->data[$name]))) {
+                    $this->listOfErrors[] = $input["error"];
+                }
+            }
+        }
+        foreach ($this->config["select"] as $name => $input) {
+            if ($name == "page_comment" && !($this->checkValidBool($this->data[$name]))) {
+                $this->listOfErrors[] = $input["error"];
+            }
+        }
+        if(empty($this->listOfErrors)){
+            return true;
+        }
+        return false;
+    }
+
     public function isValid(): bool
     {
         if (count($this->config["inputs"]) != count($this->data) - 1) {
@@ -455,6 +518,11 @@ class Verificator {
     public function checkCommentTitle($texte): bool
     {
         return preg_match("/^.{1,60}$/", $texte);
+    }
+
+    public function checkTitrePage($texte): bool
+    {
+        return preg_match("/^.{3,255}$/", $texte);
     }
 
 public function checkDBUsername($name): bool

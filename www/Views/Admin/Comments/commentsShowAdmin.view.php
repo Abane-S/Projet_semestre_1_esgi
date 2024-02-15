@@ -12,6 +12,7 @@
                 <th>Commentaire</th>
                 <th>Valide</th>
                 <th>Date de création</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody class="mt-3">
@@ -27,11 +28,14 @@
                         <td><?= $comment['fullname'] ?></td>
                         <td><?= $comment['commenttitle'] ?></td>
                         <td><?= $comment['comment'] ?></td>
-                        <td><?= $comment['valid'] ?></td>
+                        <td><?= $comment['valid'] == 1 ? '<i class="ri-checkbox-line ml-3"></i>' : '<i class="ri-checkbox-blank-line ml-3"></i>'  ?></td>
                         <td><?= $comment['created_at'] ?></td>
                         <td>
                             <a href="/commentUpdate/<?= $comment['id'] ?>" class="button button-primary button-sm">Modifier</a>
+                            <br>
                             <a href="/commentDelete/<?= $comment['id'] ?>" class="button button-danger button-sm">Supprimer</a>
+                            <br>
+                            <a href="/page/<?= $comment['id_page'] ?>" class="button button-succes button-sm">Afficher</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

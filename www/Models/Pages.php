@@ -98,17 +98,28 @@ class Pages extends DB
 
     public function getAllPages(): array
     {
-        if ($this->pdo->query("SELECT EXISTS (SELECT FROM information_schema.tables WHERE table_name = 'esgi_pages')")->fetchColumn()) {
-            $sql = "SELECT * FROM esgi_pages";
+            $sql = "SELECT * FROM ". $this->table ;
             $query = $this->pdo->prepare($sql);
             $query->execute();
             return $query->fetchAll();
-        } else {
-            return [];
-        }
     }
 
 
+    public function deletePage($idPage)
+    {
+        try {
+            $sql = "DELETE FROM " . $this->table . " WHERE id = :id";
+            $queryPrepared = $this->pdo->prepare($sql);
+            $queryPrepared->execute(['id' => $idPage]);
+
+            $rowCount = $queryPrepared->rowCount(); // Nombre de lignes affectées
+
+            return $rowCount;
+        } catch (\PDOException $e) {
+            // Gérer l'erreur ici si nécessaire
+            return 0; // Retourner 0 en cas d'échec
+        }
+    }
 
     /**
      * Get the value of content

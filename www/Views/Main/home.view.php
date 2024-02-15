@@ -19,7 +19,7 @@
                         <p>
                             <?= $card['meta_description'] ?>
                         </p>
-                        <a href="/article/<?= $card['id']; ?>">
+                        <a href="/page/<?= $card['id']; ?>">
                             <button class="w-10 button button-primary button-md w-" >Voir la page</button>
                         </a>
                     </article>

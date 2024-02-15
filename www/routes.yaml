@@ -101,10 +101,21 @@
   controller: Admin
   action: createPages
 
-/article/{pages}:
+/editPage/{pages}:
+  path: /pages/{pages}
+  controller: Admin
+  action: editPages
+
+/deletePage/{pages}:
+  path: /pages/{pages}
+  controller: Admin
+  action: deletePages
+
+/page/{pages}:
     path: /article/{articleId}
     controller: Pages
     action: show
+
 
 
 # USERS ---------------------------------------------------------------------------------------
@@ -116,3 +127,13 @@
 /dashboard/users/create:
   controller: Admin
   action: createUsers
+
+/userUpdate/{pages}:
+  path: /pages/{pages}
+  controller: Admin
+  action: userUpdate
+
+/userDelete/{pages}:
+  path: /pages/{pages}
+  controller: Admin
+  action: userDelete

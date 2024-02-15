@@ -11,7 +11,7 @@
 
     <?php
         // Définir les noms des champs que vous souhaitez récupérer
-        $champs = ['user_firstname', 'user_lastname', 'user_email', 'user_confirm_email', 'user_password', 'user_confirm_password', 'csrf_token', 'db_name', 'db_host', 'db_port', 'db_username', 'db_port', "db_password", "db_confirm_password", "db_engine", "db_table_prefix", 'admin_firstname', 'admin_lastname', 'admin_email', 'admin_confirm_email', 'admin_password', 'admin_confirm_password', 'account_delete', 'site_name', 'site_img', 'smtp_name', 'smtp_username', 'smtp_name', 'smtp_confirm_password', 'smtp_password', 'smtp_confirm_email', 'smtp_email', 'smtp_port', 'smtp_host', 'comment_title', 'comment', 'contact_subject', 'contact_message', 'comment_valid'];
+        $champs = ['user_firstname', 'user_lastname', 'user_email', 'user_confirm_email', 'user_password', 'user_confirm_password', 'csrf_token', 'db_name', 'db_host', 'db_port', 'db_username', 'db_port', "db_password", "db_confirm_password", "db_engine", "db_table_prefix", 'admin_firstname', 'admin_lastname', 'admin_email', 'admin_confirm_email', 'admin_password', 'admin_confirm_password', 'account_delete', 'site_name', 'site_img', 'smtp_name', 'smtp_username', 'smtp_name', 'smtp_confirm_password', 'smtp_password', 'smtp_confirm_email', 'smtp_email', 'smtp_port', 'smtp_host', 'comment_title', 'comment', 'contact_subject', 'contact_message', 'comment_valid', 'page_file', 'page_meta_description', 'page_title', 'page_comment', 'page_content'];
 
         // Initialiser un tableau pour stocker les valeurs
         $valeurs = [];
@@ -107,6 +107,29 @@
 
     <?php endforeach; ?>
         <?php endif; ?>
+
+    <?php if (isset($config["textarea"]) && is_array($config["textarea"])): ?>
+        <?php foreach ($config["textarea"] as $name => $configSelect): ?>
+
+            <?php if ($configSelect["label"]): ?>
+                <label for="<?= $name ?>"><?= $configSelect["label"] ?? "" ?></label>
+            <?php endif; ?>
+
+            <textarea
+                    name="<?= $name ?>"
+                <?php if (!empty($configSelect["id"])): ?>
+                    id="<?= $configSelect["id"] ?>"
+                <?php endif; ?>
+                    class="<?= $configSelect["class"] ?? "" ?>"
+
+                ?><?= $configSelect["value"] ?? "" ?>
+
+            </textarea>
+
+            <br><br>
+
+        <?php endforeach; ?>
+    <?php endif; ?>
 
     <input type="submit" name="submit" value="<?= $config["config"]["submit"]??"Envoyer" ?>">
 </form>

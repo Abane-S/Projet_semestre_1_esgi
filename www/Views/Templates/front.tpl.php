@@ -35,8 +35,9 @@ function CompareURI($uriToCheck): bool
                 </a>
                 <nav>
                     <ul>
+
                         <?php if (isset($_SESSION['Account']) && $_SESSION['Account']['role'] == "admin"): ?>
-                            <i class="ri-dashboard-line"></i><li><a href="/dashboard">Dashboard (Admin)</a></li>
+                            <i class="ri-dashboard-line"></i><li><a href="/dashboard">Dashboard (Back)</a></li>
                         <?php endif; ?>
                         <?php if (CompareURI('/')): ?>
                             <i class="ri-pages-line"></i><li><a style="color:#2256FA" href="/">Pages</a></li>

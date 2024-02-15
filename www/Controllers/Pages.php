@@ -15,10 +15,10 @@ class Pages
     public function show(): void
     {
         $articleId = basename(strtolower($_SERVER["REQUEST_URI"]));
-        $view = new View("Admin/Pages/show", "front");
         $page = new PagesModel();
         $current_page = $page->getOneBy(["id"=>$articleId]);
         if($current_page) {
+            $view = new View("Admin/Pages/showPage", "front");
             $view->assign("pages", $current_page);
             $current_page_obj = $page->getOneBy(["id"=>$articleId], "object");
             if($current_page_obj->getComments() && Security::UserIsLogged())
@@ -27,10 +27,10 @@ class Pages
                 $view2 = new View("Admin/Comments/commentsShowArticle", "blank");
                 $view2->assign('config', $form->getConfig());
                 $view2->assign("showNavbar", "false");
-                $view2->assign("articleId", $articleId);
+                $comment = new Comment();
+                $view2->assign("comments", $comment->ShowAllValidComments($articleId));
 
                 if ($form->isSubmit() && $form->isValidComment()) {
-                    $comment = new Comment();
                     $comment->setIdPage($articleId);
                     $comment->setFullname($_SESSION['Account']['lastname'] . " " . $_SESSION['Account']['firstname']);
                     $comment->setComment($_POST['comment']);

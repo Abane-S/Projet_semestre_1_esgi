@@ -30,7 +30,6 @@ class User extends DB
     protected String $verification_token;
     protected Int $email_verified;
     protected $date_inserted;
-    protected $date_updated;
     protected int $isdeleted;
 
     public function getRole(): string
@@ -201,23 +200,6 @@ class User extends DB
         $this->date_inserted = $date_inserted;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getupdatedat(): mixed
-    {
-        return $this->date_updated;
-    }
-
-    /**
-     * 
-     * @param mixed $date_updated
-     */
-    public function setupdatedat($date_updated): void
-    {
-        $this->date_updated = $date_updated;
-    }
-
     public function HardDeleteAccount($email): bool
     {
         try {
@@ -235,6 +217,22 @@ class User extends DB
         }
     }
 
+
+    public function deleteUser($idUser)
+    {
+        try {
+            $sql = "DELETE FROM " . $this->table . " WHERE id = :id";
+            $queryPrepared = $this->pdo->prepare($sql);
+            $queryPrepared->execute(['id' => $idUser]);
+
+            $rowCount = $queryPrepared->rowCount(); // Nombre de lignes affectées
+
+            return $rowCount;
+        } catch (\PDOException $e) {
+            // Gérer l'erreur ici si nécessaire
+            return 0; // Retourner 0 en cas d'échec
+        }
+    }
 
     public function ShowAllModerate(): array
     {

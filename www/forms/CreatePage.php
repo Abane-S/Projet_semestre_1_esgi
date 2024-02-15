@@ -16,51 +16,64 @@ class CreatePage extends Verificator
     {
         $this->config = [
             'config' => [
-                'method' => 'POST',
-                'action' => '',
-                'submit' => 'Créer',
-                 "class"   => 'form',
+                "method" => $this->method,
+                "action" => "",
+                "enctype" => "multipart/form-data",
+                "submit" => "Créer la page",
+                "class" => "form",
+            ],
+            "select" => [
+                "page_comment" => [
+                    "label" => "Possibilité de commenter :",
+                    "class" => "p-1-1 w-8 input-select",
+                    "options" => [
+                        "1" => "Oui",
+                        "0" => "Non",
+                    ],
+                    "error" => "-Veuillez sélectionner un ...comment",
+                    "required" => true
+                ]
             ],
             'inputs' => [
-                'name' => [
+                'page_title' => [
                     'type'        => 'text',
                     'class'       => 'input-form',
-                    'placeholder' => 'nom de l\'article',
-                    'value'       => '',
-                    'errors'      => "-Le nom de votre article doit contenir au moins 3 caractères et ne doit pas dépasser 255 caractères.",
+                    "label" => "Titre de la page : ",
+                    'placeholder' => 'Titre de la page',
+                    'error'      => "-Le titre de votre page doit contenir au moins 3 caractères et ne doit pas dépasser 255 caractères.",
+                    "required" => true
                 ],
-                'category' => [
-                    'input'       => "textarea",
-                    'type'        => 'text',
-                    'multiple'    => true,
-                    'class'       => 'input-form',
-                    'placeholder' => 'catégorie',
-                    'value'       => '',
-                    'errors'      => "-La catégorie de votre article doit contenir au moins 3 caractères et ne doit pas dépasser 255 caractères.",
-                ],
-                "meta_description" => [
+                "page_meta_description" => [
                     "type"        => "text",
                     "class"       => "input-form",
+                    "label" => "Meta description : ",
                     "placeholder" => "meta description",
-                    "value"       => "",
-                    "errors"      => "-La meta description de votre article doit contenir au moins 3 caractères et ne doit pas dépasser 255 caractères.",
+                    "required" => true,
+                    "error"      => "-La meta description de votre page doit contenir au moins 3 caractères et ne doit pas dépasser 255 caractères.",
                 ],
-                'images' => [
-                    'type'        => 'file',
-                    'multiple'    => true,
-                    'class'       => 'input-form',
-                    'placeholder' => 'image',
-                    'value'       => '',
-                    'errors'      => [],
+                "page_file" => [
+                    "type" => "file",
+                    "label" => "Miniature du site :",
+                    "placeholder" => "Logo du site",
+                    "error" => "-Format de l'image incorrect<br>(.PNG ou .JPEG ou .JPG ou .GIF)",
+                    "required" => true
                 ],
-                'description' => [
-                    'class'       => 'input-form',
-                    'placeholder' => 'description',
-                    'value'       => '',
-                    'errors'      => "-La description de votre article doit contenir au moins 3 caractères et ne doit pas dépasser 255 caractères.",
-                    'type'       => "textarea",
-                    'id'          => "editor",
+                "csrf_token" => [
+                    "type" => "hidden",
+                    "placeholder" => "",
+                    "label" => "",
+                    "error" => "",
+                    "required" => true
                 ],
+            ],
+            'textarea' => [
+                "page_content" => [
+                    "label" => "Contenue de la page :",
+                    'id' => "editor",
+                    "placeholder" => "Contenue du site",
+                    'name' => "page_content",
+                    "error" => "-Le contenue ne peut etre vide",
+                ]
             ],
         ];
 

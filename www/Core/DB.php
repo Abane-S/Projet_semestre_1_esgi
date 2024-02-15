@@ -103,53 +103,17 @@ class DB
         return $query->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function CreateDB(){
-        $tables = ["user", "pages"];
+    public function CreateDB()
+    {
         try {
-            foreach ($tables as $table) {
-                $table = TABLE_PREFIX;
-                $this->pdo->exec("DROP TABLE IF EXISTS $table CASCADE");
-            }
-
-            try {
-                foreach ($tables as $table) {
-                    $table = TABLE_PREFIX . $table;
-                    if($table == TABLE_PREFIX . "user")
-                    {
-                        $sql = "
-                                CREATE TABLE IF NOT EXISTS $table (
-                                id SERIAL PRIMARY KEY,
-                                firstname character varying(25) NOT NULL,
-                                lastname character varying(50) NOT NULL,
-                                email character varying(320) NOT NULL,
-                                pwd character varying(255) NOT NULL,
-                                role character varying(10) DEFAULT 'user' NOT NULL,
-                                verification_token character varying(255),
-                                email_verified boolean DEFAULT false,
-                                date_inserted timestamptz DEFAULT CURRENT_TIMESTAMP,
-                                date_updated timestamp,
-                                isdeleted boolean DEFAULT false
-                                )
-                            ";
-                        $this->pdo->exec($sql);
-                    };
-                    if ($table == TABLE_PREFIX . "pages")
-                    {
-
-                    }
-                }
-            } catch (\PDOException $e) {
-                echo "Erreur lors de création des tables : " . $e->getMessage();
-            } catch (\PDOException $e) {
-                echo "Erreur lors de la suppression des tables : " . $e->getMessage();
-            }
-            catch (\PDOException $e) {
-                echo "Erreur lors de création des tables : " . $e->getMessage();
-            }
-
-
-        } catch (\PDOException $e) {
-            echo "Erreur lors de la suppression des tables : " . $e->getMessage();
+            $dumpFilePath = __DIR__ . '/dump.sql'; // Chemin relatif depuis DB.php
+            $sqlDump = file_get_contents($dumpFilePath);
+        $sqlDump = str_replace('esgi_', TABLE_PREFIX, $sqlDump);
+        $this->pdo->exec($sqlDump);
+        } catch (PDOException $e) {
+            echo "Erreur lors de la connexion à la base de données : " . $e->getMessage();
+        } catch (Exception $e) {
+            echo "Une erreur s'est produite : " . $e->getMessage();
         }
     }
 }

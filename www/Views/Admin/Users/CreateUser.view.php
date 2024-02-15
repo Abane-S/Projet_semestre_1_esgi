@@ -16,23 +16,4 @@
             $this->includeComponent("modal", $modal);
         }
     ?>
-
-    <!-- <div class="modal" id="modal1" >
-        <section>
-            <header>
-                <h1>Email confirmation</h1>
-            </header>
-            <div class="modal_content ">
-                <p>
-                    Félicitations ! L'utilisateur a été enregistré avec succès. Vous pouvez maintenant accéder à son profil et gérer ses informations. <br>
-                    Merci !
-                </p>
-            </div>
-            <footer>
-                <a href="/dashboard/users" class="button button-primary button-sm">
-                    Fermer
-                </a>
-            </footer>
-        </section>
-    </div> -->
 </div>
