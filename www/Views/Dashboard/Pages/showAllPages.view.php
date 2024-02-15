@@ -21,13 +21,13 @@
                 </tr>
             <?php else:  ?>
                 <?php  foreach($pages as $page): ?>
-                    <tr>
-                        <td ><?= $article['id'] ?></td>
-                        <td><?= $article['title'] ?></td>
-                        <td><?= $article['title'] ?></td>
+                    <tr class="row">
+                        <td ><?= $page['id'] ?></td>
+                        <td><?= $page['title'] ?></td>
+                        <td><?= $page['titre'] ?></td>
                         <td>
-                            <a href="#" class="button button-primary button-sm">Modifier</a>
-                            <a href="#" class="button button-danger button-sm">Supprimer</a>
+                            <a href="pages/editPage/<?= $page['id'] ?>" class="button button-primary button-sm">Modifier</a>
+                            <a href="pages/deletePage/<?= $page['id'] ?>" class="button button-danger button-sm">Supprimer</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -36,5 +36,10 @@
     </table>
 </div>  
 
+<?php 
+    if (isset($modal)) {
+        $this->includeComponent("modal", $modal);
+    }
+?>
 
 

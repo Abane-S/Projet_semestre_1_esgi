@@ -1,6 +1,8 @@
 table {
     width: 100%;
     border-collapse: collapse;
+    overflow-wrap: break-word; 
+    word-break: break-all;
     background-color: $table-background;
     border-width: rem(10);
     border-style: solid;

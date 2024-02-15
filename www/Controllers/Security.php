@@ -339,9 +339,8 @@ class Security
             $user = new Users();
             $account = $user->getOneBy(["verification_token" => $token], "object");
             if (!$account) {
-                die("Page 404");
-                $customError = new Error();
-                $customError->page404();
+                $view = new View("Security/404", "front");
+                $view->assign("showNavbar", "false");
             } else {
                 $form = new PwdChange();
                 $view = new View("Security/changepassword", "front");
@@ -413,9 +412,8 @@ class Security
             $user = new Users();
             $account = $user->getOneBy(["verification_token" => $token], "object");
             if (!$account) {
-                die("Page 404");
-                $customError = new Error();
-                $customError->page404();
+                $view = new View("Security/404", "front");
+                $view->assign("showNavbar", "false");
             } else {
                 $token = bin2hex(random_bytes(32));
                 $account->setEmailVerified(1);

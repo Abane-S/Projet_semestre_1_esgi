@@ -9,8 +9,8 @@
                 <link rel="apple-touch-icon" sizes="180x180" href="/assets/Framework/public/images/favicon_djimdo.png">
                 <link rel="stylesheet" href="/assets/Framework/src/style.css">
                 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-                <script src="https://cdn.ckeditor.com/ckeditor5/41.0.0/classic/ckeditor.js"></script>
-                <script type="module" src="/assets/Framework/src/js/main.js"></script>
+                <script type="module" src="/assets/Framework/src/dist/js/main_vite.js"></script>
+
             </head>
             <main class="d-flex" style="height:100vh">
                 <aside class="sidebar">

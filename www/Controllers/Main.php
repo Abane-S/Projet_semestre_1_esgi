@@ -5,7 +5,7 @@ namespace App\Controllers;
 use App\Core\View;
 use App\Forms\ContactUs;
 use App\Models\PhpMailor;
-use App\Models\User;
+use App\Models\Users;
 use App\Models\Categories;
 use App\Models\Pages;
 use App\Models\Articles;
@@ -54,8 +54,6 @@ class Main
 
         if ($_SESSION['Account']['role'] == "admin"){
             $view = new View("Dashboard/Dashboard", "back");
-            $user = new User();
-            $view->assign("users", $user->findAll());
         }
         else {
             header('Location: /error');

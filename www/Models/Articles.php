@@ -37,7 +37,6 @@ class Articles extends DB
     {
         $this->id = $id;
 
-        return $this;
     }
 
     

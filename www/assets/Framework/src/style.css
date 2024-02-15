@@ -1311,6 +1311,8 @@ h2 {
 table {
   width: 100%;
   border-collapse: collapse;
+  overflow-wrap: break-word;
+  word-break: break-all;
   background-color: rgba(234, 224, 200, 0.368627451);
   border-width: 0.625rem;
   border-style: solid;

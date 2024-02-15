@@ -32,6 +32,7 @@ CREATE TABLE esgi_pages (
     title VARCHAR(255) NOT NULL,
     meta_description TEXT,
     titre VARCHAR(255) NOT NULL,
+    menu VARCHAR(255) NOT NULL,
     banniere VARCHAR(255),
     articleid smallint NOT NULL,
     comments boolean DEFAULT false,

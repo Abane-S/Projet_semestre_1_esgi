@@ -11,6 +11,7 @@ class Pages extends DB
     protected String $title;
     protected String $meta_description;
     protected String $titre;
+    protected string $menu;
     protected string $banniere;
     protected int $articleid;
     protected String $content;
@@ -76,6 +77,7 @@ class Pages extends DB
         $this->meta_description = $meta_description;
 
     }
+
     /**
      * Get the value of titre
      */ 
@@ -95,10 +97,33 @@ class Pages extends DB
 
     }
 
+
+    /**
+     * Get the value of menu
+     */ 
+    public function getMenu()
+    {
+        return $this->menu;
+    }
+
+    /**
+     * Set the value of menu
+     *
+     * @return  self
+     */ 
+    public function setMenu($menu)
+    {
+        $this->menu = $menu;
+
+        return $this;
+    }
+
+
+
     /**
      * Get the value of bannière
      */ 
-    public function getBannière()
+    public function getBanniere()
     {
         return $this->bannière;
     }
@@ -108,9 +133,9 @@ class Pages extends DB
      *
      * @return  self
      */ 
-    public function setBannière($bannière)
+    public function setBanniere($banniere)
     {
-        $this->bannière = $bannière;
+        $this->banniere = $banniere;
     }
 
     /**
@@ -150,4 +175,6 @@ class Pages extends DB
 
         return $this;
     }
-    }
+
+
+}

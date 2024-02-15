@@ -56,9 +56,6 @@ class DB
             $sql = substr($sql, 0, -1);
             $sql .= " WHERE id = " . $this->getId();
         }
-        $queryPrepared = $this->pdo->prepare($sql);
-        $queryPrepared->execute($data);
-
         try {
             $queryPrepared = $this->pdo->prepare($sql);
             $queryPrepared->execute($data);
@@ -114,7 +111,6 @@ class DB
             } else {
                 $query = $this->pdo->query("SELECT * FROM " . $this->table);
             }
-            
             return $query->fetchAll(\PDO::FETCH_ASSOC);
         } catch (\PDOException $e) {
             return "Aucun article trouvé";

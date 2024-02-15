@@ -94,9 +94,17 @@
   controller: Page
   action: createPage
 
-/dashboard/pages/editPage:
+/dashboard/pages/editPage/{pageId}:
   controller: Page
   action: editPage
+
+/dashboard/pages/deletePage/{pageId}:
+  controller: Page
+  action: deletePage
+
+/dashboard/pages/confirmDeletePage/{pageId}:
+  controller: Page
+  action: confirmDeletePage
 
 /page/{pageId}:
     controller: Page
@@ -121,6 +129,10 @@
 /dashboard/articles/deleteArticle/{articleId}:
   controller: Article
   action: deleteArticle
+
+/dashboard/articles/confirmDeleteArticle/{articleId}:
+  controller: Article
+  action: confirmDeleteArticle
 
 /article/{articleId}:
     controller: Article

@@ -1,5 +1,6 @@
-let editor;
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
+let editor;
 
 document.addEventListener('DOMContentLoaded', () => {
     const editorElement = document.querySelector('#editor');

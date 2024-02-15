@@ -16,10 +16,12 @@ class Verificator {
         $lolo = explode("\\", get_class($this));
         $class_name = end($lolo);
         if(isset($this->data["submit"])){
-            if ($class_name == "createArticle") {
-                $this->data['images'] = $_FILES['images'];
-                $this->data['comments'] = isset($_POST['comments']) ? 1 : 0;
-            }
+            if (!empty($_FILES['images']))
+                $this->data['images'] = $_FILES['images']['name'];
+
+            if (isset($_POST['comments'])) 
+                $this->data['comments'] = $_POST['comments'] ? 1 : 0;
+
             return true;
         }
         return false;
@@ -97,7 +99,7 @@ class Verificator {
 
     public function isValid(): bool
     {
-
+        
 
         if (count($this->config["inputs"]) + count($this->config["select"] ?? []) != count($this->data) - 1) {
             die("Tentative de Hack 1");

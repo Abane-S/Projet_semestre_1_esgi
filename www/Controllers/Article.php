@@ -139,6 +139,13 @@ class Article
             $upload = new Upload();
             $upload->uploadFile($_FILES['images']);
             $article->save();
+
+            $modal = [
+                "title" => "Article créé avec succès !",
+                "content" => "L'article a été créé avec succès. Vous pouvez maintenant le consulter sur le site.",
+                "redirect" => "/dashboard/articles"
+            ];
+            $view->assign("modal", $modal);
         }
     }
 
@@ -203,11 +210,10 @@ class Article
                     "content" => "Êtes-vous sûr(e) de vouloir supprimer cette article ?",
                     "button-message" => "Supprimer",
                     "button-color" => "danger",
-                    "redirect" => "/dashboard/users/confirmDeleteUser/$articleId",
+                    "redirect" => "/dashboard/Articles/confirmDeleteArticle/$articleId",
                     "second-button-redirect" => "/dashboard/articles",
                     "second-button" => "Annuler",
                 ];
-                // $user->delete($userId);
                 $view = new View("Dashboard/Articles/showAllArticles", "back");
                 $article = new Articles();
                 $view->assign("articles", $article->findAll());
@@ -217,7 +223,7 @@ class Article
                 $modal = [
                     "title" => "Utilisateur introuvable !",
                     "content" => "L'utilisateur que vous souhaitez supprimer n'existe pas.",
-                    "redirect" => "/dashboard/users"
+                    "redirect" => "/dashboard/Articles"
                 ];
                 $view = new View("Dashboard/Articles/showAllArticles", "back");
                 $article = new Articles();
@@ -226,5 +232,30 @@ class Article
             }
         }
         
+    }
+
+    public function confirmDeleteArticle() : void
+    {
+        if (isset($_GET[0])) {
+            $articleId = $_GET[0];
+            $article = new Articles();
+            $article = $article->getOneBy(["id" => $articleId], "object");
+            var_dump($article);
+            if ($article) {
+                $article->delete();
+                header("Location: /dashboard/articles");
+                exit;
+            }else {
+                $modal = [
+                    "title" => "Article introuvable !",
+                    "content" => "L'article que vous souhaitez supprimer n'existe pas.",
+                    "redirect" => "/dashboard/articles"
+                ];
+                $view = new View("Dashboard/Articles/showAllArticles", "back");
+                $article = new Articles();
+                $view->assign("articles", $article->findAll());
+                $view->assign("modal", $modal);
+            }   
+        }        
     }
 }

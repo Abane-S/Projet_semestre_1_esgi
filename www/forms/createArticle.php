@@ -33,7 +33,7 @@ class createArticle extends Verificator
                     'class'       => 'input-form',
                     'placeholder' => 'Titre de l\'article',
                     'value'       => '',
-                    'errors'      => "-Le nom de votre article doit contenir au moins 3 caractères et ne doit pas dépasser 255 caractères.",
+                    'errors'      => "Le nom de votre article doit contenir au moins 3 caractères et ne doit pas dépasser 255 caractères.",
                     "required"    => true,
                     "value"      => $this->data['titre'] ?? "",
                 ],
@@ -42,7 +42,7 @@ class createArticle extends Verificator
                     "class"       => "input-form",
                     "placeholder" => "Description courte de l'article",
                     "value"       => "",
-                    "errors"      => "-La meta description de votre article doit contenir au moins 3 caractères et ne doit pas dépasser 255 caractères.",
+                    "errors"      => "La meta description de votre article doit contenir au moins 3 caractères et ne doit pas dépasser 255 caractères.",
                     "required"    => true,
                     "value"      => $this->data['description'] ?? "",
 
