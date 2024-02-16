@@ -30,7 +30,7 @@ class CreatePage extends Verificator
                         "1" => "Oui",
                         "0" => "Non",
                     ],
-                    "error" => "-Veuillez sélectionner un ...comment",
+                    "error" => "-Veuillez sélectionner la possibilité de commenter",
                     "required" => true
                 ]
             ],
@@ -38,6 +38,8 @@ class CreatePage extends Verificator
                 'page_title' => [
                     'type'        => 'text',
                     'class'       => 'input-form',
+                    "min" => 3,
+                    "max" => 255,
                     "label" => "Titre de la page : ",
                     'placeholder' => 'Titre de la page',
                     'error'      => "-Le titre de votre page doit contenir au moins 3 caractères et ne doit pas dépasser 255 caractères.",
@@ -46,14 +48,16 @@ class CreatePage extends Verificator
                 "page_meta_description" => [
                     "type"        => "text",
                     "class"       => "input-form",
-                    "label" => "Meta description : ",
-                    "placeholder" => "meta description",
+                    "label" => "Description : ",
+                    "placeholder" => "Description",
+                    "min" => 3,
+                    "max" => 255,
                     "required" => true,
-                    "error"      => "-La meta description de votre page doit contenir au moins 3 caractères et ne doit pas dépasser 255 caractères.",
+                    "error"      => "-La description de votre page doit contenir au moins 3 caractères et ne doit pas dépasser 255 caractères.",
                 ],
                 "page_file" => [
                     "type" => "file",
-                    "label" => "Miniature du site :",
+                    "label" => "Miniature de la page :",
                     "placeholder" => "Logo du site",
                     "error" => "-Format de l'image incorrect<br>(.PNG ou .JPEG ou .JPG ou .GIF)",
                     "required" => true

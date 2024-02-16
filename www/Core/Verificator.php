@@ -115,7 +115,7 @@ class Verificator {
             die("Tentative de Hack 1");
         }
         foreach ($this->config["inputs"] as $name => $input) {
-            if($name != "page_file") {
+            if($name != "page_file" && $name != "menu_file") {
                 if (empty($this->data[$name])) {
                     die("Tentative de Hack 2");
                 }
@@ -123,6 +123,10 @@ class Verificator {
 
             if (!$this->checkIdentical($this->data["csrf_token"], $_SESSION['csrf_token'])) {
                 die("Tentative de Hack 3");
+            }
+
+            if ($name == "menu_titlemenu" && $input["type"] == "text" && !($this->checkDBUsername($this->data[$name]))) {
+                $this->listOfErrors[] = $input["error"];
             }
 
             if ($name == "page_title" && $input["type"] == "text" && !($this->checkTitrePage($this->data[$name]))) {

@@ -71,9 +71,29 @@ function CompareURI($uriToCheck): bool
                             <?php if (CompareURI('/register')): ?>
                                 <i class="mdi--register-outline"></i><li><a style="color:#2256FA" href="/register">Inscription</a></li>
                             <?php else: ?>
-                                <i class="mdi--register-outline"></i><li><a href="/register">Inscription</a></li>
+                                <i class="mdi--register-outline"></i><li><a href="/register">Inscription</li>
                             <?php endif; ?>
                         <?php endif; ?>
+                        <?php
+
+                        $menu = new App\Models\Menus();
+                        $menuAll = $menu->getAllMenu();
+
+                        if(isset($menuAll) && !empty($menuAll)) {
+                            foreach ($menuAll as $item) {
+                                if (CompareURI("/menu/{$item['id']}"))
+                                {
+                                    echo "<i class='{$item['icon_menu']}'></i><li><a style='color:#2256FA' href='/menu/{$item['id']}'>{$item['title_menu']}</a></li>";
+                                }
+                                else
+                                {
+                                    echo "<i class='{$item['icon_menu']}'></i><li><a href='/menu/{$item['id']}'>{$item['title_menu']}</a></li>";
+                                }
+                            }
+                        }
+                        ?>
+
+
                     </ul>
                 </nav>
             </div>

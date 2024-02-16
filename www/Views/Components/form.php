@@ -11,7 +11,7 @@
 
     <?php
         // Définir les noms des champs que vous souhaitez récupérer
-        $champs = ['user_firstname', 'user_lastname', 'user_email', 'user_confirm_email', 'user_password', 'user_confirm_password', 'csrf_token', 'db_name', 'db_host', 'db_port', 'db_username', 'db_port', "db_password", "db_confirm_password", "db_engine", "db_table_prefix", 'admin_firstname', 'admin_lastname', 'admin_email', 'admin_confirm_email', 'admin_password', 'admin_confirm_password', 'account_delete', 'site_name', 'site_img', 'smtp_name', 'smtp_username', 'smtp_name', 'smtp_confirm_password', 'smtp_password', 'smtp_confirm_email', 'smtp_email', 'smtp_port', 'smtp_host', 'comment_title', 'comment', 'contact_subject', 'contact_message', 'comment_valid', 'page_file', 'page_meta_description', 'page_title', 'page_comment', 'page_content'];
+        $champs = ['user_firstname', 'user_lastname', 'user_email', 'user_confirm_email', 'user_password', 'user_confirm_password', 'csrf_token', 'db_name', 'db_host', 'db_port', 'db_username', 'db_port', "db_password", "db_confirm_password", "db_engine", "db_table_prefix", 'admin_firstname', 'admin_lastname', 'admin_email', 'admin_confirm_email', 'admin_password', 'admin_confirm_password', 'account_delete', 'site_name', 'site_img', 'smtp_name', 'smtp_username', 'smtp_name', 'smtp_confirm_password', 'smtp_password', 'smtp_confirm_email', 'smtp_email', 'smtp_port', 'smtp_host', 'comment_title', 'comment', 'contact_subject', 'contact_message', 'comment_valid', 'page_file', 'page_meta_description', 'page_title', 'page_comment', 'page_content', 'menu_titlemenu', 'menu_icon', 'menu_file', 'menu_meta_description', 'menu_title', 'menu_content'];
 
         // Initialiser un tableau pour stocker les valeurs
         $valeurs = [];
@@ -28,7 +28,12 @@
             <?php foreach ($config["select"] as $name => $configSelect): ?>
 
                 <?php if ($configSelect["label"]): ?>
-                    <label for="<?= $name ?>"><?= $configSelect["label"] ?? "" ?></label>
+                    <label  <?php if ($configSelect["label"] == "Icon du menu :"): ?>
+                    id="menu_icon_label"
+                        <?php endif; ?>
+
+                            for="<?= $name ?>"><?= $configSelect["label"] ?? "" ?>
+                    </label>
                 <?php endif; ?>
 
                 <select
@@ -45,7 +50,6 @@
                         </option>
                     <?php endforeach; ?>
                 </select>
-
                 <br><br>
 
             <?php endforeach; ?>
