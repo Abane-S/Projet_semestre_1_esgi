@@ -5,10 +5,13 @@ namespace App\Controllers;
 use App\Core\View;
 use App\FileStorage\Upload;
 use App\Forms\CreatePage;
+use App\Forms\CreateMenu;
 use App\Forms\CreateUser;
 use App\Forms\EditPage;
 use App\Forms\EditUser;
+use App\Forms\EditMenu;
 use App\Models\Pages as PagesModel;
+use App\Models\Menus as MenuModel;
 use App\Models\User;
 use App\Models\Categories;
 use App\Models\Pages;
@@ -22,55 +25,6 @@ class Admin
         $view = new View("Admin/pages", "back");
         $pages = new Pages();
         $view->assign("pages", $pages->getAllPages());
-    }
-
-    public function commentsUpdate(): void
-    {
-        if($_SESSION['Account']['role'] == "admin" || $_SESSION['Account']['role'] == "moderateur") {
-            $commentID = basename(strtolower($_SERVER["REQUEST_URI"]));
-            $form = new CommentUpdate();
-            $view = new View("Admin/Comments/commentsUpdate", "back");
-            $view->assign('config', $form->getConfig());
-
-            $comments = new Comment();
-            $commentArray = $comments->getOneBy(["id" => $commentID], "array");
-            $_SESSION['Comment'] = $commentArray;
-
-            if ($form->isSubmit() && $form->isValidCommentUpdate())
-            {
-                $commentsToUpdate = $comments->getOneBy(["id" => $commentID], "object");
-                if($commentsToUpdate)
-                {
-                    $commentsToUpdate->setValid($_POST["comment_valid"]);
-                    $commentsToUpdate->setCommenttitle($_POST["comment_title"]);
-                    $commentsToUpdate->setComment($_POST["comment"]);
-                    $commentsToUpdate->save();
-                    $view = new View("Admin/Comments/commentsDelete", "back");
-                    $modal = [
-                        "title" => "Comments modifier avec succes",
-                        "content" => "Le commentaire a bien été modifier.",
-                        "redirect" => "/dashboard/comments"
-                    ];
-                    $view->assign("modal", $modal);
-                    $_SESSION['Comment'] = null;
-                }
-                else
-                {
-                    $view = new View("Admin/Comments/commentsDelete", "back");
-                    $modal = [
-                        "title" => "Erreur lors de la modification du commentaire",
-                        "content" => "Impossible de modifier ce commentaire",
-                        "redirect" => "/dashboard/comments"
-                    ];
-                    $view->assign("modal", $modal);
-                }
-            }
-        }
-        else
-        {
-            $view = new View("Security/404", "front");
-            $view->assign("showNavbar", "false");
-        }
     }
 
     public function commentsDelete(): void
@@ -112,9 +66,46 @@ class Admin
 
     public function menus(): void
     {
-        //$view = new View("Admin/Menus/menus", "back");
-        //$menus = new MenuModel();
-        //$view->assign("pages", $pages->getAllMenu());
+        $view = new View("Admin/Menus/showMenusAdmin", "back");
+        $menus = new MenuModel();
+        $view->assign("menus", $menus->getAllMenu());
+    }
+
+    public function menusCreate(): void
+    {
+        $view = new View("Admin/Menus/createMenus", "back");
+        $form = new CreateMenu();
+        $view->assign('config', $form->getConfig());
+
+        if ($form->isSubmit() && $form->isValidPages())
+        {
+            if ($form->isValidImages($_FILES['menu_file']['tmp_name'], $_FILES['menu_file']['name']) ) {
+                $menu = new MenuModel();
+                $menu->setTitleMenu($_POST['menu_titlemenu']);
+                $menu->setIconMenu($_POST['menu_icon']);
+                $menu->setTitle($_POST['menu_title']);
+                $menu->setMetaDescription($_POST['menu_meta_description']);
+                $menu->setMiniature($_FILES['menu_file']['name']);
+                $menu->setContent($_POST['menu_content']);
+                $upload = new Upload();
+                $upload->uploadFile($_FILES['menu_file']);
+                $menu->save();
+                $modal = [
+                    "title" => "Menu creé avec succes",
+                    "content" => "Le menu a bien été creé.",
+                    "redirect" => "/dashboard/menus"
+                ];
+                $view->assign("modal", $modal);
+            }
+            else
+            {
+                $view->assign('errors', $form->listOfErrors);
+            }
+        }
+        else
+        {
+            $view->assign('errors', $form->listOfErrors);
+        }
     }
 
 
@@ -161,6 +152,28 @@ class Admin
         }
     }
 
+    public function menuDelete(): void
+    {
+        $view = new View("Admin/Pages/deletePages", "back");
+        $menuID = basename(strtolower($_SERVER["REQUEST_URI"]));
+        $menu = new MenuModel();
+        if ($menu->deleteMenu($menuID) == 1) {
+            $modal = [
+                "title" => "Menu supprimé avec succes",
+                "content" => "Le menu a bien été supprimé.",
+                "redirect" => "/dashboard/menus"
+            ];
+            $view->assign("modal", $modal);
+        } else {
+            $modal = [
+                "title" => "Erreur lors de la suppression du menu",
+                "content" => "Impossible de supprimer le menu",
+                "redirect" => "/dashboard/menus"
+            ];
+            $view->assign("modal", $modal);
+        }
+    }
+
     public function deletePages (): void
     {
         $view = new View("Admin/Pages/deletePages", "back");
@@ -183,48 +196,39 @@ class Admin
             }
     }
 
-    public function editPages(): void
+    public function menuUpdate(): void
     {
-        $pageID = basename(strtolower($_SERVER["REQUEST_URI"]));
-        $view = new View("Admin/Pages/updatePages", "back");
-        $form = new EditPage();
-        $view->assign('config', $form->getConfig());
-
-        $page = new PagesModel();
-        $pageArray = $page->getOneBy(["id" => $pageID], "array");
-        $_SESSION['Page'] = $pageArray;
-
-        if ($form->isSubmit() && $form->isValidPages())
+        $menu = new MenuModel();
+        $menuID = basename(strtolower($_SERVER["REQUEST_URI"]));
+        $menuToUpdate = $menu->getOneBy(["id" => $menuID], "object");
+        if($menuToUpdate)
         {
-            if ($form->isValidImages($_FILES['page_file']['tmp_name'], $_FILES['page_file']['name']) ) {
-
-                $pageToUpdate = $page->getOneBy(["id" => $pageID], "object");
-                if($pageToUpdate)
-                {
-                    $pageToUpdate->setTitle($_POST['page_title']);
-                    $pageToUpdate->setMeta_description($_POST['page_meta_description']);
-                    $pageToUpdate->setMiniature($_FILES['page_file']['name']);
-                    $pageToUpdate->setComments($_POST['page_comment']);
-                    $pageToUpdate->setContent($_POST['page_content']);
+            $menuArray = $menu->getOneBy(["id" => $menuID], "array");
+            $view = new View("Admin/Menus/updateMenus", "back");
+            $form = new EditMenu($menuArray);
+            $view->assign('config', $form->getConfig());
+            if ($form->isSubmit() && $form->isValidPages())
+            {
+                if ($form->isValidImages($_FILES['menu_file']['tmp_name'], $_FILES['menu_file']['name']) ) {
+                    $menuToUpdate->setTitleMenu($_POST['menu_titlemenu']);
+                    $menuToUpdate->setIconMenu($_POST['menu_icon']);
+                    $menuToUpdate->setTitle($_POST['menu_title']);
+                    $menuToUpdate->setMetaDescription($_POST['menu_meta_description']);
+                    $menuToUpdate->setMiniature($_FILES['menu_file']['name']);
+                    $menuToUpdate->setContent($_POST['menu_content']);
                     $upload = new Upload();
-                    $upload->uploadFile($_FILES['page_file']);
-                    $pageToUpdate->save();
-                    $_SESSION['Page'] = null;
-                $modal = [
-                    "title" => "Page modifié avec succes",
-                    "content" => "La Page a bien été modifié.",
-                    "redirect" => "/dashboard/pages"
-                ];
-                $view->assign("modal", $modal);
+                    $upload->uploadFile($_FILES['menu_file']);
+                    $menuToUpdate->save();
+                    $modal = [
+                        "title" => "Menu modifié avec succes",
+                        "content" => "Le menu a bien été modifié.",
+                        "redirect" => "/dashboard/menus"
+                    ];
+                    $view->assign("modal", $modal);
                 }
                 else
                 {
-                    $modal = [
-                        "title" => "Erreur lors de la modification de la page",
-                        "content" => "Impossible de modifier la page",
-                        "redirect" => "/dashboard/pages"
-                    ];
-                    $view->assign("modal", $modal);
+                    $view->assign('errors', $form->listOfErrors);
                 }
             }
             else
@@ -234,27 +238,141 @@ class Admin
         }
         else
         {
+            $view = new View("Security/404", "front");
+            $view->assign("showNavbar", "false");
+        }
+    }
+
+    public function commentsUpdate(): void
+    {
+        if($_SESSION['Account']['role'] == "admin" || $_SESSION['Account']['role'] == "moderateur") {
+            $commentID = basename(strtolower($_SERVER["REQUEST_URI"]));
+            $comments = new Comment();
+            $commentsToUpdate = $comments->getOneBy(["id" => $commentID], "object");
+
+            if($commentsToUpdate) {
+                $commentArray = $comments->getOneBy(["id" => $commentID], "array");
+                $view = new View("Admin/Comments/commentsUpdate", "back");
+                $form = new CommentUpdate($commentArray);
+                $view->assign('config', $form->getConfig());
+                if ($form->isSubmit() && $form->isValidCommentUpdate()) {
+                    $commentsToUpdate->setValid($_POST["comment_valid"]);
+                    $commentsToUpdate->setCommenttitle($_POST["comment_title"]);
+                    $commentsToUpdate->setComment($_POST["comment"]);
+                    $commentsToUpdate->save();
+                    $view = new View("Admin/Comments/commentsDelete", "back");
+                    $modal = [
+                        "title" => "Comments modifier avec succes",
+                        "content" => "Le commentaire a bien été modifier.",
+                        "redirect" => "/dashboard/comments"
+                    ];
+                    $view->assign("modal", $modal);
+                }
+                else {
+                    $view->assign('errors', $form->listOfErrors);
+                }
+            }
+            else
+            {
+                $view = new View("Security/404", "front");
+                $view->assign("showNavbar", "false");
+            }
+
+        }
+        else
+        {
+            $view = new View("Security/404", "front");
+            $view->assign("showNavbar", "false");
+        }
+    }
+
+    public function userUpdate(): void
+    {
+        $user = new User();
+        $userID = basename(strtolower($_SERVER["REQUEST_URI"]));
+        $userToUpdate = $user->getOneBy(["id" => $userID], "object");
+        if($userToUpdate)
+        {
+            $userArray = $user->getOneBy(["id" => $userID], "array");
+            $view = new View("Admin/Users/userUpdate", "back");
+            $form = new EditUser($userArray);
+            $view->assign('config', $form->getConfig());
+            if ($form->isSubmit() && $form->isValidUserCreation()) {
+                $userToUpdateaccount = $userToUpdate->getOneBy(["email" => $_POST['user_email']], "object");
+                if ($userToUpdateaccount && $userToUpdateaccount->getEmail() != $userToUpdate->getEmail()) {
+                    $errors['user_email'] = "-L'adresse e-mail est déjà utilisée. Merci de bien vouloir renseigner une autre adresse e-mail.";
+                    $view->assign('errors', $errors);
+                    exit;
+                } else {
+                    $token = bin2hex(random_bytes(32));
+                    $userToUpdate->setVericationToken($token);
+                    $userToUpdate->setFirstname($_POST['user_firstname']);
+                    $userToUpdate->setLastname($_POST['user_lastname']);
+                    $userToUpdate->setEmail($_POST['user_email']);
+                    $userToUpdate->setPassword($_POST['user_password']);
+                    $userToUpdate->setEmailVerified(1);
+                    $userToUpdate->setRole($_POST['role']);
+                    $userToUpdate->save();
+
+                    $modal = [
+                        "title" => "Utilisateur modifier avec succès !",
+                        "content" => "L'utilisateur a été modifer avec succès.",
+                        "redirect" => "/dashboard/users"
+                    ];
+                    $view->assign("modal", $modal);
+
+                }
+        } else {
             $view->assign('errors', $form->listOfErrors);
+        }
+    }
+    else
+        {
+            $view = new View("Security/404", "front");
+            $view->assign("showNavbar", "false");
         }
 
     }
 
-    public function createMenus(): void
+    public function editPages(): void
     {
-        $view = new View("Admin/Pages/create", "back");
-
-        if ($_SERVER["REQUEST_METHOD"] == "POST")
-        {
-            $menu = new MenuModel();
-            $menu->setTitle($_POST["title"]);
-            $menu->setUrl($_POST["url"]);
-            $menu->setParentId($_POST["parent_id"]);
-            $menu->setOrder($_POST["order"]);
-            $menu->setIsVisible($_POST["is_visible"]);
-            $menu->setIsDeleted($_POST["is_deleted"]);
-            $menu->create();
-            header("Location: /admin/pages");
+        $page = new PagesModel();
+        $pageID = basename(strtolower($_SERVER["REQUEST_URI"]));
+        $pageToUpdate = $page->getOneBy(["id" => $pageID], "object");
+        if($pageToUpdate) {
+            $pageArray = $page->getOneBy(["id" => $pageID], "array");
+            $view = new View("Admin/Pages/updatePages", "back");
+            $form = new EditPage($pageArray);
+            $view->assign('config', $form->getConfig());
+            if ($form->isSubmit() && $form->isValidPages()) {
+                if ($form->isValidImages($_FILES['page_file']['tmp_name'], $_FILES['page_file']['name'])) {
+                        $pageToUpdate->setTitle($_POST['page_title']);
+                        $pageToUpdate->setMeta_description($_POST['page_meta_description']);
+                        $pageToUpdate->setMiniature($_FILES['page_file']['name']);
+                        $pageToUpdate->setComments($_POST['page_comment']);
+                        $pageToUpdate->setContent($_POST['page_content']);
+                        $upload = new Upload();
+                        $upload->uploadFile($_FILES['page_file']);
+                        $pageToUpdate->save();
+                        $modal = [
+                            "title" => "Page modifié avec succes",
+                            "content" => "La Page a bien été modifié.",
+                            "redirect" => "/dashboard/pages"
+                        ];
+                        $view->assign("modal", $modal);
+                } else {
+                    $view->assign('errors', $form->listOfErrors);
+                }
+            } else {
+                $view->assign('errors', $form->listOfErrors);
+            }
         }
+        else
+        {
+            $view = new View("Security/404", "front");
+            $view->assign("showNavbar", "false");
+        }
+
     }
 
     public function users(): void
@@ -262,67 +380,6 @@ class Admin
         $view = new View("Admin/users/usersShow", "back");
         $users = new User();
         $view->assign("users", $users->findAll());
-    }
-
-    public function userUpdate(): void
-    {
-        $userID = basename(strtolower($_SERVER["REQUEST_URI"]));
-        $view = new View("Admin/Users/userUpdate", "back");
-        $form = new EditUser();
-        $view->assign('config', $form->getConfig());
-
-        $user = new User();
-        $userArray = $user->getOneBy(["id" => $userID], "array");
-        $_SESSION['User'] = $userArray;
-
-        if ($form->isSubmit() && $form->isValidUserCreation())
-        {
-                $userToUpdate = $user->getOneBy(["id" => $userID], "object");
-                if($userToUpdate)
-                {
-                    $userToUpdateaccount = $userToUpdate->getOneBy(["email" => $_POST['user_email']], "object");
-                    if ($userToUpdateaccount)
-                    {
-                        $errors['user_email'] = "-L'adresse e-mail est déjà utilisée. Merci de bien vouloir renseigner une autre adresse e-mail.";
-                        $view->assign('errors', $errors);
-                        exit;
-                    }
-                    else{
-                        $token = bin2hex(random_bytes(32));
-                        $userToUpdate->setVericationToken($token);
-                        $userToUpdate->setFirstname($_POST['user_firstname']);
-                        $userToUpdate->setLastname($_POST['user_lastname']);
-                        $userToUpdate->setEmail($_POST['user_email']);
-                        $userToUpdate->setPassword($_POST['user_password']);
-                        $userToUpdate->setEmailVerified(1);
-                        $userToUpdate->setRole($_POST['role']);
-                        $userToUpdate->save();
-
-                        $modal = [
-                            "title" => "Utilisateur modifier avec succès !",
-                            "content" => "L'utilisateur a été modifer avec succès.",
-                            "redirect" => "/dashboard/users"
-                        ];
-                        $view->assign("modal", $modal);
-                        $_SESSION['User'] = null;
-
-                    }
-                }
-                else
-                {
-                    $modal = [
-                        "title" => "Erreur lors de la modification de l'utilisateur",
-                        "content" => "Impossible de modifier l'utilisateur",
-                        "redirect" => "/dashboard/users"
-                    ];
-                    $view->assign("modal", $modal);
-                }
-        }
-        else
-        {
-            $view->assign('errors', $form->listOfErrors);
-        }
-
     }
 
     public function userDelete(): void

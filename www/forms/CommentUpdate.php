@@ -10,12 +10,17 @@ class CommentUpdate extends Verificator
 {
 
     protected $method = "POST";
-
+    public array $data = [];
     protected array $config = [];
+
+    public function __construct($data = [])
+    {
+        $this->data = $data;
+    }
 
     public function getConfig(): array
     {
-        if($_SESSION['Comment']['valid']) {
+        if($this->data["valid"]) {
             $this->config = [
                 "config" => [
                     "method" => $this->method,
@@ -40,7 +45,7 @@ class CommentUpdate extends Verificator
                         "type" => "text",
                         "min" => 1,
                         "max" => 60,
-                        "value" => $_SESSION['Comment']['commenttitle'],
+                        "value" => $this->data["commenttitle"] ?? "",
                         "placeholder" => "Titre",
                         "label" => "Titre :",
                         "error" => "-Le titre du commentaire est incorrect (1 caractère min et 60 caractères max).",
@@ -51,7 +56,7 @@ class CommentUpdate extends Verificator
                         "min" => 1,
                         "max" => 600,
                         "label" => "Comments :",
-                        "value" => $_SESSION['Comment']['comment'],
+                        "value" => $this->data["comment"] ?? "",
                         "placeholder" => "Comments",
                         "error" => "-Le commentaire est incorrect (1 caractère min et 600 caractères max)",
                         "required" => true
@@ -92,7 +97,7 @@ class CommentUpdate extends Verificator
                         "type" => "text",
                         "min" => 1,
                         "max" => 60,
-                        "value" => $_SESSION['Comment']['commenttitle'],
+                        "value" => $this->data["commenttitle"] ?? "",
                         "placeholder" => "Titre",
                         "label" => "Titre :",
                         "error" => "-Le titre du commentaire est incorrect (1 caractère min et 60 caractères max).",
@@ -103,7 +108,7 @@ class CommentUpdate extends Verificator
                         "min" => 1,
                         "max" => 600,
                         "label" => "Comments :",
-                        "value" => $_SESSION['Comment']['comment'],
+                        "value" => $this->data["comment"] ?? "",
                         "placeholder" => "Comments",
                         "error" => "-Le commentaire est incorrect (1 caractère min et 600 caractères max)",
                         "required" => true

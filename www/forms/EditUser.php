@@ -9,12 +9,17 @@ use App\Core\Verificator;
 class EditUser extends Verificator
 {
     protected $method = "POST";
-
+    public array $data = [];
     protected array $config = [];
+
+    public function __construct($data = [])
+    {
+        $this->data = $data;
+    }
 
     public function getConfig(): array
     {
-        if($_SESSION['User']['role'] == "user" || $_SESSION['User']['role'] == "admin") {
+        if($this->data["role"] == "user" || $this->data["role"] == "admin") {
             $this->config = [
                 'config' => [
                     'method' => 'POST',
@@ -28,7 +33,7 @@ class EditUser extends Verificator
                         "placeholder" => "prénom",
                         "min" => 2,
                         "max" => 45,
-                        "value" => $_SESSION['User']['firstname'],
+                        "value" => $this->data["firstname"] ?? "",
                         "label" => "Prénom :",
                         "error" => "-Votre prénom doit faire entre 2 et 45 caractères et ne doit contenir que des lettres.",
                         "required" => true
@@ -39,7 +44,7 @@ class EditUser extends Verificator
                         "min" => 2,
                         "max" => 45,
                         "label" => "Nom de famille :",
-                        "value" => $_SESSION['User']['lastname'],
+                        "value" => $this->data["lastname"] ?? "",
                         "error" => "-Votre nom de famille doit faire entre 2 et 45 caractères et ne doit contenir que des lettres.",
                         "required" => true
                     ],
@@ -49,7 +54,7 @@ class EditUser extends Verificator
                         "max" => 255,
                         "label" => "Adresse email :",
                         "placeholder" => "Votre email :",
-                        "value" => $_SESSION['User']['email'],
+                        "value" => $this->data["email"] ?? "",
                         "error" => "-Le format de votre email est incorrect (exemple: test@gmail.com).",
                         "required" => true
                     ],
@@ -109,7 +114,7 @@ class EditUser extends Verificator
                             "placeholder" => "prénom",
                             "min" => 2,
                             "max" => 45,
-                            "value" => $_SESSION['User']['firstname'],
+                            "value" => $this->data["firstname"] ?? "",
                             "label" => "Prénom :",
                             "error" => "-Votre prénom doit faire entre 2 et 45 caractères et ne doit contenir que des lettres.",
                             "required" => true
@@ -120,7 +125,7 @@ class EditUser extends Verificator
                             "min" => 2,
                             "max" => 45,
                             "label" => "Nom de famille :",
-                            "value" => $_SESSION['User']['lastname'],
+                            "value" => $this->data["lastname"] ?? "",
                             "error" => "-Votre nom de famille doit faire entre 2 et 45 caractères et ne doit contenir que des lettres.",
                             "required" => true
                         ],
@@ -130,7 +135,7 @@ class EditUser extends Verificator
                             "max" => 255,
                             "label" => "Adresse email :",
                             "placeholder" => "Votre email :",
-                            "value" => $_SESSION['User']['email'],
+                            "value" => $this->data["email"] ?? "",
                             "error" => "-Le format de votre email est incorrect (exemple: test@gmail.com).",
                             "required" => true
                         ],

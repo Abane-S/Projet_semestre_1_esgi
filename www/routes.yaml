@@ -91,6 +91,9 @@
   controller: Admin
   action: menus
 
+/dashboard/menus/create:
+  controller: Admin
+  action: menusCreate
 # PAGE ---------------------------------------------------------------------------------------
 
 /dashboard/pages:
@@ -115,6 +118,21 @@
     path: /article/{articleId}
     controller: Pages
     action: show
+
+/menu/{pages}:
+  path: /article/{articleId}
+  controller: Menus
+  action: show
+
+/editMenu/{pages}:
+  path: /article/{articleId}
+  controller: Admin
+  action: menuUpdate
+
+/deleteMenu/{pages}:
+  path: /article/{articleId}
+  controller: Admin
+  action: menuDelete
 
 
 
