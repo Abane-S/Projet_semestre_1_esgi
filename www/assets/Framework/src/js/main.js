@@ -5,4 +5,5 @@ import "./components/modal.js";
 import "./components/button.js";
 import "./components/ck_editor.js";
 import "./components/icon.js";
+import "./components/graphJquery.js"
 

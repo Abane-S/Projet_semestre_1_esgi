@@ -5,7 +5,7 @@ Dashboard avec de la datavisualisation (Abane)
 
 Configuration du templating / style du site (Botan)
 
-Optimisation SEO (Bonnes pratiques) / esssayer de faire un truc (Botan)
+Optimisation SEO (Bonnes pratiques) / esssayer de faire un truc (Botan)  = title/meta => seo
 
 Faire mail boutton moderateur (Notification) (Botan)
 
@@ -18,5 +18,11 @@ DESIGN GUIDE
 Mise en production
 
 Mobile first et dark mode
+
+table => component
+
+variable environnement => .env
+
+
 
 

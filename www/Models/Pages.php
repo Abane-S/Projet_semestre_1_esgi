@@ -98,10 +98,10 @@ class Pages extends DB
 
     public function getAllPages(): array
     {
-            $sql = "SELECT * FROM ". $this->table ;
-            $query = $this->pdo->prepare($sql);
-            $query->execute();
-            return $query->fetchAll();
+        $sql = "SELECT * FROM ". $this->table ;
+        $query = $this->pdo->prepare($sql);
+        $query->execute();
+        return $query->fetchAll();
     }
 
 

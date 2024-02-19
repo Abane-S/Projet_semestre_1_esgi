@@ -17,7 +17,7 @@ services:
   database:
     image: postgres
     ports:
-      - "5431:5431"
+      - "5431:5432"
     restart: always
     # volumes:
     #   - "./pgdata:/var/lib/postgresql/data"
@@ -49,6 +49,11 @@ services:
       - "8025:8025"  # Web UI
     networks:
       - my_bridge_network
+
+k
+    
+volumes:
+  matomo:  # Définition du volume nommé "matomo"
 
 networks:
   my_bridge_network:
