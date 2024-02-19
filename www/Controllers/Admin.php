@@ -377,7 +377,7 @@ class Admin
 
     public function users(): void
     {
-        $view = new View("Admin/users/usersShow", "back");
+        $view = new View("Admin/Users/usersShow", "back");
         $users = new User();
         $view->assign("users", $users->findAll());
     }
@@ -406,7 +406,7 @@ class Admin
 
     public function createUsers(): void
     {
-        $view = new View("Admin/Users/CreateUser", "back");
+        $view = new View("Admin/Users/createUser", "back");
         $form = new CreateUser();
         $view->assign("form", $form->getConfig());
 
