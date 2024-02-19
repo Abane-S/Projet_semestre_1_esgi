@@ -13,6 +13,7 @@
                 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
                 <script src="https://cdn.ckeditor.com/ckeditor5/41.0.0/classic/ckeditor.js"></script>
                 <script type="module" src="../../assets/Framework/src/js/main.js"></script>
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
             </head>
             <main class="d-flex" style="height:100vh">
                 <aside class="sidebar">
@@ -32,17 +33,17 @@
                                 </a>
                             </li>
                             <li>
-                                <a class="nav-link" href="/">
+                                <h3>CRUD</h3>
+                            <li>
+                                <a class="nav-link" href="/dashboard/template">
                                     <i class="ri-equalizer-line"></i>
-                                    <span>Style du site</span>
+                                    <span>Templates</span>
                                 </a>
                             </li>
-                            <li>
-                                <h3>CRUD</h3>
                                 <li>
                                     <a href="/dashboard/pages" class="nav-link">
                                         <i class="ri-pages-line"></i>
-                                        <span>Pages</span>
+                                        <span>Blogs</span>
                                     </a>
                                 </li>
                                 <li>

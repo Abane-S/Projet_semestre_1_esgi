@@ -12,6 +12,7 @@
             <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
             <script src="https://cdn.ckeditor.com/ckeditor5/41.0.0/classic/ckeditor.js"></script>
             <script type="module" src="../../assets/Framework/src/js/main.js"></script>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         </head>
         <main>
             <?php include $this->viewName; ?>

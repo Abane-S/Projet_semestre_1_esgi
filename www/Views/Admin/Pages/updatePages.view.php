@@ -1,5 +1,5 @@
 <div class="divform ml-auto mr-auto center-form mt-4">
-    <h1>Modifier une page</h1>
+    <h1>Modifier un blog</h1>
     <?php
 
     if (isset($errors) && !empty($errors)) {

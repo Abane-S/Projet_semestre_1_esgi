@@ -17,6 +17,10 @@
   --red-darker: #bd2130;
   --text-color: #010334;
   --body-color: #efefef;
+  --navbar-color: #fff;
+  --navbarmenu-color: #2256FA;
+  --font-family: Euclid Circular Regular, sans-serif;
+  --font-size: 15 + "px";
   --button-bg-color: #010334;
   --button-bg-hover-color: #020666;
   --text-color: #212529;
@@ -38,7 +42,8 @@
 }
 
 body {
-  font-family: "Euclid Circular Regular", sans-serif;
+  font-family: var(--font-family);
+  font-size: var(--font-size);
   color: var(--text-color);
   background-color: var(--body-color);
 }
@@ -1613,6 +1618,10 @@ nav.flex {
   color: var(--blue-hover);
 }
 
+.form-input-color {
+  padding: 0px !important;
+}
+
 .form {
   /* Style de base pour un bouton de succès Bootstrap */
   /* Style au survol du bouton */
@@ -1958,7 +1967,7 @@ nav.flex {
 }
 
 .esgi-header {
-  background-color: #fff;
+  background-color: var(--navbar-color);
   color: var(--black);
   padding: 0.625rem 0rem;
   width: 100%;
@@ -1990,7 +1999,7 @@ nav.flex {
   margin-top: 4%;
 }
 .esgi-header nav a:hover {
-  color: var(--blue-hover);
+  color: var(--navbarmenu-color);
 }
 .esgi-header .esgi-logo {
   line-height: 0;

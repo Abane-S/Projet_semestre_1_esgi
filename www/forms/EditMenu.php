@@ -1,6 +1,6 @@
 <?php
 
-namespace App\forms;
+namespace App\Forms;
 
 
 use App\Core\Verificator;

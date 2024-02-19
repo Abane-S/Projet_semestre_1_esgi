@@ -75,13 +75,11 @@
   controller: Admin
   action: comments
 
-/commentUpdate/{pages}:
-  path: /pages/{pages}
+/commentUpdate/{id}:
   controller: Admin
   action: commentsUpdate
 
-/commentDelete/{pages}:
-  path: /pages/{pages}
+/commentDelete/{id}:
   controller: Admin
   action: commentsDelete
 
@@ -104,33 +102,27 @@
   controller: Admin
   action: createPages
 
-/editPage/{pages}:
-  path: /pages/{pages}
+/editPage/{id}:
   controller: Admin
   action: editPages
 
-/deletePage/{pages}:
-  path: /pages/{pages}
+/deletePage/{id}:
   controller: Admin
   action: deletePages
 
-/page/{pages}:
-    path: /article/{articleId}
+/page/{id}:
     controller: Pages
     action: show
 
-/menu/{pages}:
-  path: /article/{articleId}
+/menu/{id}:
   controller: Menus
   action: show
 
-/editMenu/{pages}:
-  path: /article/{articleId}
+/editMenu/{id}:
   controller: Admin
   action: menuUpdate
 
-/deleteMenu/{pages}:
-  path: /article/{articleId}
+/deleteMenu/{id}:
   controller: Admin
   action: menuDelete
 
@@ -146,12 +138,34 @@
   controller: Admin
   action: createUsers
 
-/userUpdate/{pages}:
-  path: /pages/{pages}
+/userUpdate/{id}:
   controller: Admin
   action: userUpdate
 
-/userDelete/{pages}:
-  path: /pages/{pages}
+/userDelete/{id}:
   controller: Admin
   action: userDelete
+
+/dashboard/template:
+  controller: Admin
+  action: showTemplate
+
+/template/create:
+  controller: Admin
+  action: createTemplate
+
+/GetTemplates:
+  controller: Templates
+  action: SetTemplates
+
+/deleteTemplate/{id}:
+  controller: Admin
+  action: deleteTPL
+
+/editTemplate/{id}:
+  controller: Admin
+  action: editTPL
+
+/setTemplate/{id}:
+  controller: Admin
+  action: setTemplate

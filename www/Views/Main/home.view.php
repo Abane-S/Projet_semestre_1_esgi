@@ -8,7 +8,7 @@
         ?>
         <button style="display: inline" onclick="window.location.href='/'">Toutes les pages</button>
     </ul> -->
-    <h1 class="ml-3 mt-5 mb-6" >Pages</h1>
+    <h1 class="ml-3 mt-5 mb-6" >Blogs</h1>
         <?php
         if (!empty($cards)) { ?>
             <ul class="card-container">
@@ -20,7 +20,7 @@
                             <?= $card['meta_description'] ?>
                         </p>
                         <a href="/page/<?= $card['id']; ?>">
-                            <button class="w-10 button button-primary button-md w-" >Voir la page</button>
+                            <button class="w-10 button button-primary button-md w-" >Voir le blog</button>
                         </a>
                     </article>
             <?php } 
@@ -28,7 +28,7 @@
             </ul>
         <?php
         } else {
-            echo "<h2 class='text-center pt-5'>Il n'y a pas d'article pour le moment</h2>";
+            echo "<h1 class='text-center pt-5'>Il n'y a pas de blog pour le moment</h1>";
         }
         ?>
 </div>

@@ -1,6 +1,6 @@
 <hr>
 <div style="margin-bottom:0% !important;" class="divform ml-auto mr-auto center-form">
-    <h2>Ajouter un commentaire</h2>
+    <h1>Ajouter un commentaire</h1>
     <?php
     if (isset($errors) && !empty($errors)) {
         echo "<div class='alert alert-danger' style='width: 80%;margin: auto;'>";
@@ -14,7 +14,7 @@
 </div>
 <hr>
 <br>
-<h2 class="center-form">Commentaire</h2>
+<h1 class="center-form">Commentaire</h1>
 <section style="margin-left: 30%">
     <?php if (empty($comments)): ?>
     <br>

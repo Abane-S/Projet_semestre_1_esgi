@@ -73,7 +73,7 @@ $routes = yaml_parse_file("routes.yaml");
 $found = false;
 
 foreach($routes as $pattern => $route) {
-    $pattern = str_replace("{pages}", "([^/]+)", $pattern);
+    $pattern = str_replace("{id}", "([^/]+)", $pattern);
     $pattern = "@^".$pattern."$@i";
     
     if(preg_match($pattern, $uri, $matches)) {

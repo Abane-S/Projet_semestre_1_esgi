@@ -40,7 +40,7 @@ class CreatePage extends Verificator
                     'class'       => 'input-form',
                     "min" => 3,
                     "max" => 255,
-                    "label" => "Titre de la page : ",
+                    "label" => "Titre du blog : ",
                     'placeholder' => 'Titre de la page',
                     'error'      => "-Le titre de votre page doit contenir au moins 3 caractères et ne doit pas dépasser 255 caractères.",
                     "required" => true
@@ -48,7 +48,7 @@ class CreatePage extends Verificator
                 "page_meta_description" => [
                     "type"        => "text",
                     "class"       => "input-form",
-                    "label" => "Description : ",
+                    "label" => "Description du blog : ",
                     "placeholder" => "Description",
                     "min" => 3,
                     "max" => 255,
@@ -57,7 +57,7 @@ class CreatePage extends Verificator
                 ],
                 "page_file" => [
                     "type" => "file",
-                    "label" => "Miniature de la page :",
+                    "label" => "Miniature du blog :",
                     "placeholder" => "Logo du site",
                     "error" => "-Format de l'image incorrect<br>(.PNG ou .JPEG ou .JPG ou .GIF)",
                     "required" => true
@@ -72,9 +72,9 @@ class CreatePage extends Verificator
             ],
             'textarea' => [
                 "page_content" => [
-                    "label" => "Contenue de la page :",
+                    "label" => "Contenue du blog :",
                     'id' => "editor",
-                    "placeholder" => "Contenue du site",
+                    "placeholder" => "Contenue du blog",
                     'name' => "page_content",
                     "error" => "-Le contenue ne peut etre vide",
                 ]

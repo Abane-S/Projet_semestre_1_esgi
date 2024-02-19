@@ -5,7 +5,8 @@
 }
 
 body {
-	font-family: $font1;
+	font-family:  var(--font-family);
+	font-size:  var(--font-size);
 	color: var(--text-color);
 	background-color: var(--body-color);
 }

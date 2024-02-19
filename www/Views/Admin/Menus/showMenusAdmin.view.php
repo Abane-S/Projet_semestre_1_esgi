@@ -9,7 +9,7 @@
                 <th>ID</th>
                 <th>Titre du menu</th>
                 <th>Icon du menu</th>
-                <th>Titre de la page</th>
+                <th>Titre du blog</th>
                 <th>Description</th>
                 <th>Miniature</th>
                 <th>Contenue</th>

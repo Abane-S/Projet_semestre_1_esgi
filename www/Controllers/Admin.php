@@ -8,15 +8,19 @@ use App\Forms\CreatePage;
 use App\Forms\CreateMenu;
 use App\Forms\CreateUser;
 use App\Forms\EditPage;
+use App\Forms\EditTemplate;
 use App\Forms\EditUser;
 use App\Forms\EditMenu;
 use App\Models\Pages as PagesModel;
 use App\Models\Menus as MenuModel;
+use App\Models\Templates;
+use App\Models\Templates as TemplateModel;
 use App\Models\User;
 use App\Models\Categories;
 use App\Models\Pages;
 use App\Models\Comment;
 use App\Forms\CommentUpdate;
+use App\Forms\CreateTemplate;
 
 class Admin
 {
@@ -204,6 +208,7 @@ class Admin
         if($menuToUpdate)
         {
             $menuArray = $menu->getOneBy(["id" => $menuID], "array");
+            $_SESSION['GetSelectedCurrentOption'] = str_replace(' ', '', $menuToUpdate->getIconMenu());
             $view = new View("Admin/Menus/updateMenus", "back");
             $form = new EditMenu($menuArray);
             $view->assign('config', $form->getConfig());
@@ -219,6 +224,7 @@ class Admin
                     $upload = new Upload();
                     $upload->uploadFile($_FILES['menu_file']);
                     $menuToUpdate->save();
+                    $_SESSION['GetSelectedCurrentOption'] = "none";
                     $modal = [
                         "title" => "Menu modifié avec succes",
                         "content" => "Le menu a bien été modifié.",
@@ -260,6 +266,7 @@ class Admin
                     $commentsToUpdate->setCommenttitle($_POST["comment_title"]);
                     $commentsToUpdate->setComment($_POST["comment"]);
                     $commentsToUpdate->save();
+                    $_SESSION['GetSelectedCurrentOption'] = "none";
                     $view = new View("Admin/Comments/commentsDelete", "back");
                     $modal = [
                         "title" => "Comments modifier avec succes",
@@ -286,52 +293,160 @@ class Admin
         }
     }
 
-    public function userUpdate(): void
+    public function showTemplate(): void
     {
-        $user = new User();
-        $userID = basename(strtolower($_SERVER["REQUEST_URI"]));
-        $userToUpdate = $user->getOneBy(["id" => $userID], "object");
-        if($userToUpdate)
-        {
-            $userArray = $user->getOneBy(["id" => $userID], "array");
-            $view = new View("Admin/Users/userUpdate", "back");
-            $form = new EditUser($userArray);
-            $view->assign('config', $form->getConfig());
-            if ($form->isSubmit() && $form->isValidUserCreation()) {
-                $userToUpdateaccount = $userToUpdate->getOneBy(["email" => $_POST['user_email']], "object");
-                if ($userToUpdateaccount && $userToUpdateaccount->getEmail() != $userToUpdate->getEmail()) {
-                    $errors['user_email'] = "-L'adresse e-mail est déjà utilisée. Merci de bien vouloir renseigner une autre adresse e-mail.";
-                    $view->assign('errors', $errors);
-                    exit;
-                } else {
-                    $token = bin2hex(random_bytes(32));
-                    $userToUpdate->setVericationToken($token);
-                    $userToUpdate->setFirstname($_POST['user_firstname']);
-                    $userToUpdate->setLastname($_POST['user_lastname']);
-                    $userToUpdate->setEmail($_POST['user_email']);
-                    $userToUpdate->setPassword($_POST['user_password']);
-                    $userToUpdate->setEmailVerified(1);
-                    $userToUpdate->setRole($_POST['role']);
-                    $userToUpdate->save();
+        $view = new View("Admin/Template/showTemplate", "back");
+        $template = new TemplateModel();
+        $view->assign("templates", $template->getAllTemplate());
+    }
 
+    public function deleteTPL(): void
+    {
+        $tplID = basename(strtolower($_SERVER["REQUEST_URI"]));
+        $tpl = new Templates();
+        $tplCheck = $tpl->getOneBy(["id" => $tplID], "object");
+        if($tplCheck)
+        {
+            $view = new View("Admin/Template/deleteTemplate", "back");
+            if ($tplCheck->getActive() == 0) {
+                if ($tplCheck->getDefaultTpl() == 0) {
+                    if ($tplCheck->deleteTPL($tplID) == 1) {
+                        $modal = [
+                            "title" => "Template supprimer avec succes",
+                            "content" => "Le template a bien été supprimé.",
+                            "redirect" => "/dashboard/template"
+                        ];
+                        $view->assign("modal", $modal);
+                    } else {
+                        $modal = [
+                            "title" => "Erreur lors de la suppression du template",
+                            "content" => "Impossible de supprimer le template",
+                            "redirect" => "/dashboard/template"
+                        ];
+                        $view->assign("modal", $modal);
+                    }
+                } else {
                     $modal = [
-                        "title" => "Utilisateur modifier avec succès !",
-                        "content" => "L'utilisateur a été modifer avec succès.",
-                        "redirect" => "/dashboard/users"
+                        "title" => "Impossible de supprimer ce template",
+                        "content" => "Impossible de supprimer ce modèle car il s'agit d'un modèle par défaut qui a été installé lors de la création du site.",
+                        "redirect" => "/dashboard/template"
                     ];
                     $view->assign("modal", $modal);
-
                 }
-        } else {
-            $view->assign('errors', $form->listOfErrors);
+            } else {
+                $modal = [
+                    "title" => "Impossible de supprimer ce template",
+                    "content" => "Impossible de supprimer ce template car il est actuellement actif.<br><br>Veuillez appliquer un autre template avant.",
+                    "redirect" => "/dashboard/template"
+                ];
+                $view->assign("modal", $modal);
+            }
         }
-    }
-    else
+        else
         {
             $view = new View("Security/404", "front");
             $view->assign("showNavbar", "false");
         }
+    }
 
+    public function editTPL(): void
+    {
+        $tplID = basename(strtolower($_SERVER["REQUEST_URI"]));
+        $tpl = new Templates();
+        $tplToUpdate = $tpl->getOneBy(["id" => $tplID], "object");
+        if($tplToUpdate)
+        {
+            $view = new View("Admin/Template/editTemplate", "back");
+            $tplArray = $tpl->getOneBy(["id" => $tplID], "array");
+            $form = new EditTemplate($tplArray);
+            $_SESSION['GetSelectedCurrentOption'] = $tplToUpdate->getPoliceName();
+            $view->assign('config', $form->getConfig());
+            if ($form->isSubmit())
+            {
+                $tplToUpdate->setName($_POST['style_name']);
+                $tplToUpdate->setPoliceName($_POST['style_police']);
+                $tplToUpdate->setPoliceSize(intval($_POST['style_size']));
+                $tplToUpdate->setBackgroundColor($_POST['style_background_color']);
+                $tplToUpdate->setTextColor($_POST['style_text_color']);
+                $tplToUpdate->setNavbarColor($_POST['style_navbar_color']);
+                $tplToUpdate->setMenuColor($_POST['style_navbar2_color']);
+                $tplToUpdate->save();
+                $_SESSION['GetSelectedCurrentOption'] = "none";
+                $modal = [
+                    "title" => "Template modifié avec succès !",
+                    "content" => "Le template a été modifié avec succès.",
+                    "redirect" => "/dashboard/template"
+                ];
+                $view->assign("modal", $modal);
+            }
+            else
+            {
+                $view->assign('errors', $form->listOfErrors);
+            }
+        }
+        else
+        {
+            $view = new View("Security/404", "front");
+            $view->assign("showNavbar", "false");
+        }
+    }
+
+    public function createTemplate(): void
+    {
+        $view = new View("Admin/Template/createTemplate", "back");
+        $form = new CreateTemplate();
+        $view->assign('config', $form->getConfig());
+        if ($form->isSubmit())
+        {
+            $style = new Templates();
+            $style->setName($_POST['style_name']);
+            $style->setPoliceName($_POST['style_police']);
+            $style->setPoliceSize(intval($_POST['style_size']));
+            $style->setBackgroundColor($_POST['style_background_color']);
+            $style->setTextColor($_POST['style_text_color']);
+            $style->setNavbarColor($_POST['style_navbar_color']);
+            $style->setMenuColor($_POST['style_navbar2_color']);
+            $style->save();
+            $modal = [
+                "title" => "Template crée avec succès !",
+                "content" => "Le template a été crée avec succès.",
+                "redirect" => "/dashboard/template"
+            ];
+            $view->assign("modal", $modal);
+        }
+        else
+        {
+            $view->assign('errors', $form->listOfErrors);
+        }
+    }
+
+    public function setTemplate(): void
+    {
+        $tplID = basename(strtolower($_SERVER["REQUEST_URI"]));
+        $tpl = new Templates();
+        $tplToSet = $tpl->getOneBy(["id" => $tplID], "object");
+        if($tplToSet)
+        {
+            $view = new View("Admin/Template/setTemplate", "back");
+            $tplToUnset = $tpl->getOneBy(["active" => 1], "object");
+            $tplToUnset->setActive(0);
+            $tplToUnset->save(0);
+
+            $tplToSet->setActive(1);
+            $tplToSet->save(1);
+            $modal = [
+                "title" => "Template activé avec succes",
+                "content" => "La template a été activé.",
+                "redirect" => "/dashboard/template"
+            ];
+            $view->assign("modal", $modal);
+
+        }
+        else
+        {
+            $view = new View("Security/404", "front");
+            $view->assign("showNavbar", "false");
+        }
     }
 
     public function editPages(): void
@@ -341,6 +456,7 @@ class Admin
         $pageToUpdate = $page->getOneBy(["id" => $pageID], "object");
         if($pageToUpdate) {
             $pageArray = $page->getOneBy(["id" => $pageID], "array");
+            $_SESSION['GetSelectedCurrentOption'] = $pageToUpdate->getComments();
             $view = new View("Admin/Pages/updatePages", "back");
             $form = new EditPage($pageArray);
             $view->assign('config', $form->getConfig());
@@ -354,6 +470,7 @@ class Admin
                         $upload = new Upload();
                         $upload->uploadFile($_FILES['page_file']);
                         $pageToUpdate->save();
+                        $_SESSION['GetSelectedCurrentOption'] = "none";
                         $modal = [
                             "title" => "Page modifié avec succes",
                             "content" => "La Page a bien été modifié.",

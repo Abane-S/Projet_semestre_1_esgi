@@ -1,5 +1,5 @@
 <div class="divform ml-auto mr-auto center-form">
-    <h2>Installation - Base de données</h2><br><br>
+    <h1>Installation - Base de données</h1><br><br>
     <?php
 
         if (isset($errors) && !empty($errors)) {

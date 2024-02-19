@@ -1,6 +1,6 @@
 <div class="d-flex justify-between">
-    <h1 class="fs-4">Liste des pages</h1>
-    <button type="button" id="pageCreation" onclick="window.location.href='pages/create'"  class="button button-primary button-md">Créer une page</button>
+    <h1 class="fs-4">Liste des blogs</h1>
+    <button type="button" id="pageCreation" onclick="window.location.href='pages/create'"  class="button button-primary button-md">Créer un blog</button>
 </div>
 <div>
     <table class="mt-4">
@@ -19,7 +19,7 @@
         <tbody >
             <?php if (empty($pages)):?>
                 <tr>
-                    <td colspan=3 class="table_none text-center fs-2 p-3">Aucune page pour le moment</td>
+                    <td colspan=3 class="table_none text-center fs-2 p-3">Aucun blog pour le moment</td>
                 </tr>
             <?php else:  ?>
                 <?php  foreach($pages as $page): ?>

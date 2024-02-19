@@ -11,7 +11,7 @@
 
     <?php
         // Définir les noms des champs que vous souhaitez récupérer
-        $champs = ['user_firstname', 'user_lastname', 'user_email', 'user_confirm_email', 'user_password', 'user_confirm_password', 'csrf_token', 'db_name', 'db_host', 'db_port', 'db_username', 'db_port', "db_password", "db_confirm_password", "db_engine", "db_table_prefix", 'admin_firstname', 'admin_lastname', 'admin_email', 'admin_confirm_email', 'admin_password', 'admin_confirm_password', 'account_delete', 'site_name', 'site_img', 'smtp_name', 'smtp_username', 'smtp_name', 'smtp_confirm_password', 'smtp_password', 'smtp_confirm_email', 'smtp_email', 'smtp_port', 'smtp_host', 'comment_title', 'comment', 'contact_subject', 'contact_message', 'comment_valid', 'page_file', 'page_meta_description', 'page_title', 'page_comment', 'page_content', 'menu_titlemenu', 'menu_icon', 'menu_file', 'menu_meta_description', 'menu_title', 'menu_content'];
+        $champs = ['user_firstname', 'user_lastname', 'user_email', 'user_confirm_email', 'user_password', 'user_confirm_password', 'csrf_token', 'db_name', 'db_host', 'db_port', 'db_username', 'db_port', "db_password", "db_confirm_password", "db_engine", "db_table_prefix", 'admin_firstname', 'admin_lastname', 'admin_email', 'admin_confirm_email', 'admin_password', 'admin_confirm_password', 'account_delete', 'site_name', 'site_img', 'smtp_name', 'smtp_username', 'smtp_name', 'smtp_confirm_password', 'smtp_password', 'smtp_confirm_email', 'smtp_email', 'smtp_port', 'smtp_host', 'comment_title', 'comment', 'contact_subject', 'contact_message', 'comment_valid', 'page_file', 'page_meta_description', 'page_title', 'page_comment', 'page_content', 'menu_titlemenu', 'menu_icon', 'menu_file', 'menu_meta_description', 'menu_title', 'menu_content', 'style_background_color', 'style_name', 'style_navbar_color', 'style_navbar2_color', 'style_police', 'style_size', 'style_text_color'];
 
         // Initialiser un tableau pour stocker les valeurs
         $valeurs = [];
@@ -43,11 +43,17 @@
                         <?php endif; ?>
                         class="<?= $configSelect["class"] ?? "" ?>">
                     <?= (!empty($configSelect["required"])) ? "required" : "" ?>
-                
+
                     <?php foreach ($configSelect["options"] as $value => $label): ?>
-                        <option value="<?= $value ?>" <?= (isset($valeurs[$name]) && $valeurs[$name] == $value) ? "selected" : "" ?>>
+                    <?php if (isset($_SESSION['GetSelectedCurrentOption']) && $_SESSION['GetSelectedCurrentOption'] != "none" && $_SESSION['GetSelectedCurrentOption'] == $value): ?>
+                        <option selected value="<?= $value ?>" <?= (isset($valeurs[$name]) && $valeurs[$name] == $value) ? "selected" : "" ?>>
                             <?= $label ?>
                         </option>
+                        <?php else: ?>
+                            <option value="<?= $value ?>" <?= (isset($valeurs[$name]) && $valeurs[$name] == $value) ? "selected" : "" ?>>
+                                <?= $label ?>
+                            </option>
+                        <?php endif; ?>
                     <?php endforeach; ?>
                 </select>
                 <br><br>
@@ -92,19 +98,19 @@
 
             <?php if ($name == "db_table_prefix"): ?>
                 <br>
-                <h2> Installation - Compte Admin</h2>
+                <h1> Installation - Compte Admin</h1>
         <br>
             <?php endif; ?>
 
                 <?php if ($name == "admin_confirm_password"): ?>
                     <br>
-                    <h2> Installation - Serveur SMTP</h2>
+                    <h1> Installation - Serveur SMTP</h1>
                     <br>
                 <?php endif; ?>
 
                 <?php if ($name == "smtp_name"): ?>
                     <br>
-                    <h2> Installation - Site</h2>
+                    <h1> Installation - Site</h1>
                     <br>
                 <?php endif; ?>
 

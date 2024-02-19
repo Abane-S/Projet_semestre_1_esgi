@@ -1,6 +1,6 @@
 <?php
 
-namespace App\forms;
+namespace App\Forms;
 
 
 use App\Core\Verificator;
@@ -19,7 +19,7 @@ class CreateMenu extends Verificator
                 "method" => $this->method,
                 "action" => "",
                 "enctype" => "multipart/form-data",
-                "submit" => "Créer la page",
+                "submit" => "Créer le menu",
                 "class" => "form",
             ],
             "select" => [

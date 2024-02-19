@@ -24,6 +24,7 @@ function CompareURI($uriToCheck): bool
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <script src="https://cdn.ckeditor.com/ckeditor5/41.0.0/classic/ckeditor.js"></script>
     <script type="module" src="../../assets/Framework/src/js/main.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <?php if ( (!isset($showNavbar)) || $showNavbar != "false") : ?>
     <header id="header" class="esgi-header">
@@ -40,9 +41,9 @@ function CompareURI($uriToCheck): bool
                         <i class="ri-dashboard-line"></i><li><a href="/dashboard">Dashboard (Back)</a></li>
                     <?php endif; ?>
                     <?php if (CompareURI('/')): ?>
-                        <i class="ri-pages-line"></i><li><a style="color:#2256FA" href="/">Pages</a></li>
+                        <i class="ri-pages-line"></i><li><a style="color:#2256FA" href="/">Blogs</a></li>
                     <?php else: ?>
-                        <i class="ri-pages-line"></i><li><a href="/">Pages</a></li>
+                        <i class="ri-pages-line"></i><li><a href="/">Blogs</a></li>
                     <?php endif; ?>
 
                     <?php if (CompareURI('/contact')): ?>
@@ -103,4 +104,4 @@ function CompareURI($uriToCheck): bool
     <?php include $this->viewName; ?>
 </main>
 </body>
-</html>z
+</html>

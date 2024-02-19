@@ -64,3 +64,30 @@ CREATE TABLE "public"."esgi_user" (
                                       "isdeleted" boolean DEFAULT false,
                                       CONSTRAINT "esgi_user_pkey" PRIMARY KEY ("id")
 ) WITH (oids = false);
+
+-- Adminer 4.8.1 PostgreSQL 16.1 (Debian 16.1-1.pgdg120+1) dump
+
+DROP TABLE IF EXISTS "esgi_templates";
+DROP SEQUENCE IF EXISTS esgi_templates_id_seq;
+CREATE SEQUENCE esgi_templates_id_seq INCREMENT 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1;
+
+CREATE TABLE "public"."esgi_templates" (
+                                           "id" integer DEFAULT nextval('esgi_templates_id_seq') NOT NULL,
+                                           "name" character varying(255) NOT NULL,
+                                           "background_color" character varying(255) NOT NULL,
+                                           "created_at" timestamp DEFAULT CURRENT_TIMESTAMP,
+                                           "active" boolean DEFAULT false NOT NULL,
+                                           "navbar_color" character varying(255),
+                                           "menu_color" character varying(255),
+                                           "text_color" character varying(255),
+                                           "police_size" integer NOT NULL,
+                                           "police_name" character varying(255),
+                                           "default_tpl" boolean DEFAULT false NOT NULL,
+                                           CONSTRAINT "esgi_templates_pkey" PRIMARY KEY ("id")
+) WITH (oids = false);
+
+INSERT INTO "esgi_templates" ("id", "name", "background_color", "created_at", "active", "navbar_color", "menu_color", "text_color", "police_size", "police_name", "default_tpl") VALUES
+                                                                                                                                                                                     (1,	'Template_Default',	'#f1efef',	'2024-02-19 13:20:10.12797',	't',	'#ffffff',	'#0a70f5',	'#000000',	15,	'''Euclid Circular Regular'', sans-serif',	't'),
+                                                                                                                                                                                     (2,	'Dark_mode',	'#050505',	'2024-02-19 15:09:18.741549',	'f',	'#1d1b1b',	'#ffffff',	'#ffffff',	15,	'''Euclid Circular Regular'', sans-serif',	't');
+
+-- 2024-02-19 17:33:33.022898+00
