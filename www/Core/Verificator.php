@@ -89,6 +89,41 @@ class Verificator {
         return false;
     }
 
+    public function isValidTemplates(): bool
+    {
+        if (count($this->config["inputs"]) + count($this->config["select"]) != count($this->data) - 1) {
+            die("Tentative de Hack 1");
+        }
+        foreach ($this->config["inputs"] as $name => $input) {
+            if (empty($this->data[$name])) {
+                die("Tentative de Hack 2");
+            }
+
+            if (!$this->checkIdentical($this->data["csrf_token"], $_SESSION['csrf_token'])) {
+                die("Tentative de Hack 3");
+            }
+
+            if ($name == "style_size" && $input["type"] == "number" && !($this->checkSize($this->data[$name]))) {
+                $this->listOfErrors[] = $input["error"];
+            }
+
+            if ($name == "style_name" && $input["type"] == "text" && !($this->checkDBUsername($this->data[$name]))) {
+                $this->listOfErrors[] = $input["error"];
+            }
+
+            if($name == "style_background_color" || $name == "style_text_color" || $name == "style_navbar_color" || $name == "style_navbar2_color")
+                {
+                    if ($input["type"] == "color" && !($this->checkHEXColor($this->data[$name]))) {
+                        $this->listOfErrors[] = $input["error"];
+                    }
+                }
+        }
+        if(empty($this->listOfErrors)){
+            return true;
+        }
+        return false;
+    }
+
     public function isValidImages($chemin_temporaire, $chemin_name): bool
     {
 
@@ -494,7 +529,12 @@ class Verificator {
     {
         return preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])/", $password);
     }
-    
+
+    public function checkSize($size): bool
+    {
+        return preg_match("/^(?:[5-9]|[1-9][0-9]|100)$/", $size);
+    }
+
     public function checkName($name): bool
     {
         return preg_match("/^[a-zA-Z]{2,45}$/", $name);
@@ -557,6 +597,11 @@ public function checkDBUsername($name): bool
     public function checkMessage($msg): bool
     {
         return preg_match('/^.{1,10000}$/', $msg);
+    }
+
+    public function checkHEXColor($hex): bool
+    {
+        return preg_match('/^#[0-9a-fA-F]{6}$/', $hex);
     }
 
     public function checkTablePrefix($prefix): bool

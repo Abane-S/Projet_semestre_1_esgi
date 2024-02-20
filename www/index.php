@@ -75,7 +75,7 @@ $found = false;
 foreach($routes as $pattern => $route) {
     $pattern = str_replace("{id}", "([^/]+)", $pattern);
     $pattern = "@^".$pattern."$@i";
-    
+
     if(preg_match($pattern, $uri, $matches)) {
 
         array_shift($matches);
@@ -86,14 +86,14 @@ foreach($routes as $pattern => $route) {
 }
 
 if($found) {
-    
+
     if(empty($found["controller"]) || empty($found["action"])){
         die("Cette route ne possède pas de controller ou d'action dans le fichier de routing");
     }
 
     $controller = $found["controller"];
     $action = $found["action"];
-    
+
     // Include the controller file.
     if(!file_exists("Controllers/".$controller.".php")){
         die("Le fichier Controllers/".$controller.".php n'existe pas");

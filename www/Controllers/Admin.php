@@ -361,7 +361,7 @@ class Admin
             $form = new EditTemplate($tplArray);
             $_SESSION['GetSelectedCurrentOption'] = $tplToUpdate->getPoliceName();
             $view->assign('config', $form->getConfig());
-            if ($form->isSubmit())
+            if ($form->isSubmit() && $form->isValidTemplates())
             {
                 $tplToUpdate->setName($_POST['style_name']);
                 $tplToUpdate->setPoliceName($_POST['style_police']);
@@ -396,7 +396,7 @@ class Admin
         $view = new View("Admin/Template/createTemplate", "back");
         $form = new CreateTemplate();
         $view->assign('config', $form->getConfig());
-        if ($form->isSubmit())
+        if ($form->isSubmit() && $form->isValidTemplates())
         {
             $style = new Templates();
             $style->setName($_POST['style_name']);

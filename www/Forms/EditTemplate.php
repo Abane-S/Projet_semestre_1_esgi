@@ -35,7 +35,7 @@ class EditTemplate extends Verificator
                         "max" => 100,
                         "value" =>  $this->data['police_size'] ?? "",
                         "label" =>  "Taille de la police du site (px)",
-                        "error" => "-.",
+                        "error" => "-Merci de séléctionner une taille de police valide (min 5px et max 100px)",
                         "required" => true
                     ],
                     "style_name" => [
@@ -44,8 +44,8 @@ class EditTemplate extends Verificator
                         "min" => 2,
                         "max" => 45,
                         "label" =>  "Nom du template :",
-                        "error" => "-.",
                         "value" =>  $this->data['name'] ?? "",
+                        "error" => "-Le nom du template est incorrect, longeur entre 3 et 50 caractères, et ne peut contenir que des lettres (majuscules et minuscules), des chiffres et des caractères de soulignement",
                         "required" => true
                     ],
                     "style_background_color" => [
@@ -55,7 +55,7 @@ class EditTemplate extends Verificator
                         "placeholder" => "Couleur du background",
                         "label" => "Couleur du background :",
                         "value" =>  $this->data["background_color"] ?? "",
-                        "error" => "-.",
+                        "error" => "-La couleur est incorrect",
                         "required" => true
                     ],
                     "style_text_color" => [
@@ -65,7 +65,7 @@ class EditTemplate extends Verificator
                         "placeholder" => "Couleur des textes",
                         "label" =>"Couleur des textes :",
                         "value" =>  $this->data["text_color"] ?? "",
-                        "error" => "-.",
+                        "error" => "-La couleur est incorrect",
                         "required" => true
                     ],
                     "style_navbar_color" => [
@@ -75,7 +75,7 @@ class EditTemplate extends Verificator
                         "placeholder" => "Couleur de la navbar",
                         "label" =>"Couleur de la navbar :",
                         "value" =>  $this->data["navbar_color"] ?? "",
-                        "error" => "-.",
+                        "error" => "-La couleur est incorrect",
                         "required" => true
                     ],
                     "style_navbar2_color" => [
@@ -85,7 +85,7 @@ class EditTemplate extends Verificator
                         "placeholder" => "Couleur des menus de la navbar",
                         "label" =>"Couleur des menus de la navbar :",
                         "value" =>  $this->data["menu_color"] ?? "",
-                        "error" => "-.",
+                        "error" => "-La couleur est incorrect",
                         "required" => true
                     ],
                     "csrf_token" => [

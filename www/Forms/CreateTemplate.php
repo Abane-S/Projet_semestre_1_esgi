@@ -28,17 +28,18 @@ class CreateTemplate extends Verificator
                         "placeholder" => "Taille de la police du site",
                         "min" => 5,
                         "max" => 100,
+                        "value" => 15,
                         "label" =>  "Taille de la police du site (px)",
-                        "error" => "-.",
+                        "error" => "-Merci de séléctionner une taille de police valide (min 5px et max 100px)",
                         "required" => true
                     ],
                     "style_name" => [
                         "type" => "text",
                         "placeholder" => "Nom du template",
-                        "min" => 2,
-                        "max" => 45,
+                        "min" => 3,
+                        "max" => 50,
                         "label" =>  "Nom du template :",
-                        "error" => "-.",
+                        "error" => "-Le nom du template est incorrect, longeur entre 3 et 50 caractères, et ne peut contenir que des lettres (majuscules et minuscules), des chiffres et des caractères de soulignement",
                         "required" => true
                     ],
                     "style_background_color" => [
@@ -47,7 +48,7 @@ class CreateTemplate extends Verificator
                         "id" => "preview-bkcolor",
                         "placeholder" => "Couleur du background",
                         "label" => "Couleur du background :",
-                        "error" => "-.",
+                        "error" => "-La couleur est incorrect",
                         "required" => true
                     ],
                     "style_text_color" => [
@@ -56,7 +57,7 @@ class CreateTemplate extends Verificator
                         "id" => "preview-txtcolor",
                         "placeholder" => "Couleur des textes",
                         "label" =>"Couleur des textes :",
-                        "error" => "-.",
+                        "error" => "-La couleur est incorrect",
                         "required" => true
                     ],
                     "style_navbar_color" => [
@@ -74,7 +75,7 @@ class CreateTemplate extends Verificator
                         "id" => "preview-navmenucolor",
                         "placeholder" => "Couleur des menus de la navbar",
                         "label" =>"Couleur des menus de la navbar :",
-                        "error" => "-.",
+                        "error" => "-La couleur est incorrect",
                         "required" => true
                     ],
                     "csrf_token" => [

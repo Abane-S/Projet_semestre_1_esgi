@@ -87,7 +87,7 @@ CREATE TABLE "public"."esgi_templates" (
 ) WITH (oids = false);
 
 INSERT INTO "esgi_templates" ("id", "name", "background_color", "created_at", "active", "navbar_color", "menu_color", "text_color", "police_size", "police_name", "default_tpl") VALUES
-                                                                                                                                                                                     (1,	'Template_Default',	'#f1efef',	'2024-02-19 13:20:10.12797',	't',	'#ffffff',	'#0a70f5',	'#000000',	15,	'''Euclid Circular Regular'', sans-serif',	't'),
-                                                                                                                                                                                     (2,	'Dark_mode',	'#050505',	'2024-02-19 15:09:18.741549',	'f',	'#1d1b1b',	'#ffffff',	'#ffffff',	15,	'''Euclid Circular Regular'', sans-serif',	't');
+                                                                                                                                                                                     (9998,	'Template_Default',	'#f1efef',	'2024-02-19 13:20:10.12797',	't',	'#ffffff',	'#0a70f5',	'#000000',	15,	'''Euclid Circular Regular'', sans-serif',	't'),
+                                                                                                                                                                                     (9999,	'Dark_mode',	'#050505',	'2024-02-19 15:09:18.741549',	'f',	'#1d1b1b',	'#ffffff',	'#ffffff',	15,	'''Euclid Circular Regular'', sans-serif',	't');
 
 -- 2024-02-19 17:33:33.022898+00

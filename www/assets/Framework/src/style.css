@@ -2094,7 +2094,7 @@ nav.flex {
 .modal section {
   margin: auto;
   max-width: 37.5rem;
-  background-color: var(--white);
+  background-color: var(--navbar-color);
   padding: var(--main-padding);
   border-radius: var(--main-radius);
 }

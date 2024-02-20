@@ -4,9 +4,15 @@ namespace App\Controllers;
 use App\Core\View;
 use App\Forms\EnvInstaller;
 use App\Forms\AdminInstaller;
-use App\Models\PhpMailor;
 use App\Models\User;
 use App\Core\DB;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'PHPMailer/src/Exception.php';
+require 'PHPMailer/src/PHPMailer.php';
+require 'PHPMailer/src/SMTP.php';
+
 
 class Installer
 {
@@ -27,14 +33,27 @@ class Installer
         $user->setRole("admin");
         $user->save();
 
-        $phpMailer = new PhpMailor();
         $subject = "Veuillez vérifier votre compte";
         $message = "
                     <h1>Merci de votre inscription</h1>
                     <p>Merci de cliquer sur le lien ci-dessous pour vérifier votre compte</p>
                     <a href='".SITE_URL."/verify?token=".$token."'>Verify</a>
                 ";
-        $phpMailer->sendMail($user->getEmail(), $subject, $message);
+
+        $mail = new PHPMailer(true);
+        $mail->isSMTP();
+        $mail->Host = SMTP_HOST;
+        $mail->SMTPAuth = true;
+        $mail->Username = SMTP_USERNAME;
+        $mail->Password = SMTP_PASSWORD;
+        $mail->Port = SMTP_PORT;
+        $mail->setFrom(SMTP_EMAIL, SMTP_NAME);
+        $mail->addAddress($user->getEmail());
+        $mail->isHTML(true);
+        $mail->Subject = '=?UTF-8?B?' . base64_encode($subject) . '?=';
+        $mail->Body    = $message;
+        $mail->AltBody = $message;
+        $mail->send();
     }
 
     public function installer(): void
@@ -50,7 +69,6 @@ class Installer
             $view->assign('config', $form->getConfig());
             if ($form->isSubmit() && $form->isValidInstall()){
                 try {
-
                     $dbengine = $_POST['db_engine'];
                     $dbhost = $_POST['db_host'];
                     $dbname = $_POST['db_name'];
@@ -136,10 +154,23 @@ class Installer
                         define("SMTP_PORT", $smtp_port);
                         define("SMTP_EMAIL", $smtp_email);
                         define("SMTP_NAME", $smtp_name);
-                        $phpMailer = new PhpMailor();
-                        $subject = "Test de connexion au serveur SMTP";
-                        $message = "Ceci est un test envoyer depuis le site : " . $smtp_name;
-                        $phpMailer->sendMail($smtp_email, $subject, $message);
+                            $receiver = $smtp_email;
+                            $subject = "Test de connexion au serveur SMTP";
+                            $message = "Ceci est un test envoyer depuis le site : " . $smtp_name;
+                            $mail = new PHPMailer(true);
+                            $mail->isSMTP();
+                            $mail->Host = SMTP_HOST;
+                            $mail->SMTPAuth = true;
+                            $mail->Username = SMTP_USERNAME;
+                            $mail->Password = SMTP_PASSWORD;
+                            $mail->Port = SMTP_PORT;
+                            $mail->setFrom(SMTP_EMAIL, SMTP_NAME);
+                            $mail->addAddress($receiver);
+                            $mail->isHTML(true);
+                            $mail->Subject = '=?UTF-8?B?' . base64_encode($subject) . '?=';
+                            $mail->Body    = $message;
+                            $mail->AltBody = $message;
+                            $mail->send();
 
                     $envdata =
                         "DB_SETTINGS=" . $db . "\n" .
@@ -176,7 +207,7 @@ class Installer
                     }
                     }
                     catch (Exception $e) {
-                        $view->assign("errors", ["Un problème est survenu lors de la connexion au serveur SMTP : <br>" . $e->getMessage()]);
+                        $view->assign("errors", ["Un problème est survenu lors de la connexion au serveur SMTP : <br>" . $mail->ErrorInfo]);
                     }
 
                 } catch (\PDOException $e) {
