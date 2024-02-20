@@ -12,7 +12,6 @@
                 <link rel="stylesheet" href="../../assets/Framework/src/style.css">
                 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
                 <script src="https://cdn.ckeditor.com/ckeditor5/41.0.0/classic/ckeditor.js"></script>
-                <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
                 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                 <script type="module" src="../../assets/Framework/src/js/main.js"></script>
                 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

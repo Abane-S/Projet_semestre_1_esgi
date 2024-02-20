@@ -10,7 +10,6 @@
       <sourceFolder url="file://$MODULE_DIR$/www/PHPMailer/src" isTestSource="false" packagePrefix="PHPMailer\PHPMailer\" />
       <sourceFolder url="file://$MODULE_DIR$/www/PHPMailer/test" isTestSource="true" packagePrefix="PHPMailer\Test\" />
       <sourceFolder url="file://$MODULE_DIR$/www/src" isTestSource="false" packagePrefix="Abane\ProjetSemestre1Esgi\" />
-      <sourceFolder url="file://$MODULE_DIR$/www/tests" isTestSource="true" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

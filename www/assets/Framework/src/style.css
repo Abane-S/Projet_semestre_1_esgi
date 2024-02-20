@@ -1568,7 +1568,7 @@ nav.flex {
 
 .content {
   padding: 2.5rem;
-  background: rgb(249, 249, 249);
+  background: var(--body-color);
   flex: 1;
   overflow-y: auto;
 }
@@ -1697,8 +1697,8 @@ nav.flex {
 .sidebar {
   padding: 1.875rem;
   flex: 0 0 15.625rem;
-  background-color: var(--white);
-  color: var(--black);
+  background-color: var(--navbar-color);
+  color: var(--text-color);
   position: sticky;
   z-index: 2;
   box-shadow: 0 0.125rem 0.75rem 0 rgba(0, 0, 0, 0.06);

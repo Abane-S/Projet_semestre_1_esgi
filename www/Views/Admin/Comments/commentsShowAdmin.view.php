@@ -6,7 +6,7 @@
         <thead class="thead-dark">
             <tr>
                 <th>ID</th>
-                <th>ID Page</th>
+                <th>ID Blog</th>
                 <th>Nom complet</th>
                 <th>Titre</th>
                 <th>Commentaire</th>

@@ -5,7 +5,7 @@
 
 .content{
     padding: rem(40);
-    background: rgb(249, 249, 249);
+    background: var(--body-color);
     flex: 1;
     overflow-y: auto;
 }
