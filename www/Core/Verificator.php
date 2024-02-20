@@ -113,11 +113,18 @@ class Verificator {
 
             if($name == "style_background_color" || $name == "style_text_color" || $name == "style_navbar_color" || $name == "style_navbar2_color")
                 {
-                    if ($input["type"] == "color" && !($this->checkHEXColor($this->data[$name]))) {
+                    if (!$this->checkHEXColor($this->data[$name])) {
                         $this->listOfErrors[] = $input["error"];
                     }
                 }
         }
+
+        foreach ($this->config["select"] as $name => $input) {
+            if ($name == "style_police" && !($this->checkStylePolice($this->data[$name]))) {
+                $this->listOfErrors[] = $input["error"];
+            }
+        }
+
         if(empty($this->listOfErrors)){
             return true;
         }
@@ -181,8 +188,11 @@ class Verificator {
             }
         }
         foreach ($this->config["select"] as $name => $input) {
-            if ($name == "page_comment" && !($this->checkValidBool($this->data[$name]))) {
-                $this->listOfErrors[] = $input["error"];
+            if ($name == "menu_icon") {
+                if(!($this->checkvalidIcon($this->data[$name])))
+                    {
+                        $this->listOfErrors[] = $input["error"];
+                    }
             }
         }
         if(empty($this->listOfErrors)){
@@ -533,6 +543,16 @@ class Verificator {
     public function checkSize($size): bool
     {
         return preg_match("/^(?:[5-9]|[1-9][0-9]|100)$/", $size);
+    }
+
+    public function checkStylePolice($name): bool
+    {
+        return preg_match("/^('Euclid Circular Regular', sans-serif|'Arial', sans-serif|'Arial Black', sans-serif|'Helvetica', sans-serif|'Verdana', sans-serif|'Tahoma', sans-serif|'Trebuchet MS', sans-serif|'MS', sans-serif|'MS', serif|'MS', cursive|'MS', system-ui|'Impact', sans-serif|'Gill Sans', sans-serif'Gill Sans', serif|'Gill Sans', cursive|'Gill Sans', system-ui|'Times New Roman', serif|'Georgia', serif|'Palatino', serif|'Andalé Mono', monospace|'Courier New', monospace|'Monaco', monospace|'Bradley Hand', cursive|'Brush Script MT', cursive|'Luminari', fantasy|'Comic Sans MS', cursive|'Arial Narrow', sans-serif|'Courier', monospace|'Geneva', sans-serif|'Bookman', serif|'Avant Garde', sans-serif|'Copperplate', serif|'Futura', sans-serif|'Century Gothic', sans-serif)$/", $name);
+    }
+
+    public function checkvalidIcon($icon): bool
+    {
+        return preg_match('/^ri-/', $icon);
     }
 
     public function checkName($name): bool

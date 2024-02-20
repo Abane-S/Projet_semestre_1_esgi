@@ -2204,7 +2204,7 @@ class EditMenu extends Verificator
                         "ri-zzz-fill" => 'ri-zzz-fill',
                         "ri-zzz-line" => 'ri-zzz-line',
                     ],
-                    "error" => "-Veuillez sélectionner une icon",
+                    "error" => "-Veuillez sélectionner une icon valide",
                     "required" => true
                 ]
             ],

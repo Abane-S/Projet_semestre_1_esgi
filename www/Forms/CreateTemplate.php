@@ -66,7 +66,7 @@ class CreateTemplate extends Verificator
                         "id" => "preview-navcolor",
                         "placeholder" => "Couleur de la navbar",
                         "label" =>"Couleur de la navbar :",
-                        "error" => "-.",
+                        "error" => "-La couleur est incorrect",
                         "required" => true
                     ],
                     "style_navbar2_color" => [
