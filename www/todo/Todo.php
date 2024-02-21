@@ -3,8 +3,6 @@ todo :
 
 Dashboard avec de la datavisualisation (Abane)
 
-Configuration du templating / style du site (Botan)
-
 Optimisation SEO (Bonnes pratiques) / esssayer de faire un truc (Botan)  = title/meta => seo
 
 Faire mail boutton moderateur (Notification) (Botan)

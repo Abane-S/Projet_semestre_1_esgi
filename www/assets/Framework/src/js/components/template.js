@@ -14,6 +14,48 @@ $.ajax({
 		document.documentElement.style.setProperty('--text-color', textColor);
 		document.documentElement.style.setProperty('--font-family', fontName);
 		document.documentElement.style.setProperty('--font-size', fontSizePx + "px");
+
+		function compareURI(uriToCheck) {
+			var uri = window.location.pathname.toLowerCase();
+			uri = uri.split("?")[0];
+			uri = uri.length > 1 ? uri.replace(/\/$/, "") : uri;
+
+			// Si l'URI commence par uriToCheck suivi d'un slash ou de rien, alors on considère que c'est une correspondance
+			return uri.startsWith(uriToCheck + "/") || uri === uriToCheck;
+		}
+
+		if (compareURI("/")) {
+			document.getElementById("navbarMain").style.color = navbarmenusColor; // ou toute autre couleur souhaitée
+		}
+
+		if (compareURI("/page")) {
+			document.getElementById("navbarMain").style.color = navbarmenusColor; // ou toute autre couleur souhaitée
+		}
+
+		if (compareURI("/login")) {
+			document.getElementById("navbarLogin").style.color = navbarmenusColor; // ou toute autre couleur souhaitée
+		}
+
+		if (compareURI("/contact")) {
+			document.getElementById("navbarContact").style.color = navbarmenusColor; // ou toute autre couleur souhaitée
+		}
+
+		if (compareURI("/register")) {
+			document.getElementById("navbarRegister").style.color = navbarmenusColor; // ou toute autre couleur souhaitée
+		}
+
+		if (compareURI("/menu")) {
+			document.getElementById("navbarMenu").style.color = navbarmenusColor; // ou toute autre couleur souhaitée
+		}
+
+		if (compareURI("/page")) {
+			document.getElementById("navbarPage").style.color = navbarmenusColor; // ou toute autre couleur souhaitée
+		}
+
+		if (compareURI("/account")) {
+			document.getElementById("navbarAccount").style.color = navbarmenusColor; // ou toute autre couleur souhaitée
+		}
+
 	},
 	error: function(xhr, status, error) {
 

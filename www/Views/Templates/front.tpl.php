@@ -1,17 +1,3 @@
-<?php
-
-function CompareURI($uriToCheck): bool
-{
-    $uri = strtolower($_SERVER["REQUEST_URI"]);
-    $uri = strtok($uri, "?");
-    $uri = strlen($uri) > 1 ? rtrim($uri, "/") : $uri;
-
-    return $uriToCheck == $uri;
-}
-
-?>
-
-
 <!DOCTYPE html>
 <html lang="fr">
 <body>
@@ -37,43 +23,20 @@ function CompareURI($uriToCheck): bool
             <nav>
                 <ul>
 
-                    <?php if (isset($_SESSION['Account']) && $_SESSION['Account']['role'] == "admin"): ?>
-                        <i class="ri-dashboard-line"></i><li><a href="/dashboard">Dashboard (Back)</a></li>
-                    <?php endif; ?>
-                    <?php if (CompareURI('/')): ?>
-                        <i class="ri-pages-line"></i><li><a style="color:#2256FA" href="/">Blogs</a></li>
-                    <?php else: ?>
-                        <i class="ri-pages-line"></i><li><a href="/">Blogs</a></li>
-                    <?php endif; ?>
-
-                    <?php if (CompareURI('/contact')): ?>
-                        <i class="ri-chat-settings-line"></i><li><a style="color:#2256FA" href="/contact">Contact</a></li>
-                    <?php else: ?>
-                        <i class="ri-chat-settings-line"></i><li><a href="/contact">Contact</a></li>
-                    <?php endif; ?>
                     <?php if (isset($_SESSION['Account'])): ?>
-                        <?php if (CompareURI('/account')): ?>
-                            <i class="ri-account-circle-fill"></i><li><a style="color:#2256FA"  href="/account">Compte</a></li>
-                        <?php else: ?>
-                            <i class="ri-account-circle-fill"></i><li><a href="/account">Compte</a></li>
+                        <?php if ($_SESSION['Account']['role'] == "admin" || $_SESSION['Account']['role'] == "moderateur"): ?>
+                            <i class="ri-dashboard-line"></i><li><a href="/dashboard">Dashboard (Back)</a></li>
                         <?php endif; ?>
-                        <?php if (CompareURI('/logout')): ?>
-                            <i class="ri-logout-box-line"></i><li><a style="color:#2256FA" href="/logout">Déconnexion</a></li>
-                        <?php else: ?>
+                    <?php endif; ?>
+                        <i class="ri-pages-line"></i><li><a id="navbarMain" href="/">Blogs</a></li>
+                        <i class="ri-chat-settings-line"></i><li><a id="navbarContact" href="/contact">Contact</a></li>
+                    <?php if (isset($_SESSION['Account'])): ?>
+                            <i class="ri-account-circle-fill"></i><li><a id="navbarAccount" href="/account">Compte</a></li>
                             <i class="ri-logout-box-line"></i><li><a href="/logout">Déconnexion</a></li>
-                        <?php endif; ?>
                     <?php endif; ?>
                     <?php if (!isset($_SESSION['Account'])): ?>
-                        <?php if (CompareURI('/login')): ?>
-                            <i class="ri-login-box-line"></i><li><a style="color:#2256FA" href="/login">Connexion</a></li>
-                        <?php else: ?>
-                            <i class="ri-login-box-line"></i><li><a href="/login">Connexion</a></li>
-                        <?php endif; ?>
-                        <?php if (CompareURI('/register')): ?>
-                            <i class="mdi--register-outline"></i><li><a style="color:#2256FA" href="/register">Inscription</a></li>
-                        <?php else: ?>
-                            <i class="mdi--register-outline"></i><li><a href="/register">Inscription</a></li>
-                        <?php endif; ?>
+                            <i class="ri-login-box-line"></i><li><a id="navbarLogin" href="/login">Connexion</a></li>
+                            <i class="mdi--register-outline"></i><li><a id="navbarRegister" href="/register">Inscription</a></li>
                     <?php endif; ?>
 
                     <?php
@@ -83,14 +46,7 @@ function CompareURI($uriToCheck): bool
 
                     if(isset($menuAll) && !empty($menuAll)) {
                         foreach ($menuAll as $item) {
-                            if (CompareURI("/menu/{$item['id']}"))
-                            {
-                                echo "<i class='{$item['icon_menu']}'></i><li><a style='color:#2256FA' href='/menu/{$item['id']}'>{$item['title_menu']}</a></li>";
-                            }
-                            else
-                            {
-                                echo "<i class='{$item['icon_menu']}'></i><li><a href='/menu/{$item['id']}'>{$item['title_menu']}</a></li>";
-                            }
+                                echo "<i class='{$item['icon_menu']}'></i><li><a id='navbarMenu'' href='/menu/{$item['id']}'>{$item['title_menu']}</a></li>";
                         }
                     }
                     ?>

@@ -24,7 +24,7 @@ class Pages
             if($current_page_obj->getComments() && Security::UserIsLogged())
             {
                 $form = new CommentInsert();
-                $view2 = new View("Admin/Comments/commentsShowArticle", "blank");
+                $view2 = new View("Admin/Comments/commentsShowArticle", "front");
                 $view2->assign('config', $form->getConfig());
                 $view2->assign("showNavbar", "false");
                 $comment = new Comment();

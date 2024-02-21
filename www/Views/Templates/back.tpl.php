@@ -75,7 +75,7 @@
             </main>
         </body>
     </html>
-<?php else: ?>
+<?php elseif ($_SESSION['Account']['role'] == "moderateur"): ?>
         <!DOCTYPE html>
         <html lang="fr">
         <body>
