@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Design guide</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<link rel="stylesheet" type="text/css" href="dist/css/style.css" />
+		<style>
+			body > section {
+				margin-bottom: 5rem;
+			}
+			body > section > section {
+				display: flex;
+				align-items: center;
+				gap: 1rem;
+				margin-bottom: 1rem;
+			}
+			.content {
+				height: 2rem;
+				background-color: green;
+				margin-bottom: 1rem;
+			}
+			.row {
+				margin-bottom: 1rem;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- CONFIGURATEUR DE THEME -->
+		<form id="theme-config">
+			<div>
+				<label>Radius</label>
+				<input type="text" name="main-radius" />
+			</div>
+			<div>
+				<label>Blue (primary)</label>
+				<input type="color" name="blue" />
+			</div>
+			<div>
+				<label>Text Color</label>
+				<input type="color" name="text-color" />
+			</div>
+			<button class="button button-primary" type="button" onclick="apply()">
+				Go
+			</button>
+		</form>
+
+		<style>
+			#theme-config {
+				position: fixed;
+				z-index: 10;
+				top: 0;
+				right: 0;
+				padding: 1rem;
+				background-color: grey;
+				& input {
+					display: block;
+				}
+				& div {
+					margin-bottom: 0.5rem;
+				}
+			}
+		</style>
+
+		<script>
+			const apply = () => {
+				const form = document.getElementById("theme-config");
+				const formData = new FormData(form);
+				let output = ":root{";
+				for (const [key, value] of formData) {
+					output += `--${key}: ${value};`;
+				}
+				output += "}";
+				const style = document.getElementById("custom-style");
+
+				style.textContent = output;
+			};
+		</script>
+
+		<style id="custom-style"></style>
+
+		<!-- DESIGN GUIDE -->
+		<section>
+			<h1>.button</h1>
+			<hr />
+			<section>
+				<a href="#" class="button button-primary button-lg">Button</a>
+				<a href="#" class="button button-primary">Button</a>
+				<a href="#" class="button button-primary button-sm">Button</a>
+			</section>
+			<section>
+				<button class="button button-secondary button-lg">Button</button>
+				<button href="#" class="button button-secondary">Button</button>
+				<button href="#" class="button button-secondary button-sm">
+					Button
+				</button>
+			</section>
+			<section>
+				<button class="button button-danger button-lg">Button</button>
+				<button href="#" class="button button-danger">Button</button>
+				<button href="#" class="button button-danger button-sm">Button</button>
+			</section>
+		</section>
+		<section>
+			<h1>.banner</h1>
+			<hr />
+			<div
+				class="banner"
+				style="background-image: url('/images/fond.jpg')"></div>
+			<br />
+			<div
+				class="banner banner-text"
+				style="background-image: url('/images/fond.jpg')">
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras
+					ullamcorper nulla a ipsum imperdiet, ac porttitor dui sagittis.
+				</p>
+			</div>
+		</section>
+		<section>
+			<h1>.card</h1>
+			<hr />
+			<article class="card">
+				<img src="/images/totoro.jpg" />
+				<h1>Card title</h1>
+				<p>
+					Some quick example text to build on the card title and make up the
+					bulk of the card's content.
+				</p>
+				<a href="#" class="button button-primary button-sm">Button</a>
+			</article>
+
+			<article class="card card-full">
+				<img src="/images/totoro.jpg" />
+				<h1>Card title</h1>
+				<p>
+					Some quick example text to build on the card title and make up the
+					bulk of the card's content.
+				</p>
+				<a href="#" class="button button-primary button-sm">Button</a>
+			</article>
+		</section>
+		<section>
+			<h1>.grid</h1>
+			<hr />
+			<div class="grid">
+				<div class="row">
+					<div class="col-2">
+						<div class="content"></div>
+					</div>
+					<div class="col-2">
+						<div class="content"></div>
+					</div>
+					<div class="col-8">
+						<div class="content"></div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section>
+			<h1>.navbar</h1>
+			<hr />
+			<nav class="navbar">
+				<div class="container">
+					<a href="#" class="navbar_title">Navbar</a>
+					<button class="navbar_toggle_button" data-target="#content">
+						Menu
+					</button>
+					<div class="navbar_toggle_content" id="content">
+						<ul>
+							<li>
+								<a href="#" class="active">Home</a>
+							</li>
+							<li>
+								<a href="#">Features</a>
+							</li>
+							<li>
+								<a href="#">Pricing</a>
+							</li>
+							<li>
+								<a href="#" class="disabled">Disabled</a>
+							</li>
+						</ul>
+						<form>
+							<input type="text" placeholder="Search" />
+							<button class="button button-outline">Search</button>
+						</form>
+					</div>
+				</div>
+			</nav>
+		</section>
+		<section>
+			<h1>.slider</h1>
+			<hr />
+			<div class="slider" data-height="400" data-width="200">
+				<img src="/images/image1.jpg" alt="img1" />
+				<img src="/images/image2.jpg" alt="img2" />
+				<img src="/images/image3.jpg" alt="img3" />
+				<img src="/images/image4.jpg" alt="img4" />
+				<img src="/images/image5.jpg" alt="img5" />
+				<img src="/images/image6.jpg" alt="img6" />
+			</div>
+		</section>
+		<section>
+			<h1>.modal</h1>
+			<hr />
+			<button class="button" data-modal-open="modal1">Open modal 1</button>
+			<div class="modal" id="modal1">
+				<section>
+					<header>
+						<h1>Titre de la modale</h1>
+					</header>
+					<div class="modal_content">
+						<p>
+							Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet
+							magni dolores totam accusantium atque illo repellat sint
+							distinctio quis! Aliquid atque dolorem ipsam temporibus, sed et
+							voluptatibus cumque aperiam velit.
+						</p>
+					</div>
+					<footer>
+						<button class="button button-primary" data-modal-close>
+							Close
+						</button>
+					</footer>
+				</section>
+			</div>
+
+
+
+			<button class="button" data-modal-open="modal2">Open modal 2</button>
+			<div class="modal" id="modal2">
+				<section>
+					<header>
+						<h1>Titre de la modale 2</h1>
+					</header>
+					<div class="modal_content">
+						<p>
+							Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet
+							magni dolores totam accusantium atque illo repellat sint
+							distinctio quis! Aliquid atque dolorem ipsam temporibus, sed et
+							voluptatibus cumque aperiam velit.
+						</p>
+					</div>
+					<footer>
+						<button class="button button-primary" data-modal-close>
+							Close
+						</button>
+					</footer>
+				</section>
+
+			</div>
+		</section>
+
+
+		<section>
+			<h2>ckeditor</h2>
+			<div id="editor"></div>
+		</section>
+	</body>
+</html>

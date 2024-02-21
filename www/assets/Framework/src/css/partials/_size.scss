@@ -1,0 +1,87 @@
+@for $i from 0 through 25 {
+    .m-#{$i} {
+        margin: rem($i*10);
+    }
+}
+
+@for $i from 0 through 25 {
+    .mt-#{$i} {
+        margin-top: rem($i*10);
+    }
+}
+
+@for $i from 0 through 25 {
+    .mb-#{$i} {
+        margin-bottom: rem($i*10);
+    }
+}
+
+@for $i from 0 through 25 {
+    .ml-#{$i} {
+        margin-left: rem($i*10);
+    }
+}
+
+@for $i from 0 through 25 {
+    .mr-#{$i} {
+        margin-right: rem($i*10);
+    }
+}
+
+
+@for $i from 0 through 25 {
+    .p-#{$i}-#{$i} {
+        padding: rem($i*10) rem($i*10);
+    }
+}
+
+@for $i from 0 through 25 {
+    .pt-#{$i} {
+        padding-top: rem($i*10);
+    }
+}
+
+@for $i from 0 through 25 {
+    .pb-#{$i} {
+        padding-bottom: rem($i*10);
+    }
+}
+
+@for $i from 0 through 25 {
+    .pl-#{$i} {
+        padding-left: rem($i*10);
+    }
+}
+
+@for $i from 0 through 25 {
+    .pr-#{$i} {
+        padding-right: rem($i*10);
+    }
+}
+
+@for $i from 0 through 25 {
+    .fs-#{$i} {
+        font-size: rem($i*10);
+    }
+}
+.m-auto{
+    margin: auto;
+}
+
+.mr-auto
+{
+    margin-right: auto;
+}
+
+.ml-auto
+{
+    margin-left: auto;
+}
+.mt-auto
+{
+    margin-top: auto;
+}
+.mb-auto
+{
+    margin-bottom: auto;
+}

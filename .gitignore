@@ -1,9 +1,10 @@
-.idea
+../../../Projet_semestre_1_esgi/.idea
 .vscode
 
 .env
 pgdata/
-node_modules/
+assets/Framework/src/node_modules/
+assets/Framework/public/images_uploads/
 
 /vendor
 

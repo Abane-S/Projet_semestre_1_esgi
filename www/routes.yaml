@@ -1,28 +1,208 @@
+
+# MAIN ----------------------------------------------------------------------------------------
+
 /:
   controller: Main
   action: home
-
-/a-propos:
-  controller: Main 
-  action: aboutUs
+  public: false
 
 /login:
   controller: Security
   action: login
-
-/logout:
-  controller: Security
-  action: logout
+  public: false
 
 /register:
   controller: Security
   action: register
-
-/forgot-password:
-  controller: Security
-  action: pwdForget
+  public: false
 
 /account:
   controller: Security
   action: modifieAccount
+  public: true
+
+/dashboard:
+  controller: Main
+  action: dashboard
+  public: true
+
+/contact:
+  controller: Main
+  action: contact
+  public: false
+
+/logout:
+  controller: Security
+  action: logout
+  public: false
+
+/forgot-password:
+  controller: Security
+  action: pwdForget
+  public: false
+
+/verify2:
+  controller: Security
+  action: ChangePasswordVerification
+  public: true
+
+/verify:
+  controller: Security
+  action: verifyEmail
+  public: true
+
+/email-confirmed:
+  controller: Security
+  action: confirmedEmail
+  public: true
+
+/needtologout:
+  controller: Security
+  action: needToLogout
+  public: true
+
+/password-changed:
+  controller: Security
+  action: passwordChangedSucces
+  public: true
+
+/delete-account:
+  controller: Security
+  action: DeleteAccount
+  public: true
+
+/installer:
+  controller: Installer
+  action: installer
+  public: true
+
+/dashboard/comments:
+  controller: Admin
+  action: comments
+  public: true
+
+/commentUpdate/{id}:
+  controller: Admin
+  action: commentsUpdate
+  public: true
+
+/commentDelete/{id}:
+  controller: Admin
+  action: commentsDelete
+  public: true
+
+/dashboard/menus:
+  controller: Admin
+  action: menus
+  public: true
+
+/dashboard/menus/create:
+  controller: Admin
+  action: menusCreate
+  public: true
+
+/dashboard/pages:
+  controller: Admin
+  action: pagesShowAdmin
+  public: true
+
+/dashboard/pages/create:
+  controller: Admin
+  action: createPages
+  public: true
+
+/editPage/{id}:
+  controller: Admin
+  action: editPages
+  public: true
+
+/deletePage/{id}:
+  controller: Admin
+  action: deletePages
+  public: true
+
+/page/{id}:
+    controller: Pages
+    action: show
+    public: false
+
+/menu/{id}:
+  controller: Menus
+  action: show
+  public: false
+
+/editMenu/{id}:
+  controller: Admin
+  action: menuUpdate
+  public: true
+
+/deleteMenu/{id}:
+  controller: Admin
+  action: menuDelete
+  public: true
+
+/dashboard/users:
+  controller: Admin
+  action: users
+  public: true
+
+/dashboard/users/create:
+  controller: Admin
+  action: createUsers
+  public: true
+
+/userUpdate/{id}:
+  controller: Admin
+  action: userUpdate
+  public: true
+
+/userDelete/{id}:
+  controller: Admin
+  action: userDelete
+  public: true
+
+/dashboard/template:
+  controller: Admin
+  action: showTemplate
+  public: true
+
+/template/create:
+  controller: Admin
+  action: createTemplate
+  public: true
+
+/GetTemplates:
+  controller: Templates
+  action: SetTemplates
+  public: true
+
+/deleteTemplate/{id}:
+  controller: Admin
+  action: deleteTPL
+  public: true
+
+/editTemplate/{id}:
+  controller: Admin
+  action: editTPL
+  public: true
+
+/setTemplate/{id}:
+  controller: Admin
+  action: setTemplate
+  public: true
+
+/siteMap:
+  controller: SiteMap
+  action: gererateSiteMap
+  public: false
+
+/designGuide:
+  controller: Main
+  action: showDesignGuide
+  public: false
+
+/designGuideModal:
+  controller: Main
+  action: showdesignGuideModal
+  public: true
 

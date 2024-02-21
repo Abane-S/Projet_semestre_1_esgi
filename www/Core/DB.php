@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Core;
 
@@ -12,11 +12,8 @@ class DB
 
     public function __construct()
     {
-        //Début pour récupérer le nom de la table en bdd
-        // echo get_called_class();
-        //connexion à la bdd via pdo 
         try {
-            $this->pdo = new \PDO('pgsql:host=database;dbname=Portfolio_DB;user=Portfolio_USER;password=Portfolio');
+            $this->pdo = new \PDO(PDO_DSN);
         } catch (\PDOException $e) {
             echo "Erreur SQL : " . $e->getMessage();
         }
@@ -25,9 +22,7 @@ class DB
         $table = get_called_class();
         $table = explode("\\", $table);
         $table = array_pop($table);
-        $this->table = "esgi_" . strtolower($table);
-        // echo "<pre>";
-        // var_dump($this);
+        $this->table = TABLE_PREFIX . strtolower($table);
     }
 
     public static function getInstance(): self
@@ -42,20 +37,6 @@ class DB
     public function getDataObject(): array
     {
         return array_diff_key(get_object_vars($this), get_class_vars(get_class()));
-
-        // get_object_vars($this): cette fonction renvoie un tableau associatif contenant toutes les propriétés publiques, 
-        // protégées et privées de l'objet représenté par `$this`. 
-        // En d'autres termes, elle réupère les données de l'objet.
-
-        // get_class_vars(get_class()) : Cette partie de la fonction récupère les propriétés de la classe. `get_class()` 
-        // renroie le nom de la calsse de l'objet actuel, et `get_calss_vars()` revoie les propriétés de cette classe.
-
-        // array_diff_key(): cette fonction compare les clés des deux tableaux fournis (le tableau des propiétées 
-        // de l'objet et le tableau des propriétées de la classe) et renvoie un tableau contenant toutes les clés 
-        // qui existent dans le premier tableau mais pas dans le seconde. En d'autre termes, elle retourne un tableau 
-        // contenant les clés qui sont spécifique à l'objet et qui ne sont pas des propriétés de la classe.
-
-        // var_dump(array_diff_key(get_object_vars($this), get_class_vars(get_class())));
 
     }
 
@@ -72,15 +53,12 @@ class DB
             foreach ($data as $column => $value) {
                 $sql .= $column . "=:" . $column . ",";
             }
-            // echo $sql;
-            // echo "<br>";
             $sql = substr($sql, 0, -1);
             $sql .= " WHERE id = " . $this->getId();
         }
-        // echo $sql;
-        // var_dump($data);
         $queryPrepared = $this->pdo->prepare($sql);
         $queryPrepared->execute($data);
+
     }
 
 
@@ -112,5 +90,59 @@ class DB
         }
 
         return $queryPrepared->fetch();
+    }
+
+
+    public function ORMLiteSQL($operation = null, $champs = null, $value = null)
+    {
+        try
+        {
+            if ($operation == "SELECT")
+            {
+                if ($champs && $value)
+                {
+                    $query = $this->pdo->prepare("SELECT * FROM " . $this->table . " WHERE " . $champs . " = :value");
+                    $query->bindParam(':value', $value);
+                    $query->execute();
+                }
+                else
+                {
+                    $query = $this->pdo->query("SELECT * FROM " . $this->table);
+                }
+            }
+            if ($operation == "DELETE")
+            {
+                if ($champs && $value) {
+                    $query = $this->pdo->prepare("DELETE FROM " . $this->table . " WHERE " . $champs . " = :value");
+                    $query->bindParam(':value', $value);
+                    $query->execute();
+                    return $query->rowCount();
+                } else {
+                    $query = $this->pdo->query("DELETE FROM " . $this->table);
+                    return $query->rowCount();
+                }
+            }
+            return $query->fetchAll(\PDO::FETCH_ASSOC);
+        }
+        catch (\PDOException $e)
+        {
+            return [];
+        }
+    }
+
+
+
+    public function CreateDB()
+    {
+        try {
+            $dumpFilePath = __DIR__ . '/dump.sql'; // Chemin relatif depuis DB.php
+            $sqlDump = file_get_contents($dumpFilePath);
+            $sqlDump = str_replace('esgi_', TABLE_PREFIX, $sqlDump);
+            $this->pdo->exec($sqlDump);
+        } catch (PDOException $e) {
+            echo "Erreur lors de la connexion à la base de données : " . $e->getMessage();
+        } catch (Exception $e) {
+            echo "Une erreur s'est produite : " . $e->getMessage();
+        }
     }
 }

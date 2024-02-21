@@ -1,0 +1,31 @@
+@import "partials/fonts";
+@import "partials/functions";
+@import "partials/variables";
+@import "partials/mixins";
+@import "partials/globals";
+@import "partials/size";
+@import "partials/widths";
+@import "partials/border";
+
+
+
+@import "page-layouts/landing";
+@import "page-layouts/table";
+@import "page-layouts/flex";
+@import "page-layouts/back";
+@import "page-layouts/form";
+@import "page-layouts/article";
+
+@import "components/sidebar";
+@import "components/container";
+@import "components/button";
+@import "components/banner";
+@import "components/card";
+@import "components/grid";
+@import "components/loader";
+@import "components/navbar";
+@import "components/slider";
+@import "components/modal";
+@import "components/checkbox";
+
+// @import "components/chose-file";

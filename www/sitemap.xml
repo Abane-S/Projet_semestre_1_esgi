@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xsi="http://www.w3.org/2001/XMLSchema-instance" schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+  <url>
+    <loc>http://localhost:8081/</loc>
+  </url>
+  <url>
+    <loc>http://localhost:8081/login</loc>
+  </url>
+  <url>
+    <loc>http://localhost:8081/register</loc>
+  </url>
+  <url>
+    <loc>http://localhost:8081/contact</loc>
+  </url>
+  <url>
+    <loc>http://localhost:8081/logout</loc>
+  </url>
+  <url>
+    <loc>http://localhost:8081/forgot-password</loc>
+  </url>
+  <url>
+    <loc>http://localhost:8081/siteMap</loc>
+  </url>
+  <url>
+    <loc>http://localhost:8081/designGuide</loc>
+  </url>
+  <url>
+    <loc>http://localhost:8081/page/1</loc>
+  </url>
+  <url>
+    <loc>http://localhost:8081/page/2</loc>
+  </url>
+  <url>
+    <loc>http://localhost:8081/menu/2</loc>
+  </url>
+</urlset>

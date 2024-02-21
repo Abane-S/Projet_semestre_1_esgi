@@ -8,16 +8,49 @@ use App\Core\DB;
 class User extends DB
 {
     private ?int $id = null;
+
+    protected int $id_page;
+
+    public function getIdPage(): int
+    {
+        return $this->id_page;
+    }
+
+    public function setIdPage(int $id_page): void
+    {
+        $this->id_page = $id_page;
+    }
+
     protected string $firstname;
     protected string $lastname;
     protected string $email;
     protected string $pwd;
-    protected int $status;
+    protected string $role;
+
     protected String $verification_token;
     protected Int $email_verified;
     protected $date_inserted;
-    protected $date_updated;
-    protected int $isDeleted;
+    protected int $isdeleted;
+
+    public function getRole(): string
+    {
+        return $this->role;
+    }
+
+    public function setRole(string $role): void
+    {
+        $this->role = $role;
+    }
+
+    public function getIsdeleted(): int
+    {
+        return $this->isdeleted;
+    }
+
+    public function setIsdeleted(int $isdeleted): void
+    {
+        $this->isdeleted = $isdeleted;
+    }
 
     
     public function __toString()
@@ -95,6 +128,14 @@ class User extends DB
         $this->email = $email;
     }
 
+        /**
+     * Get the value of email
+     */ 
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
     /**
      * Get the value of pwd
      */ 
@@ -113,35 +154,6 @@ class User extends DB
         $pwd = password_hash($pwd, PASSWORD_DEFAULT);
         $this->pwd = $pwd;
     }
-
-    /**
-     * Get the value of status
-     */ 
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
-    /**
-     * Set the value of status
-     *
-     * @return  self
-     */ 
-    public function setStatus(int $status)
-    {
-        $this->status = $status;
-
-        
-    }
-
-    /**
-     * Get the value of isDeleted
-     */ 
-    public function getIsDeleted()
-    {
-        return $this->isDeleted;
-    }
-
 
     public function getVericationToken(): int
     {
@@ -188,84 +200,4 @@ class User extends DB
         $this->date_inserted = $date_inserted;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getupdatedat(): mixed
-    {
-        return $this->date_updated;
-    }
-
-    /**
-     * 
-     * @param mixed $date_updated
-     */
-    public function setupdatedat($date_updated): void
-    {
-        $this->date_updated = $date_updated;
-    }
-
-    public function login(): array | bool
-    {
-        $db = $this::getInstance();
-        $query = $db->prepare("SELECT * FROM " . $this->table . " WHERE email=:email");
-        $query->execute([
-            'email' => $this->getEmail()
-        ]);
-
-        $user = $query->fetch();
-        if (!$user) {
-            return false;
-        }
-
-        if (!password_verify($_POST['user_password'], $this->getPassword())) {
-            return false;
-        }
-
-        return $user;
-    }
-
-    public function emailExist($email): bool
-    {
-        $db = $this::getInstance();
-        $query = $db->prepare("SELECT * FROM " . $this->table . " WHERE email=:email");
-        $query->execute([
-            'email' => $email
-        ]);
-
-        $user = $query->fetch();
-        if (!$user) {
-            return false;
-        }
-        return true;
-    }
-
-    public function verifyToken($token): array | bool
-    {
-        $db = $this::getInstance();
-        $query = $db->prepare("SELECT * FROM " . $this->table . " WHERE verification_token=:token");
-        $query->execute([
-            'token' => $token
-        ]);
-
-        $user = $query->fetch();
-        if (!$user) {
-            return false;
-        }
-        return $user;
-    }
-
-    /**
-     * Set the value of isDeleted
-     *
-     * @return  self
-     */ 
-
-     
-    public function setIsDeleted(bool $isDeleted)
-    {
-        $this->isDeleted = $isDeleted;
-
-        
-    }
 }
