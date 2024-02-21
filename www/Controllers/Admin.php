@@ -495,6 +495,54 @@ class Admin
 
     }
 
+    public function userUpdate(): void
+    {
+        $user = new User();
+        $userID = basename(strtolower($_SERVER["REQUEST_URI"]));
+        $userToUpdate = $user->getOneBy(["id" => $userID], "object");
+        if($userToUpdate)
+        {
+            $userArray = $user->getOneBy(["id" => $userID], "array");
+            $view = new View("Admin/Users/userUpdate", "back");
+            $form = new EditUser($userArray);
+            $view->assign('config', $form->getConfig());
+            if ($form->isSubmit() && $form->isValidUserCreation()) {
+                $userToUpdateaccount = $userToUpdate->getOneBy(["email" => $_POST['user_email']], "object");
+                if ($userToUpdateaccount && $userToUpdateaccount->getEmail() != $userToUpdate->getEmail()) {
+                    $errors['user_email'] = "-L'adresse e-mail est déjà utilisée. Merci de bien vouloir renseigner une autre adresse e-mail.";
+                    $view->assign('errors', $errors);
+                    exit;
+                } else {
+                    $token = bin2hex(random_bytes(32));
+                    $userToUpdate->setVericationToken($token);
+                    $userToUpdate->setFirstname($_POST['user_firstname']);
+                    $userToUpdate->setLastname($_POST['user_lastname']);
+                    $userToUpdate->setEmail($_POST['user_email']);
+                    $userToUpdate->setPassword($_POST['user_password']);
+                    $userToUpdate->setEmailVerified(1);
+                    $userToUpdate->setRole($_POST['role']);
+                    $userToUpdate->save();
+
+                    $modal = [
+                        "title" => "Utilisateur modifier avec succès !",
+                        "content" => "L'utilisateur a été modifer avec succès.",
+                        "redirect" => "/dashboard/users"
+                    ];
+                    $view->assign("modal", $modal);
+
+                }
+            } else {
+                $view->assign('errors', $form->listOfErrors);
+            }
+        }
+        else
+        {
+            $view = new View("Security/404", "front");
+            $view->assign("showNavbar", "false");
+        }
+
+    }
+
     public function users(): void
     {
         $view = new View("Admin/Users/usersShow", "back");
