@@ -196,3 +196,13 @@
   action: gererateSiteMap
   public: false
 
+/designGuide:
+  controller: Main
+  action: showDesignGuide
+  public: false
+
+/designGuideModal:
+  controller: Main
+  action: showdesignGuideModal
+  public: true
+

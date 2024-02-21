@@ -19,6 +19,25 @@ class Main
 
     }
 
+    public function showDesignGuide():void
+    {
+        $view = new View("Main/DesignGuide", "front");
+        $view->assign("showNavbar", "false");
+    }
+
+
+        public function showdesignGuideModal():void
+    {
+        $view = new View("Main/DesignGuide", "front");
+        $view->assign("showNavbar", "false");
+        $modal = [
+            "title" => "Titre de la modal",
+            "content" => "Message de la modal",
+            "redirect" => "/DesignGuide"
+        ];
+        $view->assign("modal", $modal);
+    }
+
     public function contact(): void
     {
         $form = new ContactUs();
