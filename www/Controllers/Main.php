@@ -66,7 +66,7 @@ class Main
         if ($_SESSION['Account']['role'] == "admin" || $_SESSION['Account']['role'] == "moderateur"){
             $view = new View("Admin/dashboard", "back");
             $user = new User();
-            $view->assign("users", $user->findAll());
+            $view->assign("users", $user->ORMLiteSQL("SELECT"));
         }
         else {
             header('Location: /error');

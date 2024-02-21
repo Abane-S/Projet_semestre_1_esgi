@@ -24,7 +24,7 @@ class SiteMap
         }
 
         $getUrls2 = new menusModel();
-        $urlsContent2 = $getUrls2->getAllMenu();
+        $urlsContent2 = $getUrls2->ORMLiteSQL("SELECT");
 
         $urls2 = [];
 

@@ -100,7 +100,7 @@
                 <?php
 
                 $menu = new App\Models\Menus();
-                $menuAll = $menu->getAllMenu();
+                $menuAll = $menu->ORMLiteSQL("SELECT");
 
                 if(isset($menuAll) && !empty($menuAll)) {
                     foreach ($menuAll as $item) {

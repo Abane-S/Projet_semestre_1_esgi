@@ -250,7 +250,7 @@ class Security
             }
             else
             {
-                if($account->HardDeleteAccount($_SESSION['Account']['email']))
+                if ($account->ORMLiteSQL("DELETE", "email", $_SESSION['Account']['email']) == 1)
                 {
                     session_destroy();
                     $modal = [

@@ -140,28 +140,4 @@ class Templates extends DB
 
     }
 
-    public function getAllTemplate(): array
-    {
-        $sql = "SELECT * FROM ". $this->table ;
-        $query = $this->pdo->prepare($sql);
-        $query->execute();
-        return $query->fetchAll();
-    }
-
-    public function deleteTPL($idTPL)
-    {
-        try {
-            $sql = "DELETE FROM " . $this->table . " WHERE id = :id";
-            $queryPrepared = $this->pdo->prepare($sql);
-            $queryPrepared->execute(['id' => $idTPL]);
-
-            $rowCount = $queryPrepared->rowCount(); // Nombre de lignes affectées
-
-            return $rowCount;
-        } catch (\PDOException $e) {
-            // Gérer l'erreur ici si nécessaire
-            return 0; // Retourner 0 en cas d'échec
-        }
-    }
-
 }

@@ -42,7 +42,8 @@ class Pages
                     $message = "<p>Votre commentaire est actuellement en cours de modération.<br>Vous serez averti(e) par e-mail lors de sa publication.</p>";
                     $phpMailer->sendMail($_SESSION['Account']['email'], $subject, $message);
                     $user = new User();
-                    $moderateur = $user->ShowAllModerate();
+                    $moderateur = $user->ORMLiteSQL("SELECT", "role", "moderateur");
+                    $moderateur = array_column($moderateur, 'email');
                     if (is_array($moderateur) && !empty($moderateur)) {
                         foreach ($moderateur as $moderateur_email) {
                             $phpMailer = new PhpMailor();
@@ -53,7 +54,7 @@ class Pages
                                 "<br>Titre du commentaire : <b>" . $_POST['comment'] . "</b>" .
                             "<br>Comments : <b>" . $_POST['comment_title'] . "</b>" .
                                 "<br>Date et heure de publication : <b>" . date("Y-m-d H:i:s") . "</b>" . "<br><br>" .
-                                '<a href="#" style="    display: inline-block;
+                                '<a href="' . (isset($_SERVER['HTTPS']) ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . '/dashboard/comments" style="    display: inline-block;
     font-weight: 500;
     letter-spacing: 0.05rem;
     font-size: 1rem;
@@ -65,21 +66,7 @@ class Pages
     cursor: pointer;
     text-align: center;
 width: 27%;
-text-decoration: none;" class="">Valider le commentaire</a>' . "   " .
-                            '<a href="#" style="
-    display: inline-block;
-    font-weight: 500;
-    letter-spacing: 0.05rem;
-    font-size: 1rem;
-    border: none;
-    text-align: center;
-    background-color: #dc3545;
-    border-radius: 0.375rem;
-    padding: 0.300rem 1rem;
-    color: white;
-    cursor: pointer;
-width: 27%;
-text-decoration: none;">Ne pas valider le commentaire</a>';
+text-decoration: none;" class="">Moderer le commentaire</a>';
                             $phpMailer->sendMail($moderateur_email, $subject, $message);
                         }
                     } else {

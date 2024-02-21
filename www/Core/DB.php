@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Core;
 
@@ -38,10 +38,10 @@ class DB
     {
         return array_diff_key(get_object_vars($this), get_class_vars(get_class()));
 
-    }  
+    }
 
 
-    public function save()  
+    public function save()
     {
         $data = $this->getDataObject();
 
@@ -58,7 +58,7 @@ class DB
         }
         $queryPrepared = $this->pdo->prepare($sql);
         $queryPrepared->execute($data);
-        
+
     }
 
 
@@ -93,23 +93,52 @@ class DB
     }
 
 
-    public function findAll($sort = null, $order = null ): array
+    public function ORMLiteSQL($operation = null, $champs = null, $value = null)
     {
-        if ($sort && $order) {
-            $query = $this->pdo->query("SELECT * FROM " . $this->table . " ORDER BY " . $sort . " " . $order);
-        } else {
-            $query = $this->pdo->query("SELECT * FROM " . $this->table);
+        try
+        {
+            if ($operation == "SELECT")
+            {
+                if ($champs && $value)
+                {
+                    $query = $this->pdo->prepare("SELECT * FROM " . $this->table . " WHERE " . $champs . " = :value");
+                    $query->bindParam(':value', $value);
+                    $query->execute();
+                }
+                else
+                {
+                    $query = $this->pdo->query("SELECT * FROM " . $this->table);
+                }
+            }
+            if ($operation == "DELETE")
+            {
+                if ($champs && $value) {
+                    $query = $this->pdo->prepare("DELETE FROM " . $this->table . " WHERE " . $champs . " = :value");
+                    $query->bindParam(':value', $value);
+                    $query->execute();
+                    return $query->rowCount();
+                } else {
+                    $query = $this->pdo->query("DELETE FROM " . $this->table);
+                    return $query->rowCount();
+                }
+            }
+            return $query->fetchAll(\PDO::FETCH_ASSOC);
         }
-        return $query->fetchAll(\PDO::FETCH_ASSOC);
+        catch (\PDOException $e)
+        {
+            return [];
+        }
     }
+
+
 
     public function CreateDB()
     {
         try {
             $dumpFilePath = __DIR__ . '/dump.sql'; // Chemin relatif depuis DB.php
             $sqlDump = file_get_contents($dumpFilePath);
-        $sqlDump = str_replace('esgi_', TABLE_PREFIX, $sqlDump);
-        $this->pdo->exec($sqlDump);
+            $sqlDump = str_replace('esgi_', TABLE_PREFIX, $sqlDump);
+            $this->pdo->exec($sqlDump);
         } catch (PDOException $e) {
             echo "Erreur lors de la connexion à la base de données : " . $e->getMessage();
         } catch (Exception $e) {

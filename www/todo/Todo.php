@@ -1,26 +1,15 @@
 todo : 
 
 
-Dashboard avec de la datavisualisation (Abane)
+Dashboard avec de la datavisualisation (Abane en cours)
 
-Optimisation SEO (Bonnes pratiques) / esssayer de faire un truc (Botan)  = title/meta => seo
-
-Faire mail boutton moderateur (Notification) (Botan)
-
-SiteMap XML
-
-ORM lite
-
-DESIGN GUIDE 
+DESIGN GUIDE (fait mais à ajouter des componenet)
 
 Mise en production
 
-Mobile first et dark mode
+Mobile first
 
 table => component
-
-variable environnement => .env
-
 
 
 

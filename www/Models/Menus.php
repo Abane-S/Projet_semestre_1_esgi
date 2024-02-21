@@ -88,37 +88,4 @@ class Menus extends DB
     {
         $this->icon_menu = $icon_menu;
     }
-
-
-    public function deleteMenu($idPage)
-    {
-        try {
-            $sql = "DELETE FROM " . $this->table . " WHERE id = :id";
-            $queryPrepared = $this->pdo->prepare($sql);
-            $queryPrepared->execute(['id' => $idPage]);
-
-            $rowCount = $queryPrepared->rowCount(); // Nombre de lignes affectées
-
-            return $rowCount;
-        } catch (\PDOException $e) {
-            // Gérer l'erreur ici si nécessaire
-            return 0; // Retourner 0 en cas d'échec
-        }
-    }
-
-    public function getAllMenu(): array
-    {
-        try {
-            $sql = "SELECT * FROM " . $this->table;
-            $queryPrepared = $this->pdo->prepare($sql);
-            $queryPrepared->execute();
-
-            $result = $queryPrepared->fetchAll(\PDO::FETCH_ASSOC);
-
-            return $result;
-        } catch (\PDOException $e) {
-            return [];
-        }
-    }
-
 }

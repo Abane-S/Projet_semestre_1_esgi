@@ -46,6 +46,7 @@ $.ajax({
 
 		if (compareURI("/menu")) {
 			document.getElementById("navbarMenu").style.color = navbarmenusColor; // ou toute autre couleur souhaitée
+			document.getElementById("publier-par").style.display = "none";
 		}
 
 		if (compareURI("/page")) {

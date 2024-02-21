@@ -94,35 +94,4 @@ class Comment extends DB
         }
     }
 
-    public function deleteComment($idComment)
-    {
-        try {
-            $sql = "DELETE FROM " . $this->table . " WHERE id = :id";
-            $queryPrepared = $this->pdo->prepare($sql);
-            $queryPrepared->execute(['id' => $idComment]);
-
-            $rowCount = $queryPrepared->rowCount(); // Nombre de lignes affectées
-
-            return $rowCount;
-        } catch (\PDOException $e) {
-            // Gérer l'erreur ici si nécessaire
-            return 0; // Retourner 0 en cas d'échec
-        }
-    }
-
-    public function getAllComments(): array
-    {
-        try {
-            $sql = "SELECT * FROM " . $this->table;
-            $queryPrepared = $this->pdo->prepare($sql);
-            $queryPrepared->execute();
-
-            $result = $queryPrepared->fetchAll(\PDO::FETCH_ASSOC);
-
-            return $result;
-        } catch (\PDOException $e) {
-            return [];
-        }
-    }
-
 }

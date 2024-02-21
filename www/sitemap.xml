@@ -21,4 +21,16 @@
   <url>
     <loc>http://localhost:8081/siteMap</loc>
   </url>
+  <url>
+    <loc>http://localhost:8081/designGuide</loc>
+  </url>
+  <url>
+    <loc>http://localhost:8081/page/1</loc>
+  </url>
+  <url>
+    <loc>http://localhost:8081/page/2</loc>
+  </url>
+  <url>
+    <loc>http://localhost:8081/menu/2</loc>
+  </url>
 </urlset>

@@ -3,7 +3,7 @@
         <img src="<?= SITE_URL . "/assets/Framework/public/images_upload/" . $pages['miniature'] ?>" alt="">
         <div class="article-header-info d-flex flex-column gap-3">
             <h1 class="fs-4"><?= $pages['title'] ?></h1>
-            <span> Publié par <b><?php
+            <span id="publier-par"> Publié par <b><?php
                     use App\Models\User;
                     $user = new User();
                     $admin = $user->getOneBy(["role" => "admin"], "object");
@@ -16,6 +16,7 @@
     </header>
     <main>
         <div class="article-content">
+            <meta name="description" content="<?= $pages['meta_description'] ?>">
             <?= $pages['content']?>
         </div>
     </main>

@@ -36,7 +36,7 @@ class Admin
         if($_SESSION['Account']['role'] == "admin" || $_SESSION['Account']['role'] == "moderateur") {
             $commentID = basename(strtolower($_SERVER["REQUEST_URI"]));
             $comments = new Comment();
-            if ($comments->deleteComment($commentID) == 1) {
+            if ($comments->ORMLiteSQL("DELETE", "id",$commentID) == 1){
                 $view = new View("Admin/Comments/commentsDelete", "back");
                 $modal = [
                     "title" => "Comments supprimer avec succes",
@@ -65,14 +65,14 @@ class Admin
     {
         $view = new View("Admin/Comments/commentsShowAdmin", "back");
         $comments = new Comment();
-        $view->assign("comments", $comments->getAllComments());
+        $view->assign("comments", $comments->ORMLiteSQL("SELECT"));
     }
 
     public function menus(): void
     {
         $view = new View("Admin/Menus/showMenusAdmin", "back");
         $menus = new MenuModel();
-        $view->assign("menus", $menus->getAllMenu());
+        $view->assign("menus", $menus->ORMLiteSQL("SELECT"));
     }
 
     public function menusCreate(): void
@@ -161,7 +161,9 @@ class Admin
         $view = new View("Admin/Pages/deletePages", "back");
         $menuID = basename(strtolower($_SERVER["REQUEST_URI"]));
         $menu = new MenuModel();
-        if ($menu->deleteMenu($menuID) == 1) {
+
+        if ($menu->ORMLiteSQL("DELETE", "id",$menuID) == 1)
+        {
             $modal = [
                 "title" => "Menu supprimé avec succes",
                 "content" => "Le menu a bien été supprimé.",
@@ -297,7 +299,7 @@ class Admin
     {
         $view = new View("Admin/Template/showTemplate", "back");
         $template = new TemplateModel();
-        $view->assign("templates", $template->getAllTemplate());
+        $view->assign("templates", $template->ORMLiteSQL("SELECT"));
     }
 
     public function deleteTPL(): void
@@ -310,7 +312,8 @@ class Admin
             $view = new View("Admin/Template/deleteTemplate", "back");
             if ($tplCheck->getActive() == 0) {
                 if ($tplCheck->getDefaultTpl() == 0) {
-                    if ($tplCheck->deleteTPL($tplID) == 1) {
+                    if ($tplCheck->ORMLiteSQL("DELETE", "id",$tplID) == 1)
+                    {
                         $modal = [
                             "title" => "Template supprimer avec succes",
                             "content" => "Le template a bien été supprimé.",
@@ -496,7 +499,7 @@ class Admin
     {
         $view = new View("Admin/Users/usersShow", "back");
         $users = new User();
-        $view->assign("users", $users->findAll());
+        $view->assign("users", $users->ORMLiteSQL("SELECT"));
     }
 
     public function userDelete(): void
@@ -504,7 +507,7 @@ class Admin
         $view = new View("Admin/Users/userDelete", "back");
         $userID = basename(strtolower($_SERVER["REQUEST_URI"]));
         $user = new User();
-        if ($user->deleteUser($userID) == 1) {
+            if ($user->ORMLiteSQL("DELETE", "id",$userID) == 1) {
             $modal = [
                 "title" => "Utilisateur supprimer avec succes",
                 "content" => "L'utilisateur a bien été supprimé.",
