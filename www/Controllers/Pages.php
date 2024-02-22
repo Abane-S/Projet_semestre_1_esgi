@@ -33,8 +33,8 @@ class Pages
                 if ($form->isSubmit() && $form->isValidComment()) {
                     $comment->setIdPage($articleId);
                     $comment->setFullname($_SESSION['Account']['lastname'] . " " . $_SESSION['Account']['firstname']);
-                    $comment->setComment($_POST['comment']);
-                    $comment->setCommenttitle($_POST['comment_title']);
+                    $comment->setComment(htmlspecialchars($_POST['comment']));
+                    $comment->setCommenttitle(htmlspecialchars($_POST['comment_title']));
                     $comment->setValid(0);
                     $comment->save();
                     $phpMailer = new PhpMailor();
