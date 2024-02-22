@@ -35,6 +35,7 @@ CREATE TABLE "esgi_pages" (
                               "created_at" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+
 CREATE TABLE "esgi_user" (
                              "id" SERIAL PRIMARY KEY,
                              "firstname" VARCHAR(25) NOT NULL,

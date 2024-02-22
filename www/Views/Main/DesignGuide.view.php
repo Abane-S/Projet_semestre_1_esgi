@@ -4,25 +4,21 @@
     <section>
         <a href="#" class="button button-primary button-lg">Button</a>
         <a href="#" class="button button-primary button-md">Button</a>
-        <a href="#" class="button button-primary">Button</a>
         <a href="#" class="button button-primary button-sm">Button</a>
     </section>
     <section>
         <button class="button button-secondary button-lg">Button</button>
         <button href="#" class="button button-secondary button-md">Button</button>
-        <button href="#" class="button button-secondary">Button</button>
         <button href="#" class="button button-secondary button-sm">Button</button>
     </section>
     <section>
         <button class="button button-danger button-lg">Button</button>
         <button href="#" class="button button-danger button-md">Button</button>
-        <button href="#" class="button button-danger">Button</button>
         <button href="#" class="button button-danger button-sm">Button</button>
     </section>
     <section>
         <button class="button button-succes button-lg">Button</button>
         <button href="#" class="button button-succes button-md">Button</button>
-        <button href="#" class="button button-succes">Button</button>
         <button href="#" class="button button-succes button-sm">Button</button>
     </section>
 </section>
@@ -190,4 +186,47 @@
         <div class="dot"></div>
         <div class="dot"></div>
     </div>
+</section>
+<hr>
+<section>
+    <h1>form</h1>
+<div class="form divform ml-auto mr-auto center-form mt-4">
+        <label for="contact_subject">Exemple : </label>
+        <input name="contact_subject" type="text" class="" placeholder="Exemple" value="" required="">
+    <label for="contact_subject">Exemple : </label>
+    <select name="account_delete" class="input-select2 w-8">
+        required
+        <option value="soft">
+            Exemple                            </option>
+        <option value="hard">
+            Exemple                            </option>
+    </select>
+    <div>
+</section>
+<hr>
+<section>
+    <h1>alert</h1>
+<div class="alert alert-danger m-auto mb-2" style="width: 80%">Attention !<br>Exemple message erreur.
+</div>
+</section>
+<hr>
+<br>
+<section>
+<table class="">
+    <h1>table</h1>
+    <thead>
+    <tr>
+        <th>Exemple</th>
+        <th>Exemple</th>
+        <th>Exemple</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Exemple</td>
+        <td>Exemple</td>
+        <td>Exemple</td>
+    </tr>
+    </tbody>
+</table>
 </section>
